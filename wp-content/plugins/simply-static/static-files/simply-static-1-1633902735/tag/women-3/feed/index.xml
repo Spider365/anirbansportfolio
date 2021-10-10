@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>women &#8211; Anirban&#039;s Portfolio</title>
+	<atom:link href="https://spider365.github.io/anirbansportfolio/tag/women-3/feed/" rel="self" type="application/rss+xml" />
+	<link>https://spider365.github.io/anirbansportfolio</link>
+	<description>Just another WordPress site</description>
+	<lastBuildDate>Mon, 30 Dec 2013 16:50:40 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>Just a cool blog post with Images</title>
+		<link>https://spider365.github.io/anirbansportfolio/2013/12/30/just-a-cool-blog-post-with-images/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/2013/12/30/just-a-cool-blog-post-with-images/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Mon, 30 Dec 2013 16:50:40 +0000</pubDate>
+				<category><![CDATA[Style]]></category>
+		<category><![CDATA[brooklyn]]></category>
+		<category><![CDATA[fashion]]></category>
+		<category><![CDATA[style]]></category>
+		<category><![CDATA[women]]></category>
+		<guid isPermaLink="false">http://localhost:8888/test/?p=485</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed vulputate massa. Fusce ante magna, iaculis ut purus ut, facilisis ultrices nibh. Quisque commodo nunc eget tortor dapibus, et tristique magna convallis. Phasellus egestas nunc eu venenatis vehicula. Phasellus et magna nulla. Proin ante nunc, mollis a lectus ac, volutpat placerat ante. Vestibulum sit amet [...]]]></description>
+										<content:encoded><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed vulputate massa. Fusce ante magna, iaculis ut purus ut, facilisis ultrices nibh. Quisque commodo nunc eget tortor dapibus, et tristique magna convallis. Phasellus egestas nunc eu venenatis vehicula. Phasellus et magna nulla. Proin ante nunc, mollis a lectus ac, volutpat placerat ante. Vestibulum sit amet magna sit amet nunc faucibus mollis. Aliquam vel lacinia purus, id tristique ipsum. Quisque vitae nibh ut libero vulputate ornare quis in risus. Nam sodales justo orci, a bibendum risus tincidunt id. Etiam hendrerit, metus in volutpat tempus, neque libero viverra lorem, ac tristique orci augue eu metus. Aenean elementum nisi vitae justo adipiscing gravida sit amet et risus. Suspendisse dapibus elementum quam, vel semper mi tempus ac.</p>
+
+<p>Nam at nisi risus. Proin pretium, dolor vel venenatis suscipit, dui nunc tincidunt lectus, ac placerat felis dui in justo. Aliquam orci velit, facilisis in facilisis non, scelerisque in massa. Integer scelerisque odio nec eros sodales laoreet. Sed sed odio tellus. In tristique felis ac facilisis tempor. Nunc non enim in dolor congue pulvinar sed sed nisi. Mauris viverra convallis feugiat. Nam at mauris laoreet, dictum leo at, tristique mi. Aenean pellentesque justo vel diam elementum iaculis. Nam lobortis cursus vestibulum. Nulla feugiat mauris felis, auctor pretium dui euismod in.</p>
+<p>Vestibulum et enim vitae lectus malesuada aliquam vitae non mi. Suspendisse tellus eros, ultricies nec lorem feugiat, pharetra auctor dui. Suspendisse placerat neque leo, nec commodo eros ultrices vel. Fusce elit libero, aliquam quis libero non, consectetur accumsan est. Proin tempus mauris id cursus posuere. Sed et rutrum felis, vel aliquet ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque neque tellus, condimentum non eros non, consectetur auctor lacus. Curabitur malesuada odio eget elit egestas porttitor.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/2013/12/30/just-a-cool-blog-post-with-images/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Another post with A Gallery</title>
+		<link>https://spider365.github.io/anirbansportfolio/2013/12/16/just-a-cool-blog-post-with-a-gallery-2/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/2013/12/16/just-a-cool-blog-post-with-a-gallery-2/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Mon, 16 Dec 2013 20:32:19 +0000</pubDate>
+				<category><![CDATA[Style]]></category>
+		<category><![CDATA[brooklyn]]></category>
+		<category><![CDATA[fashion]]></category>
+		<category><![CDATA[style]]></category>
+		<category><![CDATA[women]]></category>
+		<guid isPermaLink="false">http://localhost:8888/test/?p=2009</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed vulputate massa. Fusce ante magna, iaculis ut purus ut, facilisis ultrices nibh. Quisque commodo nunc eget tortor dapibus, et tristique magna convallis. Phasellus egestas nunc eu venenatis vehicula. Phasellus et magna nulla. Proin ante nunc, mollis a lectus ac, volutpat placerat ante. Vestibulum sit amet [...]]]></description>
+										<content:encoded><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed vulputate massa. Fusce ante magna, iaculis ut purus ut, facilisis ultrices nibh. Quisque commodo nunc eget tortor dapibus, et tristique magna convallis. Phasellus egestas nunc eu venenatis vehicula. Phasellus et magna nulla. Proin ante nunc, mollis a lectus ac, volutpat placerat ante. Vestibulum sit amet magna sit amet nunc faucibus mollis. Aliquam vel lacinia purus, id tristique ipsum. Quisque vitae nibh ut libero vulputate ornare quis in risus. Nam sodales justo orci, a bibendum risus tincidunt id. Etiam hendrerit, metus in volutpat tempus, neque libero viverra lorem, ac tristique orci augue eu metus. Aenean elementum nisi vitae justo adipiscing gravida sit amet et risus. Suspendisse dapibus elementum quam, vel semper mi tempus ac.</p>
+
+<p>Nam at nisi risus. Proin pretium, dolor vel venenatis suscipit, dui nunc tincidunt lectus, ac placerat felis dui in justo. Aliquam orci velit, facilisis in facilisis non, scelerisque in massa. Integer scelerisque odio nec eros sodales laoreet. Sed sed odio tellus. In tristique felis ac facilisis tempor. Nunc non enim in dolor congue pulvinar sed sed nisi. Mauris viverra convallis feugiat. Nam at mauris laoreet, dictum leo at, tristique mi. Aenean pellentesque justo vel diam elementum iaculis. Nam lobortis cursus vestibulum. Nulla feugiat mauris felis, auctor pretium dui euismod in.</p>
+<p>Vestibulum et enim vitae lectus malesuada aliquam vitae non mi. Suspendisse tellus eros, ultricies nec lorem feugiat, pharetra auctor dui. Suspendisse placerat neque leo, nec commodo eros ultrices vel. Fusce elit libero, aliquam quis libero non, consectetur accumsan est. Proin tempus mauris id cursus posuere. Sed et rutrum felis, vel aliquet ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque neque tellus, condimentum non eros non, consectetur auctor lacus. Curabitur malesuada odio eget elit egestas porttitor.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/2013/12/16/just-a-cool-blog-post-with-a-gallery-2/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
