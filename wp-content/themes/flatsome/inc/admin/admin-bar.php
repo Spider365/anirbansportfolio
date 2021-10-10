@@ -44,7 +44,7 @@ $wp_admin_bar->add_menu( array(
 $wp_admin_bar->add_menu( array(
  'parent' => 'flatsome_panel',
  'id' => 'flatsome_panel_license',
- 'title' => 'Theme Registration',
+ 'title' => 'Theme License',
  'href' => $panel_url
 ));
 
@@ -354,13 +354,6 @@ $wp_admin_bar->add_menu( array(
  'title' => '<span class="dashicons dashicons-share" style="'.$icon_style.'"></span> Share',
  'href' =>  $optionUrl_section.'share'
 ));
-
-	$wp_admin_bar->add_menu( array(
-		'parent' => 'theme_options',
-		'id'     => 'options_notifications',
-		'title'  => '<span class="dashicons dashicons-testimonial" style="' . $icon_style . '"></span> Notifications',
-		'href'   => $optionUrl_section . 'notifications',
-	) );
 
 
 $wp_admin_bar->add_menu( array(

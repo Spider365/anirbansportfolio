@@ -1,7 +1,5 @@
 <?php
 
-global $extensions_url;
-global $extensions_uri;
 $extensions_url = get_template_directory() . '/inc/extensions';
 $extensions_uri = get_template_directory_uri() . '/inc/extensions';
 
@@ -19,10 +17,6 @@ if(get_theme_mod('live_search', 1)){
   require $extensions_url.'/flatsome-live-search/flatsome-live-search.php';
 }
 
-if ( get_theme_mod( 'cookie_notice' ) || is_customize_preview() ) {
-	require $extensions_url . '/flatsome-cookie-notice/flatsome-cookie-notice.php';
-}
-
 if(is_woocommerce_activated()){
 	if(!get_theme_mod('disable_quick_view', 0)){
 		require $extensions_url.'/flatsome-wc-quick-view/flatsome-quick-view.php';
@@ -32,9 +26,5 @@ if(is_woocommerce_activated()){
 	}
 	if ( get_theme_mod( 'cart_auto_refresh' ) ) {
 		require $extensions_url . '/flatsome-cart-refresh/flatsome-cart-refresh.php';
-	}
-
-	if ( get_theme_mod( 'swatches' ) ) {
-		require $extensions_url . '/flatsome-swatches/index.php';
 	}
 }

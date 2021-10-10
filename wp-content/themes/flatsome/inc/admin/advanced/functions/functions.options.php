@@ -31,6 +31,15 @@ if ( ! function_exists( 'of_options' ) ) {
 			$of_pages[ $of_page->ID ] = $of_page->post_title;
 		}
 
+		// Access the Blocks via an Array.
+		$of_blocks     = array( false => '-- None --' );
+		$of_blocks_obj = flatsome_get_post_type_items( 'blocks' );
+		if ( $of_blocks_obj ) {
+			foreach ( $of_blocks_obj as $of_block ) {
+				$of_blocks[ $of_block->post_name ] = $of_block->post_title;
+			}
+		}
+
 		// Set the Options Array.
 		global $of_options;
 		$of_options = array();
@@ -187,9 +196,9 @@ if ( ! function_exists( 'of_options' ) ) {
 			'id'      => 'site_loader',
 			'desc'    => 'Enable Site Loader overlay when loading the site.',
 			'type'    => 'select',
-			'std'     => '',
+			'std'     => 0,
 			'options' => array(
-				''     => 'Disabled',
+				0      => 'Disabled',
 				'home' => 'Enable on homepage',
 				'all'  => 'Enable on all pages',
 			),
@@ -231,21 +240,6 @@ if ( ! function_exists( 'of_options' ) ) {
 			'desc' => 'Change the search field placeholder.',
 			'id'   => 'search_placeholder',
 			'type' => 'text',
-		);
-
-		$of_options[] = array(
-			'name'    => 'Search results latency',
-			'desc'    => 'Set the delay for live search results.',
-			'id'      => 'search_result_latency',
-			'std'     => '0',
-			'type'    => 'select',
-			'options' => array(
-					'0'    => 'Instant',
-					'500'  => '500 ms',
-					'1000' => '1000 ms',
-					'1500' => '1500 ms',
-					'2000' => '2000 ms',
-				),
 		);
 
 		if ( is_woocommerce_activated() ) {
@@ -374,7 +368,7 @@ if ( ! function_exists( 'of_options' ) ) {
 			'desc'    => 'Replace 404 page content with a Custom Block that you can edit in the Page Builder.',
 			'std'     => 0,
 			'type'    => 'select',
-			'options' => flatsome_get_block_list_by_id( array( 'option_none' => '-- None --' ) ),
+			'options' => $of_blocks,
 		);
 
 		if ( is_woocommerce_activated() ) {
@@ -382,14 +376,6 @@ if ( ! function_exists( 'of_options' ) ) {
 			$of_options[] = array(
 				'name' => 'WooCommerce',
 				'type' => 'heading',
-			);
-
-			$of_options[] = array(
-				'name' => 'Variation swatches',
-				'id'   => 'swatches',
-				'desc' => 'Enable variation swatches.',
-				'std'  => 0,
-				'type' => 'checkbox',
 			);
 
 			$of_options[] = array(
@@ -472,14 +458,6 @@ if ( ! function_exists( 'of_options' ) ) {
 				'name' => 'Disable prices',
 				'id'   => 'catalog_mode_prices',
 				'desc' => 'Select to disable prices on category pages and product page.',
-				'std'  => 0,
-				'type' => 'checkbox',
-			);
-
-			$of_options[] = array(
-				'name' => 'Remove sale badge',
-				'id'   => 'catalog_mode_sale_badge',
-				'desc' => 'Select to remove sale badges.',
 				'std'  => 0,
 				'type' => 'checkbox',
 			);
@@ -607,15 +585,7 @@ if ( ! function_exists( 'of_options' ) ) {
 			$of_options[] = array(
 				'name' => 'Yoast Primary Category',
 				'id'   => 'wpseo_primary_term',
-				'desc' => 'Use on product category pages and elements.',
-				'std'  => 0,
-				'type' => 'checkbox',
-			);
-
-			$of_options[] = array(
-				'name' => '',
-				'id'   => 'wpseo_manages_product_layout_priority',
-				'desc' => 'Manage custom product layout priority.',
+				'desc' => 'Use Yoast primary category on product category pages and elements.',
 				'std'  => 0,
 				'type' => 'checkbox',
 			);
@@ -623,7 +593,7 @@ if ( ! function_exists( 'of_options' ) ) {
 			$of_options[] = array(
 				'name'  => 'Yoast Breadcrumbs',
 				'id'    => 'wpseo_breadcrumb',
-				'desc'  => 'Use on product category pages, single product pages and elements.',
+				'desc'  => 'Use Yoast breadcrumbs on product category pages, single product pages and elements.',
 				'std'   => 0,
 				'folds' => 1,
 				'type'  => 'checkbox',
@@ -635,33 +605,6 @@ if ( ! function_exists( 'of_options' ) ) {
 				'desc' => 'Remove the last static crumb on single product pages (product title).',
 				'std'  => 1,
 				'fold' => 'wpseo_breadcrumb',
-				'type' => 'checkbox',
-			);
-		}
-
-		// Rank Math options.
-		if ( class_exists( 'RankMath' ) ) {
-			$of_options[] = array(
-				'name' => 'Rank Math Primary Category',
-				'id'   => 'rank_math_primary_term',
-				'desc' => 'Use on product category pages and elements.',
-				'std'  => 0,
-				'type' => 'checkbox',
-			);
-
-			$of_options[] = array(
-				'name' => '',
-				'id'   => 'rank_math_manages_product_layout_priority',
-				'desc' => 'Manage custom product layout priority.',
-				'std'  => 0,
-				'type' => 'checkbox',
-			);
-
-			$of_options[] = array(
-				'name' => 'Rank Math Breadcrumbs',
-				'id'   => 'rank_math_breadcrumb',
-				'desc' => 'Use on product category pages, single product pages and elements.',
-				'std'  => 0,
 				'type' => 'checkbox',
 			);
 		}

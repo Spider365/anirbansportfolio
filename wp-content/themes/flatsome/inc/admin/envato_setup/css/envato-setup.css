@@ -37,6 +37,7 @@ tr[data-content="product_variation"]{
 
 .envato-setup-content p, .envato-setup-content table {
     font-size: 1em;
+    line-height: 1.75em;
     color: #666
 }
 
@@ -44,8 +45,7 @@ body {
     margin: 30px auto 24px;
     box-shadow: none;
     background: #f1f1f1;
-    padding: 0;
-    border: 0;
+    padding: 0
 }
 
 #wc-logo {
@@ -88,16 +88,6 @@ body {
 
 .envato-setup-content a:focus, .envato-setup-content a:hover {
     color: #111
-}
-
-.envato-setup-content .notice {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 15px;
-}
-
-.envato-setup-content .notice p:last-child {
-    margin-bottom: 0;
 }
 
 .envato-setup-content .form-table th {
@@ -377,11 +367,6 @@ body {
 
 .envato-setup-content .updated p:last-child, .envato-setup-content .woocommerce-language-pack p:last-child, .envato-setup-content .woocommerce-tracker p:last-child {
     margin: 0 0 24px
-}
-
-.envato-setup-content .registration-form {
-    margin-bottom: 24px;
-    font-size: 16px;
 }
 
 .envato-setup-steps {

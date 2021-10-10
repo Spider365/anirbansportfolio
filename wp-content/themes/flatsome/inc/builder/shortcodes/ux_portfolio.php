@@ -134,7 +134,6 @@ $options = array(
   ),
 ),
 'layout_options' => require( __DIR__ . '/commons/repeater-options.php' ),
-'layout_options_slider' => require( __DIR__ . '/commons/repeater-slider.php' ),
 );
 $box_styles = require( __DIR__ . '/commons/box-styles.php' );
 

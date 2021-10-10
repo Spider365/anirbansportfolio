@@ -318,7 +318,7 @@ if ( ! class_exists( 'Envato_Theme_Setup_Wizard' ) ) {
 			);
 
 			$this->steps['updates'] = array(
-				'name'    => __( 'Register', 'envato_setup' ),
+				'name'    => __( 'Activate', 'envato_setup' ),
 				'view'    => array( $this, 'envato_setup_updates' ),
 				'handler' => array( $this, 'envato_setup_updates_save' ),
 			);
@@ -2000,34 +2000,74 @@ if ( ! class_exists( 'Envato_Theme_Setup_Wizard' ) ) {
 		 */
 		public function envato_setup_updates() {
 			?>
-			<h1><?php _e( 'Register Theme', 'flatsome' ); ?></h1>
+			<h1><?php _e( 'Activate Theme', 'envato_setup' ); ?></h1>
+			<p class="lead">Enter your Purchase Code for Automatic Theme Updates and access to Support.</p>
+				<?php
+				    $slug = basename( get_template_directory() );
 
-			<?php echo flatsome_envato()->admin->render_directory_warning(); ?>
+				    $output = '';
 
-			<p class="lead">
-				Enter your Envato purchase code.
-			</p>
+				    //get errors so we can show them
+				    $errors = get_option( $slug . '_wup_errors', array() );
+				    delete_option( $slug . '_wup_errors' ); //delete existing errors as we will handle them next
+				    //check if we have a purchase code saved already
+				    $purchase_code = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
 
-			<form action="<?php echo admin_url( 'admin-post.php' ); ?>" method="POST" autocomplete="off" onsubmit="return onFlatsomeEnvatoSubmit(this);">
+				    //output errors and notifications
+				    if ( ! empty( $errors ) ) {
+				      foreach ( $errors as $key => $error ) {
+				        echo '<div class="notice-error notice-alt"><p>' . $error . '</p></div>';
+				      }
+				    }
+
+				    if ( ! empty( $purchase_code ) ) {
+				      if ( ! empty( $errors ) ) {
+				        //since there is already a purchase code present - notify the user
+				        echo '<div class="notice-warning notice-alt"><p>' . esc_html__( 'Purchase code not updated. We will keep the existing one.' ) . '</p></div>';
+				      } else {
+				        //this means a valid purchase code is present and no errors were found
+				       echo '<div class="notice-success notice-alt notice-large" style="margin-bottom:15px!important">' . __( 'Your <strong>purchase code is valid</strong>. Thank you! Enjoy Flatsome Theme and automatic updates.' ) . '</div>';
+				      }
+				    }
+
+				    if ( empty( $purchase_code ) ) {
+				    echo '<form class="wupdates_purchase_code" action="" method="post">' .
+				             __( '<p>Find out how to <a href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank">get your purchase code</a> here.</p>' ) .
+				             '<input type="hidden" name="wupdates_pc_theme" value="' . $slug . '" />' .
+				             '<input type="text" id="' . sanitize_title( $slug ) . '_wup_purchase_code" name="' . sanitize_title( $slug ) . '_wup_purchase_code"
+				              value="' . $purchase_code . '" placeholder="Purchase code ( e.g. 9g2b13fa-10aa-2267-883a-9201a94cf9b5 )" style="width:100%; padding:10px;"/><br/>' .
+				            '<p style="margin-top: 15px">
+  								<input type="checkbox" id="envato-terms" name="terms" onclick="toggleSubmit(this);">
+  								<label for="envato-terms" style="display: inline-block;vertical-align: top;width: 90%;">Confirm that, according to the Envato License Terms, each license entitles one person for a single project. Creating multiple unregistered installations is a copyright violation. <a href="https://themeforest.net/licenses/standard" target="_blank">More info</a>.</label>
+			  				</p>' .
+				             '<p class="envato-setup-actions step">' .
+				              '<input type="submit" id="envato-activate" class="button button-large button-next button-primary disabled" value="Activate"/>' .
+				              '<a href="'.esc_url( $this->get_next_step_link() ).'" class="button button-large button-next">'.__( 'Skip this step', 'envato_setup' ).'</a>'.
+ 				             '</p>
+				      	</form>
+				        <script type="text/javascript">
+	                        function toggleSubmit(checkbox){
+	                          var button = document.getElementById("envato-activate");
+						      if(checkbox.checked) {
+						        button.classList.remove("disabled")
+						      } else {
+						        button.classList.add("disabled")
+						      }
+						    }
+                        </script>';
+				  	} else {
+				    echo '<form class="wupdates_purchase_code" action="" method="post">' .
+				             '<input type="hidden" name="wupdates_pc_theme" value="' . $slug . '" />' .
+				             '<input type="text" id="' . sanitize_title( $slug ) . '_wup_purchase_code" name="' . sanitize_title( $slug ) . '_wup_purchase_code"
+				              value="' . $purchase_code . '" placeholder="Purchase code ( e.g. 9g2b13fa-10aa-2267-883a-9201a94cf9b5 )" style="width:100%; padding:10px;"/><br/><br/>' .
+				              '<p class="envato-setup-actions step">' .
+				              '<a href="'.esc_url( $this->get_next_step_link() ).'" class="button button-primary button-large button-next">'.__( 'Continue', 'envato_setup' ).'</a>' .
+ 				             '</p>
+				      </form>';
+				  	}
+?>
 				<?php wp_nonce_field( 'envato-setup' ); ?>
 
-				<div class="registration-form">
-					<?php
-						echo flatsome_envato()->admin->render_registration_form(
-							array( 'form' => false )
-						);
-					?>
-				</div>
-
-				<p class="envato-setup-actions step">
-					<?php if ( flatsome_envato()->registration->is_registered() ) : ?>
-					<a href="<?php echo esc_url_raw( $this->get_next_step_link() ); ?>" class="button button-large button-next button-primary"><?php _e( 'Continue', 'flatsome' ); ?></a>
-					<input type="submit" name="flatsome_unregister" class="button button-large button-next" value="<?php _e( 'Unregister', 'flatsome' ); ?>"/>
-					<?php else : ?>
-					<input type="submit" name="flatsome_register" class="button button-large button-next button-primary" value="<?php _e( 'Register', 'flatsome' ); ?>"/>
-					<?php endif; ?>
-				</p>
-			</form>
 			<?php
 		}
 
@@ -2133,7 +2173,7 @@ if ( ! class_exists( 'Envato_Theme_Setup_Wizard' ) ) {
 				<div class="envato-setup-next-steps-first">
 					<h2><?php _e( 'Next Steps', 'envato_setup' ); ?></h2>
 					<ul>
-						<?php if( is_woocommerce_activated() ) { ?><li class="setup-product"><a class="button  button-primary button-large woocommerce-button" href="<?php echo wc_admin_url( '&path=/setup-wizard' );?>"><?php _e( 'Setup WooCommerce (optional)', 'envato_setup' ); ?></a></li><?php } ?>
+						<?php if(class_exists('woocommerce')) { ?><li class="setup-product"><a class="button  button-primary button-large woocommerce-button" href="<?php echo admin_url().'index.php?page=wc-setup';?>"><?php _e( 'Setup WooCommerce (optional)', 'envato_setup' ); ?></a></li><?php } ?>
 						<li class="setup-product"><a class="button button-primary button-large" href="https://www.facebook.com/groups/flatsome/" target="_blank"><?php _e( 'Join Facebook Group', 'envato_setup' ); ?></a></li>
 						<li class="setup-product"><a class="button button-large" href="<?php echo esc_url( home_url() ); ?>"><?php _e( 'View your new website!', 'envato_setup' ); ?></a></li>
 					</ul>

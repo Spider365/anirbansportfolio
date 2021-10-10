@@ -7,6 +7,8 @@ if ( ! class_exists( 'Featured_Item_Post_Type' ) ) :
 class Featured_Item_Post_Type {
 
 	public function __construct() {
+	// Run when the plugin is activated
+		register_activation_hook( __FILE__, array( $this, 'plugin_activation' ) );
 
 		// Add the featured_item post type and taxonomies
 		add_action( 'init', array( $this, 'featured_item_init' ) );
@@ -17,7 +19,6 @@ class Featured_Item_Post_Type {
 		// Add thumbnails to column view
 		add_filter( 'manage_edit-featured_item_columns', array( $this, 'add_thumbnail_column'), 10, 1 );
 		add_action( 'manage_pages_custom_column', array( $this, 'display_thumbnail' ), 10, 1 );
-		add_action( 'manage_posts_custom_column', array( $this, 'display_thumbnail' ), 10, 1 );
 
 		// Allow filtering of posts by taxonomy in the admin view
 		add_action( 'restrict_manage_posts', array( $this, 'add_taxonomy_filters' ) );
@@ -29,6 +30,23 @@ class Featured_Item_Post_Type {
 		// Add taxonomy terms as body classes
 		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 
+	}
+
+	/**
+	 * Load the plugin text domain for translation.
+	 */
+
+
+	/**
+	 * Flushes rewrite rules on plugin activation to ensure featured_item posts don't 404.
+	 *
+	 * @link http://codex.wordpress.org/Function_Reference/flush_rewrite_rules
+	 *
+	 * @uses Featured Item_Post_Type::featured_item_init()
+	 */
+	public function plugin_activation() {
+		$this->featured_item_init();
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -87,11 +105,10 @@ class Featured_Item_Post_Type {
 				'author',
 				'custom-fields',
 				'revisions',
-				'page-attributes',
 			),
 			'capability_type' => 'page',
 			'menu_position'   => 5,
-			'hierarchical'    => false,
+			'hierarchical'      => true,
 			'has_archive'     => true,
 		);
 
@@ -108,22 +125,22 @@ class Featured_Item_Post_Type {
 	 */
 	protected function register_taxonomy_tag() {
 		$labels = array(
-			'name'                       => __( 'Portfolio Tags', 'flatsome-admin' ),
+			'name'                       => __( 'Tags', 'flatsome-admin' ),
 			'singular_name'              => __( 'Tag', 'flatsome-admin' ),
 			'menu_name'                  => __( 'Tags', 'flatsome-admin' ),
 			'edit_item'                  => __( 'Edit Tag', 'flatsome-admin' ),
 			'update_item'                => __( 'Update Tag', 'flatsome-admin' ),
 			'add_new_item'               => __( 'Add New Tag', 'flatsome-admin' ),
-			'new_item_name'              => __( 'New Tag Name', 'flatsome-admin' ),
+			'new_item_name'              => __( 'New  Tag Name', 'flatsome-admin' ),
 			'parent_item'                => __( 'Parent Tag', 'flatsome-admin' ),
 			'parent_item_colon'          => __( 'Parent Tag:', 'flatsome-admin' ),
 			'all_items'                  => __( 'All Tags', 'flatsome-admin' ),
-			'search_items'               => __( 'Search Tags', 'flatsome-admin' ),
+			'search_items'               => __( 'Search  Tags', 'flatsome-admin' ),
 			'popular_items'              => __( 'Popular Tags', 'flatsome-admin' ),
 			'separate_items_with_commas' => __( 'Separate tags with commas', 'flatsome-admin' ),
 			'add_or_remove_items'        => __( 'Add or remove tags', 'flatsome-admin' ),
 			'choose_from_most_used'      => __( 'Choose from the most used tags', 'flatsome-admin' ),
-			'not_found'                  => __( 'No tags found.', 'flatsome-admin' ),
+			'not_found'                  => __( 'No  tags found.', 'flatsome-admin' ),
 		);
 
 		$args = array(
@@ -153,7 +170,7 @@ class Featured_Item_Post_Type {
 
 
 		$labels = array(
-			'name'                       => __( 'Portfolio Categories', 'flatsome-admin' ),
+			'name'                       => __( 'Categories', 'flatsome-admin' ),
 			'singular_name'              => __( 'Category', 'flatsome-admin' ),
 			'menu_name'                  => __( 'Categories', 'flatsome-admin' ),
 			'edit_item'                  => __( 'Edit Category', 'flatsome-admin' ),
@@ -186,9 +203,13 @@ class Featured_Item_Post_Type {
 
 		register_taxonomy( 'featured_item_category', array( 'featured_item' ), $args );
 
-		if ( $items_link = flatsome_option( 'featured_items_page' ) ) {
-			add_permastruct( 'featured_item_category', $items_link . '/%featured_item_category%', false );
-			add_permastruct( 'featured_item', $items_link . '/%featured_item_category%/%featured_item%', false );
+		if(flatsome_option('featured_items_page')){
+			add_action( 'wp_loaded', 'add_ux_featured_item_permastructure' );
+			function add_ux_featured_item_permastructure() {
+				$items_link = flatsome_option('featured_items_page');
+				add_permastruct( 'featured_item_category',  $items_link.'/%featured_item_category%', false );
+				add_permastruct( 'featured_item', $items_link.'/%featured_item_category%/%featured_item%', false );
+			}
 
 			add_filter( 'post_type_link', 'ux_featured_items_permalinks', 10, 2 );
 			function ux_featured_items_permalinks( $permalink, $post ) {
@@ -281,7 +302,7 @@ class Featured_Item_Post_Type {
 		global $post;
 		switch ( $column ) {
 			case 'thumbnail':
-				echo get_the_post_thumbnail( $post->ID, array(60, 60) );
+				echo get_the_post_thumbnail( $post->ID, array(35, 35) );
 				break;
 		}
 	}

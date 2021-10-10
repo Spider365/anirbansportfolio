@@ -9,19 +9,15 @@ add_shortcode( 'ux_product_gallery', function ( $atts ) {
 		return null;
 	}
 
-	add_filter( 'theme_mod_product_image_style', function () use ( $style ) {
+	add_filter( 'theme_mod_product_image_style', function ( $input ) use ( $style ) {
 		return $style;
 	} );
 
-
-	add_filter( 'theme_mod_product_layout', function () use ( $style ) {
-		$layout = '';
-
-		if ( $style === 'full-width' ) $layout = 'gallery-wide';
-		if ( $style === 'stacked' ) $layout = 'stacked-right';
-
-		return $layout;
-	} );
+	if ( $style == 'full-width' ) {
+		add_filter( 'theme_mod_product_layout', function ( $input ) use ( $style ) {
+			return 'gallery-wide';
+		} );
+	}
 
 	ob_start();
 	wc_get_template_part( 'single-product/product-image' );

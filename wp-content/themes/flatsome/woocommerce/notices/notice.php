@@ -19,16 +19,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! $notices ) {
-	return;
-}
+if ( fl_woocommerce_version_check( '3.9.0' ) ) :
 
-?>
+	if ( ! $notices ) {
+		return;
+	}
 
-<?php foreach ( $notices as $notice ) : ?>
-	<div class="woocommerce-info message-wrapper"<?php echo wc_get_notice_data_attr( $notice ); ?>>
-		<div class="message-container container medium-text-center">
-			<?php echo wc_kses_notice( $notice['notice'] ); ?>
+	?>
+
+	<?php foreach ( $notices as $notice ) : ?>
+		<div class="woocommerce-info message-wrapper"<?php echo wc_get_notice_data_attr( $notice ); ?>>
+			<div class="message-container container medium-text-center">
+				<?php echo wc_kses_notice( $notice['notice'] ); ?>
+			</div>
 		</div>
-	</div>
-<?php endforeach; ?>
+	<?php endforeach; ?>
+	<?php
+
+else : // Below 3.9.0.
+
+	if ( ! $messages ) {
+		return;
+	}
+
+	?>
+
+	<?php foreach ( $messages as $message ) : ?>
+		<div class="woocommerce-info message-wrapper">
+			<div class="message-container container medium-text-center">
+				<?php
+				echo fl_woocommerce_version_check( '3.5.0' ) ? wc_kses_notice( $message ) : wp_kses_post( $message );
+				?>
+			</div>
+		</div>
+	<?php endforeach; ?>
+	<?php
+endif;

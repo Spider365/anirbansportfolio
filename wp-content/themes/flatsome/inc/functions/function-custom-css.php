@@ -45,12 +45,6 @@ if($content_bg){ ?>
 <?php } ?>
 
 <?php
-$cookie_notice_bg_color = get_theme_mod( 'cookie_notice_bg_color' );
-if ( $cookie_notice_bg_color ) { ?>
-	.flatsome-cookies {background-color: <?php echo $cookie_notice_bg_color; ?>}
-<?php } ?>
-
-<?php
 $header_height = get_theme_mod('header_height', 90); ?>
 .header-main{height: <?php echo $header_height; ?>px}
 #logo img{max-height: <?php echo $header_height; ?>px}
@@ -67,14 +61,18 @@ $header_height = get_theme_mod('header_height', 90); ?>
 
 .header-top{min-height: <?php echo get_theme_mod('header_top_height', 30); ?>px}
 
-<?php $header_height_transparent = get_theme_mod( 'header_height_transparent', 90 ); ?>
+<?php
+$header_height_transparent = get_theme_mod('header_height_transparent');
+if($header_height_transparent){ ?>
 .transparent .header-main{height: <?php echo $header_height_transparent; ?>px}
 .transparent #logo img{max-height: <?php echo $header_height_transparent; ?>px}
+<?php } ?>
 
 <?php
 
 $height = 0;
-$height = $height + $header_height_transparent;
+if(!$header_height_transparent) $height = $height + $header_height;
+if($header_height_transparent) $height = $height + $header_height_transparent;
 if(flatsome_has_top_bar()['large_or_mobile']) $height = $height + '30';
 if(flatsome_has_bottom_bar()['large_or_mobile']) $height = $height + '50';
 
@@ -113,10 +111,6 @@ $header_height_sticky = get_theme_mod('header_height_sticky', 70); ?>
 
 .header-bottom {background-color: <?php echo get_theme_mod('nav_position_bg','#f1f1f1'); ?>}
 
-<?php if(get_theme_mod('nav_height_top')){ ?>
-.top-bar-nav > li > a{line-height: <?php echo get_theme_mod('nav_height_top').'px';?> }
-<?php } ?>
-
 <?php if(get_theme_mod('nav_height')){ ?>
 .header-main .nav > li > a{line-height: <?php echo get_theme_mod('nav_height').'px';?> }
 <?php } ?>
@@ -147,8 +141,8 @@ if($header_height_mobile){ ?>
 	}
 <?php } ?>
 
-<?php if ( get_theme_mod( 'dropdown_border_enabled', 1 ) && get_theme_mod( 'dropdown_border' ) ) { ?>
-.nav-dropdown-has-arrow.nav-dropdown-has-border li.has-dropdown:before{border-bottom-color: <?php echo get_theme_mod('dropdown_border'); ?>;}
+<?php if(get_theme_mod('dropdown_border')){ ?>
+.nav-dropdown-has-arrow li.has-dropdown:before{border-bottom-color: <?php echo get_theme_mod('dropdown_border'); ?>;}
 .nav .nav-dropdown{  border-color: <?php echo get_theme_mod('dropdown_border'); ?> }
 <?php } ?>
 
@@ -290,11 +284,9 @@ if(get_theme_mod('color_texts')){
 // Type Navigations
 if(!empty($type_nav['font-family'])) {
 	echo '.nav > li > a {font-family:  "'.$type_nav['font-family'].'", sans-serif;}';
-	echo '.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-family:  "'.$type_nav['font-family'].'", sans-serif;}';
 }
 if(!empty($type_nav['variant'])) {
 	echo '.nav > li > a {font-weight: '.intval($type_nav['variant']).';}';
-	echo '.mobile-sidebar-levels-2 .nav > li > ul > li > a {font-weight: '.intval($type_nav['variant']).';}';
 }
 // Type Headings
 if(!empty($type_headings['font-family'])) {
@@ -335,51 +327,26 @@ echo '.alt-font{font-weight: '.intval($type_alt['variant']).'!important;}';
 
 ?>
 
-<?php if(get_theme_mod('type_nav_top_color')){ ?>
-.header:not(.transparent) .top-bar-nav > li > a {
-color: <?php echo get_theme_mod('type_nav_top_color'); ?>;
-}
-<?php } ?>
-<?php if(get_theme_mod('type_nav_top_color_hover')) { ?>
-.header:not(.transparent) .top-bar-nav.nav > li > a:hover,
-.header:not(.transparent) .top-bar-nav.nav > li.active > a,
-.header:not(.transparent) .top-bar-nav.nav > li.current > a,
-.header:not(.transparent) .top-bar-nav.nav > li > a.active,
-.header:not(.transparent) .top-bar-nav.nav > li > a.current{
-	color: <?php echo get_theme_mod('type_nav_top_color_hover'); ?>;
-}
-.top-bar-nav.nav-line-bottom > li > a:before,
-.top-bar-nav.nav-line-grow > li > a:before,
-.top-bar-nav.nav-line > li > a:before,
-.top-bar-nav.nav-box > li > a:hover,
-.top-bar-nav.nav-box > li.active > a,
-.top-bar-nav.nav-pills > li > a:hover,
-.top-bar-nav.nav-pills > li.active > a{
-color:#FFF!important;
-background-color: <?php echo get_theme_mod('type_nav_top_color_hover'); ?>;
-}
-<?php } ?>
-
 <?php if(get_theme_mod('type_nav_color')){ ?>
-.header:not(.transparent) .header-nav-main.nav > li > a {
+.header:not(.transparent) .header-nav.nav > li > a {
 	color: <?php echo get_theme_mod('type_nav_color'); ?>;
 }
 <?php } ?>
 <?php if(get_theme_mod('type_nav_color_hover')) { ?>
-.header:not(.transparent) .header-nav-main.nav > li > a:hover,
-.header:not(.transparent) .header-nav-main.nav > li.active > a,
-.header:not(.transparent) .header-nav-main.nav > li.current > a,
-.header:not(.transparent) .header-nav-main.nav > li > a.active,
-.header:not(.transparent) .header-nav-main.nav > li > a.current{
+.header:not(.transparent) .header-nav.nav > li > a:hover,
+.header:not(.transparent) .header-nav.nav > li.active > a,
+.header:not(.transparent) .header-nav.nav > li.current > a,
+.header:not(.transparent) .header-nav.nav > li > a.active,
+.header:not(.transparent) .header-nav.nav > li > a.current{
 	color: <?php echo get_theme_mod('type_nav_color_hover'); ?>;
 }
-.header-nav-main.nav-line-bottom > li > a:before,
-.header-nav-main.nav-line-grow > li > a:before,
-.header-nav-main.nav-line > li > a:before,
-.header-nav-main.nav-box > li > a:hover,
-.header-nav-main.nav-box > li.active > a,
-.header-nav-main.nav-pills > li > a:hover,
-.header-nav-main.nav-pills > li.active > a{
+.header-nav.nav-line-bottom > li > a:before,
+.header-nav.nav-line-grow > li > a:before,
+.header-nav.nav-line > li > a:before,
+.header-nav.nav-box > li > a:hover,
+.header-nav.nav-box > li.active > a,
+.header-nav.nav-pills > li > a:hover,
+.header-nav.nav-pills > li.active > a{
 color:#FFF!important;
 background-color: <?php echo get_theme_mod('type_nav_color_hover'); ?>;
 }
@@ -446,17 +413,13 @@ background-color: <?php echo get_theme_mod('header_shop_bg_color') ?>;}
 <?php } ?>
 
 <?php if(get_theme_mod('category_force_image_height')) { ?>
-  .has-equal-box-heights .box-image {
+  .products.has-equal-box-heights .box-image {
     padding-top: <?php echo get_theme_mod('category_image_height', 100) ;?>%;
   }
 <?php } ?>
 
 <?php if(get_theme_mod('color_sale')) { ?>
   .badge-inner.on-sale{background-color: <?php echo get_theme_mod('color_sale'); ?>}
-<?php } ?>
-
-<?php if ( get_theme_mod( 'color_new_bubble_auto' ) ) { ?>
-  .badge-inner.new-bubble-auto{background-color: <?php echo get_theme_mod( 'color_new_bubble_auto' ); ?>}
 <?php } ?>
 
 <?php if(get_theme_mod('color_new_bubble')) { ?>

@@ -63,7 +63,6 @@ Flatsome_Option::add_field( 'option',  array(
 			"pinterest" => "Pinterest",
 			"vk" => "VKontakte",
 			"tumblr" => "Tumblr",
-			"telegram" => "Telegram",
 			"whatsapp" => "WhatsApp (Only for Mobile)",
 		),
 	)
@@ -228,33 +227,6 @@ Flatsome_Option::add_field( 'option',  array(
 	'default'     => '',
 ));
 
-Flatsome_Option::add_field( 'option', array(
-	'type'      => 'text',
-	'settings'  => 'follow_telegram',
-	'label'     => __( 'Telegram', 'flatsome-admin' ),
-	'section'   => 'follow',
-	'transport' => $transport,
-	'default'   => '',
-) );
-
-Flatsome_Option::add_field( 'option',  array(
-	'type'      => 'text',
-	'settings'  => 'follow_twitch',
-	'label'     => __( 'Twitch', 'flatsome-admin' ),
-	'section'   => 'follow',
-	'transport' => $transport,
-	'default'   => '',
-));
-
-Flatsome_Option::add_field( 'option',  array(
-	'type'      => 'text',
-	'settings'  => 'follow_discord',
-	'label'     => __( 'Discord', 'flatsome-admin' ),
-	'section'   => 'follow',
-	'transport' => $transport,
-	'default'   => '',
-));
-
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'image',
 	'settings'     => 'follow_snapchat',
@@ -273,7 +245,7 @@ function flatsome_refresh_social( WP_Customize_Manager $wp_customize ) {
 
 	  $wp_customize->selective_refresh->add_partial( 'follow_icons', array(
 	    'selector' => '.follow-icons',
-	    'settings' => array('follow_linkedin','follow_flickr','follow_email','follow_phone','follow_style','follow_facebook','follow_twitter','follow_instagram','follow_tiktok','follow_rss','follow_vk','follow_youtube','follow_pinterest','follow_snapchat','follow_500px','follow_telegram','follow_twitch','follow_discord'),
+	    'settings' => array('follow_linkedin','follow_flickr','follow_email','follow_phone','follow_style','follow_facebook','follow_twitter','follow_instagram','follow_tiktok','follow_rss','follow_vk','follow_youtube','follow_pinterest','follow_snapchat','follow_500px'),
 	    'container_inclusive' => true,
 	    'render_callback' => function() {
 	        return do_shortcode('[follow defaults="true" style="'.flatsome_option('follow_style').'"]');

@@ -42,7 +42,7 @@ function flatsome_banner_grid($atts, $content = null) {
   <div class="banner-grid-wrapper">
   <div id="<?php echo $_id; ?>" class="banner-grid <?php echo implode(' ', $classes); ?>" data-packery-options="">
           <?php if(has_shortcode( $content, 'col_grid' ) || has_shortcode( $content, 'col' )) { ?>
-            <?php echo do_shortcode( $content ) ?>
+            <?php echo flatsome_contentfix( $content ) ?>
           <?php } else {
 
               // Fix old content
@@ -114,6 +114,6 @@ function ux_grid_col($atts, $content = null) {
 
   $column = '<div class="'.$classes.'" '.$animate.'><div class="'.$classes_inner.'">'.$content.'</div></div>';
 
-  return do_shortcode( $column );
+  return flatsome_contentfix($column);
 }
 add_shortcode('col_grid', 'ux_grid_col');

@@ -27,7 +27,7 @@
 
 		<?php
 
-		if ( woocommerce_product_loop() ) {
+		if ( fl_woocommerce_version_check( '3.4.0' ) ? woocommerce_product_loop() : have_posts() ) {
 
 			/**
 			 * Hook: woocommerce_before_shop_loop.

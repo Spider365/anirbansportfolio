@@ -42,14 +42,17 @@
 		<div class="flex-row align-top">
 			<div class="flex-col mr circle">
 				<div class="blog-author-image">
-					<?php echo get_avatar( get_the_author_meta( 'ID' ), apply_filters( 'flatsome_author_bio_avatar_size', 90 ) ); ?>
+					<?php
+					$user = get_the_author_meta( 'ID' );
+					echo get_avatar( $user, 90 );
+					?>
 				</div>
 			</div>
 			<div class="flex-col flex-grow">
 				<h5 class="author-name uppercase pt-half">
-					<?php the_author_meta( 'display_name' ); ?>
+					<?php echo esc_html( get_the_author_meta( 'display_name' ) ); ?>
 				</h5>
-				<p class="author-desc small"><?php the_author_meta( 'description' ); ?></p>
+				<p class="author-desc small"><?php echo esc_html( get_the_author_meta( 'user_description' ) ); ?></p>
 			</div>
 		</div>
 	</div>

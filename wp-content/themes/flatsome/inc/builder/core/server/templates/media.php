@@ -18,17 +18,7 @@ wp_enqueue_style( 'ie' );
 wp_enqueue_script( 'utils' );
 wp_enqueue_script( 'svg-painter' );
 
-global $hook_suffix, $current_screen, $wp_locale, $pagenow, $post_type, $post_type_object, $post;
-
-if ( isset( $_GET['post'] ) ) {
-  $post_id = (int) $_GET['post'];
-  if ( empty( $post ) && $post_id ) {
-    if ( $post = get_post( $post_id ) ) {
-      $post_type        = $post->post_type;
-      $post_type_object = get_post_type_object( $post_type );
-    }
-  }
-}
+global $hook_suffix, $current_screen, $wp_locale, $pagenow;
 
 ?><!DOCTYPE html>
 <html>

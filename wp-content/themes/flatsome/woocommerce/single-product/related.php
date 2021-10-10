@@ -20,22 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Get Type.
-$type             = get_theme_mod( 'related_products', 'slider' );
-$repeater_classes = array();
-
+$type = get_theme_mod( 'related_products', 'slider' );
 if ( $type == 'hidden' ) return;
 if ( $type == 'grid' ) $type = 'row';
 
- if ( get_theme_mod('category_force_image_height' ) ) $repeater_classes[] = 'has-equal-box-heights';
- if ( get_theme_mod('equalize_product_box' ) ) $repeater_classes[] = 'equalize-box';
-
-$repeater['type']         = $type;
-$repeater['columns']      = get_theme_mod( 'related_products_pr_row', 4 );
-$repeater['columns__md']  = get_theme_mod( 'related_products_pr_row_tablet', 3 );
-$repeater['columns__sm']  = get_theme_mod( 'related_products_pr_row_mobile', 2 );
-$repeater['class']        = implode( ' ', $repeater_classes );
-$repeater['slider_style'] = 'reveal';
-$repeater['row_spacing']  = 'small';
+$repater['type']         = $type;
+$repater['columns']      = get_theme_mod( 'related_products_pr_row', 4 );
+$repater['class']        = get_theme_mod( 'equalize_product_box' ) ? 'equalize-box' : '';
+$repater['slider_style'] = 'reveal';
+$repater['row_spacing']  = 'small';
 
 
 if ( $related_products ) : ?>
@@ -53,7 +46,7 @@ if ( $related_products ) : ?>
 		<?php endif; ?>
 
 
-	<?php get_flatsome_repeater_start( $repeater ); ?>
+	<?php get_flatsome_repeater_start( $repater ); ?>
 
 		<?php foreach ( $related_products as $related_product ) : ?>
 
@@ -67,7 +60,7 @@ if ( $related_products ) : ?>
 
 		<?php endforeach; ?>
 
-		<?php get_flatsome_repeater_end( $repeater ); ?>
+		<?php get_flatsome_repeater_end( $repater ); ?>
 
 	</div>
 

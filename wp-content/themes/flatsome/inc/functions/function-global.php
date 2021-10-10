@@ -1,42 +1,6 @@
 <?php
 
 /**
- * Get the Flatsome Envato instance.
- */
-function flatsome_envato() {
-	return Flatsome_Envato::get_instance();
-}
-
-/**
- * Enqueues a webpack bundle.
- *
- * @param string $handle       Script handle name.
- * @param string $path         Path to asset fille.
- * @param array  $dependencies Extra dependencies.
- * @return void
- */
-function flatsome_enqueue_asset( $handle, $path, $dependencies = array() ) {
-	$theme        = wp_get_theme( get_template() );
-	$version      = $theme->get( 'Version' );
-	$template_dir = get_template_directory();
-	$template_uri = get_template_directory_uri();
-	$script_path  = "$template_dir/assets/js/$path.asset.php";
-	$script_url   = "$template_uri/assets/js/$path.js";
-
-	$script_asset = file_exists( $script_path )
-		? require $script_path
-		: array( 'dependencies' => array(), 'version' => $version );
-
-	wp_enqueue_script(
-		$handle,
-		$script_url,
-		array_merge( $script_asset['dependencies'], $dependencies ),
-		$script_asset['version'],
-		true
-	);
-}
-
-/**
  * Get Flatsome option
  *
  * @deprecated in favor of get_theme_mod()
@@ -53,23 +17,6 @@ if(!function_exists('flatsome_dummy_image')) {
     return get_template_directory_uri().'/assets/img/missing.jpg';
   }
 }
-
-/**
- * Checks current WP version against a given version.
- *
- * @param string $version The version to check for.
- *
- * @return bool Returns true if WP version is equal or higher then given version.
- */
-function flatsome_wp_version_check( $version = '5.4' ) {
-	global $wp_version;
-	if ( version_compare( $wp_version, $version, '>=' ) ) {
-		return true;
-	}
-
-	return false;
-}
-
 
 /* Check WooCommerce Version */
 if( ! function_exists('fl_woocommerce_version_check') ){
@@ -163,17 +110,6 @@ function flatsome_facebook_accounts() {
   } );
 }
 
-/**
- * Returns the current Facebook GraphAPI version beeing used.
- *
- * @since 3.13
- *
- * @return string
- */
-function flatsome_facebook_api_version() {
-  return 'v8.0';
-}
-
 // Get block id by ID or slug.
 function flatsome_get_block_id( $post_id ) {
   global $wpdb;
@@ -210,36 +146,6 @@ function flatsome_get_block_id( $post_id ) {
 }
 
 /**
- * Retrieve a list of blocks.
- *
- * @param array|string $args Optional. Array or string of arguments.
- *
- * @return array|false List of blocks matching defaults or `$args`.
- */
-function flatsome_get_block_list_by_id( $args = '' ) {
-
-	$defaults = array(
-		'option_none' => '',
-	);
-
-	$parsed_args = wp_parse_args( $args, $defaults );
-
-	$blocks = array();
-
-	if ( $parsed_args['option_none'] ) {
-		$blocks = array( 0 => $parsed_args['option_none'] );
-	}
-	$posts = flatsome_get_post_type_items( 'blocks' );
-	if ( $posts ) {
-		foreach ( $posts as $value ) {
-			$blocks[ $value->ID ] = $value->post_title;
-		}
-	}
-
-	return $blocks;
-}
-
-/**
  * Calls a shortcode function by its tag name.
  *
  * @param string $tag     The shortcode of the function to be called.
@@ -255,79 +161,4 @@ function flatsome_apply_shortcode( $tag, $atts = array(), $content = null ) {
 	if ( ! isset( $shortcode_tags[ $tag ] ) ) return false;
 
 	return call_user_func( $shortcode_tags[ $tag ], $atts, $content, $tag );
-}
-
-/**
- * Hides characters in a string.
- *
- * @param string $string The token.
- * @param int    $visible_chars How many characters to show.
- * @return string
- */
-function flatsome_hide_chars( $string, $visible_chars = 4 ) {
-	if ( ! is_string( $string ) ) {
-		$string = '';
-	}
-	if ( strlen( $string ) <= $visible_chars ) {
-		$visible_chars = strlen( $string ) - 2;
-	}
-
-	$chars = str_split( $string );
-	$end   = strlen( $string ) - $visible_chars;
-
-	for ( $i = $visible_chars; $i < $end; $i++ ) {
-		if ( $chars[ $i ] === '-' ) continue;
-		$chars[ $i ] = '*';
-	}
-
-	return implode( '', $chars );
-}
-
-/**
- * Normalizes the theme directory name.
- *
- * @param string $slug Optional theme slug.
- * @return string
- */
-function flatsome_theme_key( $slug = null ) {
-	if ( empty( $slug ) ) {
-		$slug = basename( get_template_directory() );
-	}
-
-	$slug = trim( $slug );
-	$slug = preg_replace( '/[,.\s]+/', '-', $slug );
-	$slug = strtolower( $slug );
-
-	return $slug;
-}
-
-/**
- * Check if support is expired.
- *
- * @return bool
- */
-function flatsome_is_support_expired() {
-	_deprecated_function( __FUNCTION__, '3.14' );
-	return true;
-}
-
-/**
- * Check if support time is invalid.
- *
- * @param string $support_ends Support end timestamp.
- *
- * @return bool True if invalid false otherwise.
- */
-function flatsome_is_invalid_support_time( $support_ends ) {
-	_deprecated_function( __FUNCTION__, '3.14' );
-	return false;
-}
-
-/**
- * Checks whether theme is registered.
- *
- * @return bool
- */
-function flatsome_is_theme_enabled() {
-	return flatsome_envato()->registration->is_registered();
 }

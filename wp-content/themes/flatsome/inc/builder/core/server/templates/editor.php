@@ -18,6 +18,7 @@
 <body>
   <app></app>
   <app-loader></app-loader>
+  <app-stack></app-stack>
   <draggable-helper></draggable-helper>
   <context-menu></context-menu>
   <flatsome-studio></flatsome-studio>

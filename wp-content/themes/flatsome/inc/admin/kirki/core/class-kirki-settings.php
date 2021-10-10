@@ -5,7 +5,7 @@
  * @package     Kirki
  * @category    Core
  * @author      Ari Stathopoulos (@aristath)
- * @copyright   Copyright (c) 2020, David Vongries
+ * @copyright   Copyright (c) 2019, Ari Stathopoulos (@aristath)
  * @license     https://opensource.org/licenses/MIT
  * @since       1.0
  */
@@ -64,7 +64,7 @@ class Kirki_Settings {
 	 * @access private
 	 * @param array $args The field definition as sanitized in Kirki_Field.
 	 */
-	private function add_settings( $args = array() ) {
+	final private function add_settings( $args = array() ) {
 
 		// Get the classname we'll be using to create our setting(s).
 		$classname = false;
@@ -106,7 +106,7 @@ class Kirki_Settings {
 	 * @param string       $transport           Use refresh|postMessage.
 	 * @param string|array $sanitize_callback   A callable sanitization function or method.
 	 */
-	private function add_setting( $classname, $setting, $default, $type, $capability, $transport, $sanitize_callback ) {
+	final private function add_setting( $classname, $setting, $default, $type, $capability, $transport, $sanitize_callback ) {
 
 		$this->wp_customize->add_setting(
 			new $classname(
@@ -130,7 +130,7 @@ class Kirki_Settings {
 	 * and that the defined classes actually exist.
 	 * If a defined class does not exist, it is removed.
 	 */
-	private function set_setting_types() {
+	final private function set_setting_types() {
 
 		// Apply the kirki_setting_types filter.
 		$this->setting_types = apply_filters(

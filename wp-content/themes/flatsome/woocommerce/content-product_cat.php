@@ -13,15 +13,7 @@
  * @see     http://docs.woothemes.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 4.7.0
- */
-
-/**
- * Old template used for lower then WC 4.7.0
- * New template file is renamed to content-product-cat.php
- *
- * While the old template is still BC, the versioning in
- * WC status does not work for this template.
+ * @version 2.6.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

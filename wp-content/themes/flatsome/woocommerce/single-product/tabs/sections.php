@@ -18,24 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Each tab is an array containing title, callback and priority.
  * @see woocommerce_default_product_tabs()
  */
-$product_tabs = apply_filters( 'woocommerce_product_tabs', array() );
+$tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
-if ( ! empty( $product_tabs ) ) : ?>
+if ( ! empty( $tabs ) ) : ?>
 <div class="product-page-sections">
-	<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
+	<?php foreach ( $tabs as $key => $tab ) : ?>
 	<div class="product-section">
 	<div class="row">
 		<div class="large-2 col pb-0 mb-0">
-			 <h5 class="uppercase mt"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', $product_tab['title'], $key ); ?></h5>
+			 <h5 class="uppercase mt"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', $tab['title'], $key ) ?></h5>
 		</div>
 
 		<div class="large-10 col pb-0 mb-0">
 			<div class="panel entry-content">
-				<?php
-				if ( isset( $product_tab['callback'] ) ) {
-					call_user_func( $product_tab['callback'], $key, $product_tab );
-				}
-				?>
+				<?php call_user_func( $tab['callback'], $key, $tab ) ?>
 			</div>
 		</div>
 	</div>

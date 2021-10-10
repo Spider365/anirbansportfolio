@@ -24,7 +24,6 @@ Flatsome_Option::add_field( 'option',
 		'label'           => __( 'Google Fonts font-display type', 'flatsome-admin' ),
 		'description'     => 'Choose how Google Fonts will be loaded.',
 		'tooltip'         => '<ul>
-								<li><span style="font-weight: bold">auto</span> font display strategy is defined by the user agent</li>
 								<li><span style="font-weight: bold">block</span> flash of invisible text until the font loads</li>
 								<li><span style="font-weight: bold">swap</span> fallback font until custom font loads (flash of unstyled text)</li>
 								<li><span style="font-weight: bold">fallback</span> between block and swap, invisible text for a short time</li>
@@ -40,7 +39,6 @@ Flatsome_Option::add_field( 'option',
 		),
 		'default'         => 'swap',
 		'choices'         => array(
-			'auto'     => __( 'Auto', 'flatsome-admin' ),
 			'block'    => __( 'Block', 'flatsome-admin' ),
 			'swap'     => __( 'Swap', 'flatsome-admin' ),
 			'fallback' => __( 'Fallback', 'flatsome-admin' ),

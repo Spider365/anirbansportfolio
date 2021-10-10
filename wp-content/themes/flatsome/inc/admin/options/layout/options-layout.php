@@ -31,50 +31,35 @@ Flatsome_Option::add_field( 'option',  array(
 	'label'       => __( 'Add Drop Shadow to Content box', 'flatsome-admin' ),
 	'section'     => 'layout',
 	'transport' => 'postMessage',
-	'active_callback' => array(
-		array(
-			'setting'  => 'body_layout',
-			'operator' => '!==',
-			'value'    => 'full-width',
-		),
-	),
+	'default'     => 0,
 ));
 
 Flatsome_Option::add_field( 'option', array(
-	'type'        => 'number',
-	'settings'    => 'site_width_boxed',
-	'label'       => __( 'Site width (px)', 'flatsome-admin' ),
+	'type'        => 'text',
+	'settings'    => 'site_width',
+	'label'       => __( 'Site Content Width (px)', 'flatsome-admin' ),
+	'description' => __( 'Set the default width of content containers. (Header, Rows etc.)', 'flatsome-admin' ),
+	'tooltip'     => __( 'Use a numeric value without the px unit suffix.', 'flatsome-admin' ),
 	'section'     => 'layout',
 	'transport'   => 'postMessage',
-	'default'     => '1170',
-	'active_callback' => array(
-		array(
-			'setting'  => 'body_layout',
-			'operator' => '!==',
-			'value'    => 'full-width',
-		),
-	),
-	'choices'     => [
-		'min'  => 560,
-		'max'  => 4000,
-		'step' => 10,
-	],
-));
+) );
+
+Flatsome_Option::add_field( 'option', array(
+	'type'        => 'text',
+	'settings'    => 'site_width_boxed',
+	'label'       => __( 'Site Boxed/Framed Width (px)', 'flatsome-admin' ),
+	'tooltip'     => __( 'Use a numeric value without the px unit suffix.', 'flatsome-admin' ),
+	'section'     => 'layout',
+	'transport'   => 'postMessage',
+) );
 
 Flatsome_Option::add_field( 'option',  array(
- 	'type'        => 'color',
-  'settings'     => 'body_bg',
-  'label'       => __( 'Background Color', 'flatsome-admin' ),
-  'section'     => 'layout',
+    'type'        => 'color',
+    'settings'     => 'body_bg',
+    'label'       => __( 'Background Color', 'flatsome-admin' ),
+    'section'     => 'layout',
 	'default'     => "",
 	'transport' => 'postMessage',
-	'active_callback' => array(
-		array(
-			'setting'  => 'body_layout',
-			'operator' => '!==',
-			'value'    => 'full-width',
-		),
-	),
 ));
 
 
@@ -85,13 +70,6 @@ Flatsome_Option::add_field( 'option',  array(
     'section'     => 'layout',
 	'default'     => "",
 	'transport' => 'postMessage',
-	'active_callback' => array(
-		array(
-			'setting'  => 'body_layout',
-			'operator' => '!==',
-			'value'    => 'full-width',
-		),
-	),
 ));
 
 
@@ -106,34 +84,8 @@ Flatsome_Option::add_field( 'option', array(
 		'bg-full-size' => __( 'Full Size', 'flatsome-admin' ),
 		'bg-tiled' => __( 'Tiled', 'flatsome-admin' ),
 	),
-	'active_callback' => array(
-		array(
-			'setting'  => 'body_layout',
-			'operator' => '!==',
-			'value'    => 'full-width',
-		),
-		array(
-			'setting'  => 'body_bg_image',
-			'operator' => '!==',
-			'value'    => '',
-		),
-	),
 ));
 
-Flatsome_Option::add_field( 'option', array(
-	'type'        => 'number',
-	'settings'    => 'site_width',
-	'label'       => __( 'Container width (px)', 'flatsome-admin' ),
-	'description' => __( 'Set the default width of content containers. (Header, Rows etc.)', 'flatsome-admin' ),
-	'section'     => 'layout',
-	'transport'   => 'postMessage',
-	'default'     => '1080',
-	'choices'     => [
-		'min'  => 560,
-		'max'  => 4000,
-		'step' => 10,
-	],
-) );
 
 Flatsome_Option::add_field( 'option', array(
 	'type'        => 'radio-image',

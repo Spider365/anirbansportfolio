@@ -25,7 +25,7 @@ if ( ! function_exists( 'flatsome_woocommerce_add_notice' ) ) {
 	 */
 	function flatsome_woocommerce_add_notice() {
 		if ( is_woocommerce_activated() && ! is_cart() ) {
-			if ( function_exists( 'wc_print_notices' ) ) wc_print_notices();
+			wc_print_notices();
 		}
 	}
 }
@@ -285,53 +285,26 @@ function flatsome_pages_in_search_results(){
 }
 add_action('woocommerce_after_main_content','flatsome_pages_in_search_results', 10);
 
-function flatsome_new_flash( $html, $post, $product, $badge_style ) {
-	if ( ! get_theme_mod( 'new_bubble_auto' ) ) {
-		return $html;
-	}
 
-	$datetime_created = $product->get_date_created();
-
-	if ( ! $datetime_created ) {
-		return $html;
-	}
-
-	$timestamp_created = $datetime_created->getTimestamp();
-	$datetime_now      = new WC_DateTime();
-	$timestamp_now     = $datetime_now->getTimestamp();
-	$time_delta        = $timestamp_now - $timestamp_created;
-	$days              = (int) get_theme_mod( 'new_bubble_auto' );
-	$days_in_seconds   = 60 * 24 * 60 * $days;
-
-	if ( $time_delta < $days_in_seconds ) {
-		$html .= apply_filters( 'flatsome_new_flash_html', '<div class="badge callout badge-' . $badge_style . '"><div class="badge-inner is-small new-bubble-auto">' . esc_html__( 'New', 'flatsome' ) . '</div></div>', $post, $product, $badge_style );
-	}
-
-	return $html;
-}
-
-add_filter( 'flatsome_product_labels', 'flatsome_new_flash', 20, 4 );
 
 /**
  * Calculates discount percentage for the product sale bubble for
  * simple, variable or external product types. Returns base bubble text
  * with or without formatting otherwise.
  *
- * @param WC_Product $product Product object.
- * @param string     $text    Default text.
+* @param $product
  *
- * @return string
+* @return string
  */
-function flatsome_presentage_bubble( $product, $text ) {
+function flatsome_presentage_bubble( $product ) {
 	$post_id = $product->get_id();
 
-	if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) || $product->is_type( 'variation' ) ) {
+	if ( $product->is_type( 'simple' ) || $product->is_type( 'external' ) ) {
 		$regular_price  = $product->get_regular_price();
 		$sale_price     = $product->get_sale_price();
 		$bubble_content = round( ( ( floatval( $regular_price ) - floatval( $sale_price ) ) / floatval( $regular_price ) ) * 100 );
 	} elseif ( $product->is_type( 'variable' ) ) {
-		$bubble_content = flatsome_percentage_get_cache( $post_id );
-		if ( $bubble_content && apply_filters( 'flatsome_sale_bubble_percentage_cache_enabled', true ) ) {
+		if ( $bubble_content = flatsome_percentage_get_cache( $post_id ) ) {
 			return flatsome_percentage_format( $bubble_content );
 		}
 
@@ -355,12 +328,12 @@ function flatsome_presentage_bubble( $product, $text ) {
 		$bubble_content = sprintf( __( '%s', 'woocommerce' ), $maximumper );
 
 		// Cache percentage for variable products to reduce database queries.
-		if ( apply_filters( 'flatsome_sale_bubble_percentage_cache_enabled', true ) ) {
-			flatsome_percentage_set_cache( $post_id, $bubble_content );
-		}
+		flatsome_percentage_set_cache( $post_id, $bubble_content );
 	} else {
-		// Return default if the product type doesn't meet specification.
-		return $text;
+		// Set default and return if the product type doesn't meet specification.
+		$bubble_content = __( 'Sale!', 'woocommerce' );
+
+		return $bubble_content;
 	}
 
 	return flatsome_percentage_format( $bubble_content );
@@ -411,16 +384,15 @@ function flatsome_account_login_lightbox(){
   if ( !is_user_logged_in() && get_theme_mod('account_login_style','lightbox') == 'lightbox' && !is_checkout() && !is_account_page() ) {
     $is_facebook_login = is_nextend_facebook_login();
     $is_google_login = is_nextend_google_login();
-    $layout = get_theme_mod( 'account_login_lightbox_layout' );
 
-	if ( empty( $layout ) && 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
+	if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
 		wp_enqueue_script( 'wc-password-strength-meter' );
 	}
 
     ?>
     <div id="login-form-popup" class="lightbox-content mfp-hide">
       <?php if(get_theme_mod('social_login_pos','top') == 'top' && ($is_facebook_login || $is_google_login)) wc_get_template('myaccount/header.php'); ?>
-      <?php wc_get_template_part('myaccount/form-login', $layout ); ?>
+      <?php wc_get_template_part('myaccount/form-login'); ?>
       <?php if(get_theme_mod('social_login_pos','top') == 'bottom' && ($is_facebook_login || $is_google_login)) wc_get_template('myaccount/header.php'); ?>
     </div>
   <?php }
@@ -583,7 +555,6 @@ function flatsome_get_payment_icons_list() {
 		'truste'          => __( 'Truste', 'flatsome-admin' ),
 		'twint'           => __( 'Twint', 'flatsome-admin' ),
 		'unionpay'        => __( 'UnionPay', 'flatsome-admin' ),
-		'venmo'           => __( 'Venmo', 'flatsome-admin' ),
 		'verisign'        => __( 'VeriSign', 'flatsome-admin' ),
 		'vipps'           => __( 'Vipps', 'flatsome-admin' ),
 		'visa'            => __( 'Visa', 'flatsome-admin' ),
@@ -592,19 +563,4 @@ function flatsome_get_payment_icons_list() {
 		'westernunion'    => __( 'Western Union', 'flatsome-admin' ),
 		'wirecard'        => __( 'Wirecard', 'flatsome-admin' ),
 	) );
-}
-
-if ( flatsome_is_mini_cart_reveal() ) {
-	/**
-	* Adds a span tag with the "added-to-cart" class to Add to Cart notice to trigger auto reveal mini cart.
-	*
-	* @param  string $message    Default WooCommerce added to cart notice.
-	* @param  int    $product_id Product id.
-	* @return string             The modified message.
-	*/
-	add_filter( 'wc_add_to_cart_message_html', function ( $message ) {
-		$message .= '<span class="added-to-cart" data-timer=""></span>';
-
-		return $message;
-	});
 }

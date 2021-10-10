@@ -8,7 +8,7 @@ Flatsome_Option::add_section( 'blog-global', array(
 Flatsome_Option::add_field( 'option', array(
 	'type'     => 'checkbox',
 	'settings' => 'blog_badge',
-	'label'    => __( 'Show Date Box', 'flatsome-admin' ),
+	'label'    => __( 'Show Date Box', 'flatsome-admin' ) . ' (NEW)',
 	'section'  => 'blog-global',
 	'default'  => 1,
 ) );

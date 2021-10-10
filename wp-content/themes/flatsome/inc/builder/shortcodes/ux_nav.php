@@ -2,7 +2,7 @@
 
 add_ux_builder_shortcode( 'ux_nav', array(
   'name' => __( 'Navigation','ux-builder'),
-  'category'  => __( 'Content', 'flatsome' ),
+  'category' => __( 'Layout' ),
   'thumbnail' =>  flatsome_ux_builder_thumbnail( 'nav' ),
   'options' => array(
      'parent' => array(

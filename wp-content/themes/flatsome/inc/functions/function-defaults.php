@@ -126,7 +126,7 @@ if(!function_exists('flatsome_defaults')){
       'product_sidebar_width' => '2',
       'blog_show_excerpt' => 1,
       'wc_account_links' => 1,
-      'footer_left_text' => 'Copyright [ux_current_year] &copy; <strong>Flatsome Theme</strong>',
+      'footer_left_text' => 'Copyright [ux_current_year] &copy; <strong>UX Themes</strong>', // Sanitaize
       'product_upsell' => 'sidebar',
       'footer_1_columns' => '4',
       'footer_2_columns' => '4',

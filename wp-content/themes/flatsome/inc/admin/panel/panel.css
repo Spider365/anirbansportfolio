@@ -4,15 +4,12 @@ li.toplevel_page_flatsome-panel img{
 	padding-top: 4px!important;
 }
 
-.panel.flatsome-panel {
-  margin-left: -10px;
-  margin-right: -10px;
-}
-
 .flatsome-panel .about-wrap .nav-tab{
   font-size: 14px;
   margin-right: 5px;
   margin-left: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   line-height: 2;
 }
 
@@ -46,8 +43,3 @@ li.toplevel_page_flatsome-panel img{
 }
 .flatsome-panel .inner-panel.success{border-color: green!important; opacity: .6}
 .flatsome-panel .inner-panel.success h5{color: green!important;}
-
-.flatsome-token-migrator__selector {
-	display: flex;
-	align-items: center;
-}

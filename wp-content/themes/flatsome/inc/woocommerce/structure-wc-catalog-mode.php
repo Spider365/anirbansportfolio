@@ -51,6 +51,3 @@ if(flatsome_option('catalog_mode_prices')) remove_action( 'woocommerce_single_pr
 
 /* Remove prices from lightbox */
 if(flatsome_option('catalog_mode_prices')) remove_action( 'woocommerce_single_product_lightbox_summary', 'woocommerce_template_single_price', 10 );
-
-/* Remove sale badges */
-if( get_theme_mod( 'catalog_mode_sale_badge', 0 )) add_filter( 'woocommerce_sale_flash', '__return_false' );

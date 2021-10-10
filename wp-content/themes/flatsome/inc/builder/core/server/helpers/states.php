@@ -17,10 +17,6 @@ function ux_builder_mode() {
  * @return  boolean
  */
 function ux_builder_is_active() {
-  if ( defined( 'FLATSOME_TESTSUITE' ) ) {
-    return true;
-  }
-
   return (
     ux_builder_is_iframe() ||
     ux_builder_is_editor() ||

@@ -5,7 +5,7 @@
 }
 .tooltip-wrapper .tooltip-trigger {
   text-decoration: none;
-  cursor: pointer;
+  cursor: help;
 }
 .tooltip-wrapper .tooltip-content {
   position: absolute;
@@ -13,23 +13,23 @@
   height: auto;
   top: -10px;
   left: -225px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  background: #FFC107;
+  color: #000;
   padding: 10px;
   z-index: 99999;
   border-radius: 3px;
   line-height: 1.4em;
 }
 .tooltip-wrapper .tooltip-content a {
-  color: #fff;
+  color: #000;
 }
 .tooltip-wrapper .tooltip-content:after {
   content: "";
   font-family: dashicons;
   position: absolute;
-  right: -11px;
+  right: -12px;
   top: 11px;
-  color: rgba(0, 0, 0, 0.8);
+  color: #FFC107;
   font-size: 20px;
 }
 

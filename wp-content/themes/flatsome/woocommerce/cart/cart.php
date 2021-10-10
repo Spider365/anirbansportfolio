@@ -172,7 +172,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<button type="submit" class="button primary mt-0 pull-left small" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 
-					<?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+					<?php fl_woocommerce_version_check( '3.4.0' ) ? wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ) : wp_nonce_field( 'woocommerce-cart' ); ?>
 				</td>
 			</tr>
 
@@ -187,7 +187,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 <?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 
 <div class="cart-collaterals large-5 col pb-0">
-	<?php flatsome_sticky_column_open( 'cart_sticky_sidebar' ); ?>
+	<?php if ( get_theme_mod( 'cart_sticky_sidebar' ) ) { ?>
+	<div class="is-sticky-column">
+		<div class="is-sticky-column__inner">
+	<?php } ?>
 
 	<div class="cart-sidebar col-inner <?php echo $sidebar_classes; ?>">
 		<?php
@@ -209,8 +212,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<?php } ?>
 		<?php do_action( 'flatsome_cart_sidebar' ); ?>
 	</div>
-
-	<?php flatsome_sticky_column_close( 'cart_sticky_sidebar' ); ?>
+<?php if ( get_theme_mod( 'cart_sticky_sidebar' ) ) { ?>
+	</div>
+	</div>
+<?php } ?>
 </div>
 </div>
 

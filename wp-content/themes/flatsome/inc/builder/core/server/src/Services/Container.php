@@ -96,18 +96,9 @@ class Container {
     $args = array();
 
     foreach ( $parameters as $param ) {
-      $param_class = null;
       $value = null;
 
-      if ( PHP_VERSION_ID >= 70100 ) {
-        $param_class = $param->getType() && ! $param->getType()->isBuiltin()
-          ? new ReflectionClass( $param->getType()->getName() )
-          : null;
-      } else {
-        $param_class = $param->getClass(); // PHP < 7.1.
-      }
-
-      if( $class = $param_class ) {
+      if( $class = $param->getClass() ) {
         $value = $this->resolve( $class->name ) ?: $this->create( $class->name );
       }
 
