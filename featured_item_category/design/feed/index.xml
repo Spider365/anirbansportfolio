@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Design &#8211; Anirban&#039;s Portfolio</title>
+	<atom:link href="https://spider365.github.io/anirbansportfolio/featured_item_category/design/feed/" rel="self" type="application/rss+xml" />
+	<link>https://spider365.github.io/anirbansportfolio</link>
+	<description>Just another WordPress site</description>
+	<lastBuildDate>Sun, 28 Aug 2016 09:38:06 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>Another Print Package</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/another-print-package/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/another-print-package/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:38:06 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8919</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/another-print-package/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>FL3 Print Package</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/fl3-print-package/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/fl3-print-package/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:36:46 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8917</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></description>
+										<content:encoded><![CDATA[<div class="slider-wrapper relative" id="slider-1284848146" >
+    <div class="slider slider-nav-circle slider-nav-large slider-nav-light slider-style-normal"
+        data-flickity-options='{
+            "cellAlign": "center",
+            "imagesLoaded": true,
+            "lazyLoad": 1,
+            "freeScroll": false,
+            "wrapAround": true,
+            "autoPlay": 6000,
+            "pauseAutoPlayOnHover" : true,
+            "prevNextButtons": true,
+            "contain" : true,
+            "adaptiveHeight" : true,
+            "dragThreshold" : 10,
+            "percentPosition": true,
+            "pageDots": true,
+            "rightToLeft": false,
+            "draggable": true,
+            "selectedAttraction": 0.1,
+            "parallax" : 0,
+            "friction": 0.6        }'
+        >
+        
+	<div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1223054230">
+								<div class="img-inner dark" >
+			<img width="400" height="260" src="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg" class="attachment-large size-large" alt="" loading="lazy" srcset="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg 400w, https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1-300x195.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" />						
+					</div>
+								
+<style>
+#image_1223054230 {
+  width: 100%;
+}
+</style>
+	</div>
+	
+	<div class="img has-hover x md-x lg-x y md-y lg-y" id="image_2027439396">
+								<div class="img-inner dark" >
+			<img width="400" height="260" src="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg" class="attachment-large size-large" alt="" loading="lazy" srcset="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg 400w, https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1-300x195.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" />						
+					</div>
+								
+<style>
+#image_2027439396 {
+  width: 100%;
+}
+</style>
+	</div>
+	
+	<div class="img has-hover x md-x lg-x y md-y lg-y" id="image_1110165053">
+								<div class="img-inner dark" >
+			<img width="400" height="260" src="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg" class="attachment-large size-large" alt="" loading="lazy" srcset="https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1.jpg 400w, https://spider365.github.io/anirbansportfolio/wp-content/uploads/2016/08/dummy-1-300x195.jpg 300w" sizes="(max-width: 400px) 100vw, 400px" />						
+					</div>
+								
+<style>
+#image_1110165053 {
+  width: 100%;
+}
+</style>
+	</div>
+	
+     </div>
+
+     <div class="loading-spin dark large centered"></div>
+
+     	
+<style>
+#slider-1284848146 {
+  margin-bottom: 13px;
+}
+</style>
+</div>
+
+
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/fl3-print-package/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Awesome Pencil Poster</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/awesome-pencil-poster/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/awesome-pencil-poster/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:35:26 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8915</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/awesome-pencil-poster/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Portfolio typography</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/portfolio-typography/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/portfolio-typography/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:29:58 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8913</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/portfolio-typography/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Flatsome Poster Print</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/flatsome-poster-print/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/flatsome-poster-print/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:25:23 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8909</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></description>
+										<content:encoded><![CDATA[<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/flatsome-poster-print/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Magazine</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/magazine/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/magazine/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:22:57 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8890</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/magazine/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

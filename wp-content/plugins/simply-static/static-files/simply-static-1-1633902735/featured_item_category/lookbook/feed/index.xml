@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Lookbook &#8211; Anirban&#039;s Portfolio</title>
+	<atom:link href="https://spider365.github.io/anirbansportfolio/featured_item_category/lookbook/feed/" rel="self" type="application/rss+xml" />
+	<link>https://spider365.github.io/anirbansportfolio</link>
+	<description>Just another WordPress site</description>
+	<lastBuildDate>Sun, 28 Aug 2016 09:39:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>Lookbook Summer</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/lookbook-summer/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/lookbook-summer/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 09:39:54 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8922</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/lookbook-summer/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Flat T-Shirt Company</title>
+		<link>https://spider365.github.io/anirbansportfolio/featured_item/flat-t-shirt-company/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/featured_item/flat-t-shirt-company/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Sun, 28 Aug 2016 08:57:59 +0000</pubDate>
+				<guid isPermaLink="false">http://flatsome.dev/?post_type=featured_item&#038;p=8887</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></description>
+										<content:encoded><![CDATA[Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/featured_item/flat-t-shirt-company/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

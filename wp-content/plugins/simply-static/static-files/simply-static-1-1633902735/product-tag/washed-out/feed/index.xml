@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>washed-out &#8211; Anirban&#039;s Portfolio</title>
+	<atom:link href="https://spider365.github.io/anirbansportfolio/product-tag/washed-out/feed/" rel="self" type="application/rss+xml" />
+	<link>https://spider365.github.io/anirbansportfolio</link>
+	<description>Just another WordPress site</description>
+	<lastBuildDate>Mon, 09 Jun 2014 21:48:15 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.8.1</generator>
+	<item>
+		<title>Lucy Slim Jeans Noisy May</title>
+		<link>https://spider365.github.io/anirbansportfolio/product/lucy-slim-jeans-nok-379-noisy-may/</link>
+					<comments>https://spider365.github.io/anirbansportfolio/product/lucy-slim-jeans-nok-379-noisy-may/#respond</comments>
+		
+		<dc:creator><![CDATA[Anirban]]></dc:creator>
+		<pubDate>Mon, 09 Jun 2014 21:48:15 +0000</pubDate>
+				<guid isPermaLink="false">http://uxthemes.wpengine.com/?post_type=product&#038;p=229</guid>
+
+					<description><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel pulvinar diam vulputate quis ,vel pulvinar diam vulputate quis. Donec porttitor volutpat rutrum.  Vulputate quis. Donec porttitor volutpat rutrum. Donec porttitor volutpat rutrum.  Vulputate quis.]]></description>
+										<content:encoded><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum pretium turpis, vel pulvinar diam vulputate quis. Donec porttitor volutpat rutrum. Suspendisse suscipit arcu velit, in rutrum est molestie in.</p>
+<p>Suspendisse suscipit arcu velit, in rutrum est molestie in. Proin convallis scelerisque facilisis. Integer vestibulum mollis felis eu mollis.  Suspendisse suscipit arcu velit, in rutrum est molestie in. Proin convallis scelerisque facilisis. Integer vestibulum mollis felis eu mollis.</p>
+<p>Buy: Hirise Skinny 199700022 NOK 1195, Levis &#8211; NELLY.COM</p>
+<p>Suspendisse suscipit arcu velit, in rutrum est molestie in. Proin convallis scelerisque facilisis. Integer vestibulum mollis felis eu mollis.</p>
+<p> </p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://spider365.github.io/anirbansportfolio/product/lucy-slim-jeans-nok-379-noisy-may/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
