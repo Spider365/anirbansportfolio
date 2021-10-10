@@ -100,7 +100,7 @@ function ux_image_box( $atts, $content = null ) {
 
 		<div class="box-text <?php echo implode( ' ', $classes_text ); ?>" <?php echo get_shortcode_inline_css( $css_args ); ?>>
 			<div class="box-text-inner">
-				<?php echo flatsome_contentfix( $content ); ?>
+				<?php echo do_shortcode( $content ); ?>
 			</div>
 		</div>
 	</div>

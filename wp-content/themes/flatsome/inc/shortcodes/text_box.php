@@ -94,10 +94,10 @@ function flatsome_text_box( $atts, $content = null ){
        <?php if($hover) echo '<div class="hover-'.$hover.'">'; ?>
        <?php if($parallax) echo '<div '.$parallax.'>'; ?>
        <?php if($animate) echo '<div data-animate="'.$animate.'">'; ?>
-           <div class="text <?php echo $classes_inner; ?>">
+           <div class="text-box-content text <?php echo $classes_inner; ?>">
               <?php require( __DIR__ . '/commons/border.php' ) ;?>
               <div class="<?php echo $classes_text; ?>">
-                  <?php echo flatsome_contentfix($content); ?>
+                  <?php echo do_shortcode( $content ); ?>
               </div>
            </div>
        <?php if($animate) echo '</div>'; ?>
@@ -110,7 +110,7 @@ function flatsome_text_box( $atts, $content = null ){
               'property' => 'margin',
             ),
             'bg' => array(
-              'selector' => '.text',
+              'selector' => '.text-box-content',
               'property' => 'background-color',
             ),
             'padding' => array(
@@ -118,7 +118,7 @@ function flatsome_text_box( $atts, $content = null ){
               'property' => 'padding',
             ),
             'radius' => array(
-              'selector' => '.text',
+              'selector' => '.text-box-content',
               'property' => 'border-radius',
               'unit' => 'px',
             ),
@@ -133,12 +133,12 @@ function flatsome_text_box( $atts, $content = null ){
               'unit' => '%',
             ),
             'scale' => array(
-              'selector' => '.text',
+              'selector' => '.text-box-content',
               'property' => 'font-size',
               'unit' => '%',
             ),
             'rotate' => array(
-              'selector' => '.text',
+              'selector' => '.text-box-content',
               'property' => 'rotate',
               'unit' => 'deg',
             ),

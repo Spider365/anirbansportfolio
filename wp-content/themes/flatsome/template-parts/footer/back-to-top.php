@@ -12,4 +12,4 @@ if ( $shape === 'circle' ) {
 $classes = implode( ' ', array_filter( $classes ) );
 ?>
 
-<a href="#top" class="<?php echo $classes; ?>" id="top-link"><?php echo get_flatsome_icon( 'icon-angle-up' ); ?></a>
+<a href="#top" class="<?php echo $classes; ?>" id="top-link" aria-label="<?php esc_attr_e('Go to top', 'flatsome' ); ?>"><?php echo get_flatsome_icon( 'icon-angle-up' ); ?></a>

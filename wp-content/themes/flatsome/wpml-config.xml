@@ -11,6 +11,8 @@
 	<admin-texts>
 		<key name="theme_mods_flatsome">
 			<key name="404_block"/>
+			<key name="account_login_lightbox_side_panel_bg_image"/>
+			<key name="account_login_lightbox_side_panel_block"/>
 			<key name="blog_after_post" />
 			<key name="blog_header" />
 			<key name="catalog_mode_header" />
@@ -18,6 +20,7 @@
 			<key name="catalog_mode_product" />
 			<key name="category_filter_text"/>
 			<key name="contact_hours_details"/>
+			<key name="cookie_notice_text" />
 			<key name="featured_items_page" />
 			<key name="footer_left_text" />
 			<key name="footer_right_text" />
@@ -36,6 +39,8 @@
 			<key name="html_cart_sidebar"/>
 			<key name="html_checkout_sidebar"/>
 			<key name="html_intro" />
+			<key name="html_scripts_after_body" />
+			<key name="html_scripts_before_body" />
 			<key name="html_scripts_footer" />
 			<key name="html_scripts_header" />
 			<key name="html_shop_page" />
@@ -44,6 +49,7 @@
 			<key name="maintenance_mode_text"/>
 			<key name="nav_position_text" />
 			<key name="nav_position_text_top" />
+			<key name="privacy_policy_page" />
 			<key name="sale_bubble_percentage_formatting"/>
 			<key name="sale_bubble_text"/>
 			<key name="search_placeholder"/>
@@ -88,7 +94,7 @@
 			<tag>button</tag>
 			<attributes>
 				<attribute>text</attribute>
-				<attribute>link</attribute>
+				<attribute type="link">link</attribute>
 				<attribute>tooltip</attribute>
 			</attributes>
 		</shortcode>
@@ -97,6 +103,8 @@
 			<attributes>
 				<attribute>title</attribute>
 				<attribute>title_small</attribute>
+				<attribute type="media-ids">img</attribute>
+				<attribute type="link">link</attribute>
 				<attribute>tooltip</attribute>
 			</attributes>
 		</shortcode>
@@ -110,7 +118,7 @@
 <!--		<shortcode>-->
 <!--			<tag>ux_portfolio</tag>-->
 <!--			<attributes>-->
-<!--				<attribute>link?</attribute>-->
+<!--				<attribute type="link">link?</attribute>-->
 <!--				<attribute>sub_title?</attribute>-->
 <!--			</attributes>-->
 <!--		</shortcode>-->
@@ -120,7 +128,7 @@
 				<attribute>title</attribute>
 				<attribute>description</attribute>
 				<attribute>button_text</attribute>
-				<attribute>button_link</attribute>
+				<attribute type="link">button_link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
@@ -146,6 +154,68 @@
 			<tag>ux_product_flip</tag>
 			<attributes>
 				<attribute>title</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>row</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>row_inner</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>row_inner_1</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>row_inner_2</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>col</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>col_inner</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>col_inner_1</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>col_inner_2</tag>
+			<attributes>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>section</tag>
+			<attributes>
+				<attribute type="media-ids">bg</attribute>
+				<attribute>label</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>section_inner</tag>
+			<attributes>
+				<attribute type="media-ids">bg</attribute>
+				<attribute>label</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
@@ -183,28 +253,39 @@
 			<tag>team_member</tag>
 			<attributes>
 				<attribute>title</attribute>
-				<attribute>link</attribute>
+				<attribute type="media-ids">img</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>testimonial</tag>
 			<attributes>
-				<attribute>link</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>text_box</tag>
 		</shortcode>
 		<shortcode>
 			<tag>title</tag>
 			<attributes>
 				<attribute>text</attribute>
 				<attribute>sub_text</attribute>
-				<attribute>link</attribute>
+				<attribute type="link">link</attribute>
 				<attribute>link_text</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>ux_banner</tag>
 			<attributes>
-				<attribute>link</attribute>
+				<attribute type="media-ids">bg</attribute>
+				<attribute type="link">link</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>ux_gallery</tag>
+			<attributes>
+				<attribute type="media-ids">ids</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
@@ -216,33 +297,52 @@
 		<shortcode>
 			<tag>ux_image</tag>
 			<attributes>
-				<attribute>link</attribute>
+				<attribute type="media-ids">id</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>ux_image_box</tag>
 			<attributes>
-				<attribute>link</attribute>
+				<attribute type="media-ids">img</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>logo</tag>
 			<attributes>
 				<attribute>title</attribute>
-				<attribute>link</attribute>
+				<attribute type="media-ids">img</attribute>
+				<attribute type="link">link</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>ux_menu</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_menu_title</tag>
+			<attributes>
+				<attribute>text</attribute>
+			</attributes>
+		</shortcode>
+		<shortcode>
+			<tag>ux_menu_link</tag>
+			<attributes>
+				<attribute>text</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>ux_pages</tag>
 			<attributes>
 				<attribute>title</attribute>
-				<attribute>link</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 		<shortcode>
 			<tag>ux_payment_icons</tag>
 			<attributes>
-				<attribute>link</attribute>
+				<attribute type="link">link</attribute>
 			</attributes>
 		</shortcode>
 <!--		<shortcode>-->
@@ -257,6 +357,27 @@
 <!--				<attribute>title?</attribute>-->
 <!--			</attributes>-->
 <!--		</shortcode>-->
+		<shortcode>
+			<tag>ux_stack</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_stack_inner</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_stack_inner_1</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_stack_inner_2</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_text</tag>
+		</shortcode>
+		<shortcode>
+			<tag>ux_video</tag>
+			<attributes>
+				<attribute type="media-url">url</attribute>
+			</attributes>
+		</shortcode>
 	</shortcodes>
 </wpml-config>
 

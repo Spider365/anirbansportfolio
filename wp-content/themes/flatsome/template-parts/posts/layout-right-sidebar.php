@@ -1,11 +1,11 @@
-<?php 
+<?php
 	do_action('flatsome_before_blog');
 ?>
 
 <?php if(!is_single() && flatsome_option('blog_featured') == 'top'){ get_template_part('template-parts/posts/featured-posts'); } ?>
 
 <div class="row row-large <?php if(flatsome_option('blog_layout_divider')) echo 'row-divided ';?>">
-	
+
 	<div class="large-9 col">
 	<?php if(!is_single() && flatsome_option('blog_featured') == 'content'){ get_template_part('template-parts/posts/featured-posts'); } ?>
 	<?php
@@ -20,10 +20,12 @@
 	?>
 	</div>
 	<div class="post-sidebar large-3 col">
+		<?php flatsome_sticky_column_open( 'blog_sticky_sidebar' ); ?>
 		<?php get_sidebar(); ?>
+		<?php flatsome_sticky_column_close( 'blog_sticky_sidebar' ); ?>
 	</div>
 </div>
 
-<?php 
+<?php
 	do_action('flatsome_after_blog');
 ?>

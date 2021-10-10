@@ -2,7 +2,7 @@
 
 /* Add Header builder */
 function flatsome_customizer_header_builder(){
-    global $nav_elements;
+    $nav_elements = flatsome_customizer_nav_elements();
     ?>
     <div class="header-builder">
       <h3>

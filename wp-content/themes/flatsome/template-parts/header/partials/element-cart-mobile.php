@@ -1,4 +1,4 @@
-<?php if(is_woocommerce_activated()){ ?>
+<?php if ( is_woocommerce_activated() && flatsome_is_wc_cart_available() ) { ?>
 <?php
   // Get Cart replacement for catalog_mode
   if(flatsome_option('catalog_mode')) { get_template_part('template-parts/header/partials/element','cart-replace'); return;}

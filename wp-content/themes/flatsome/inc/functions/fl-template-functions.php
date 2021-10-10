@@ -25,6 +25,35 @@ function flatsome_breadcrumb( $class = '', $display = true ) {
 }
 
 /**
+ * Outputs the beginning markup of a sticky column.
+ *
+ * Outputs the markup directly if no theme modification name has been
+ * given. Else based on the return value of the mod.
+ *
+ * @param string $name Theme modification name.
+ */
+function flatsome_sticky_column_open( $name = '' ) {
+	if ( empty( $name ) || get_theme_mod( $name ) ) {
+		echo '<div class="is-sticky-column">';
+		echo '<div class="is-sticky-column__inner">';
+	}
+}
+
+/**
+ * Outputs the end markup of a sticky column.
+ *
+ * Outputs the markup directly if no theme modification name has been
+ * given. Else based on the return value of the mod.
+ *
+ * @param string $name Theme modification name.
+ */
+function flatsome_sticky_column_close( $name = '' ) {
+	if ( empty( $name ) || get_theme_mod( $name ) ) {
+		echo '</div></div>';
+	}
+}
+
+/**
  * @deprecated 3.7
  */
 function get_flatsome_breadcrumbs() {

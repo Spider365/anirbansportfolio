@@ -18,7 +18,7 @@
       this.bindEvents()
     },
     addEditButton: function () {
-      this.headerToolbar = document.querySelector('.block-editor .edit-post-header-toolbar')
+      this.headerToolbar = document.querySelector('.block-editor .edit-post-header__toolbar')
 
       if (!this.headerToolbar) return
       this.headerToolbar.insertAdjacentHTML('beforeend',

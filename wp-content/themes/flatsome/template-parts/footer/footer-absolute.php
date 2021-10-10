@@ -38,7 +38,7 @@ $flatsome_footer_right_text = trim( get_theme_mod( 'footer_right_text' ) );
         ?>
       <?php endif; ?>
       <div class="copyright-footer">
-        <?php echo do_shortcode( get_theme_mod( 'footer_left_text', 'Copyright [ux_current_year] &copy; <strong>UX Themes</strong>' ) ); ?>
+        <?php echo do_shortcode( get_theme_mod( 'footer_left_text', 'Copyright [ux_current_year] &copy; <strong>Flatsome Theme</strong>' ) ); ?>
       </div>
       <?php do_action( 'flatsome_absolute_footer_primary' ); ?>
     </div>

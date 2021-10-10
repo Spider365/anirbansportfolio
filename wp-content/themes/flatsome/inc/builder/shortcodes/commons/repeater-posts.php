@@ -26,7 +26,7 @@ return array(
         'type' => 'select',
         'heading' => 'Category',
         'param_name' => 'cat',
-        'conditions' => 'ids === ""',
+        'conditions' => 'ids == ""',
         'default' => '',
         'config' => array(
             'multiple' => true,
@@ -41,15 +41,43 @@ return array(
     $repeater_posts => array(
         'type' => 'textfield',
         'heading' => 'Total Posts',
-        'conditions' => 'ids === ""',
+        'conditions' => 'ids == ""',
         'default' => '8',
     ),
 
     'offset' => array(
         'type' => 'textfield',
         'heading' => 'Offset',
-        'conditions' => 'ids === ""',
+        'conditions' => 'ids == ""',
         'default' => '',
     ),
+
+     'orderby'       => array(
+	     'type'       => 'select',
+	     'heading'    => 'Order by',
+	     'conditions' => 'ids == ""',
+	     'default'    => 'date',
+	     'options'    => array(
+		     'ID'            => 'ID',
+		     'title'         => 'Title',
+		     'name'          => 'Name',
+		     'date'          => 'Published Date',
+		     'modified'      => 'Modified Date',
+		     'rand'          => 'Random',
+		     'comment_count' => 'Comment Count',
+		     'menu_order'    => 'Menu Order',
+	     ),
+     ),
+
+     'order'         => array(
+	     'type'       => 'select',
+	     'heading'    => 'Order',
+	     'conditions' => 'ids == ""',
+	     'default'    => 'DESC',
+	     'options'    => array(
+		     'ASC'  => 'ASC',
+		     'DESC' => 'DESC',
+	     ),
+     ),
   )
 );

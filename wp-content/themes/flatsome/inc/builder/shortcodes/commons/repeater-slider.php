@@ -52,5 +52,14 @@ return array(
         '7000' => '7 sec.',
     )
 ),
+'infinitive'          => array(
+	'type'    => 'select',
+	'heading' => "Infinitive",
+	'default' => '',
+	'options' => array(
+		'false' => 'Disable',
+		''      => 'Enable',
+	),
+),
 )
 );

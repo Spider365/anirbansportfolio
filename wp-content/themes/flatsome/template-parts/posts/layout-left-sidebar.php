@@ -6,7 +6,9 @@
 <div class="row row-large <?php if(get_theme_mod('blog_layout_divider', 1)) echo 'row-divided ';?>">
 
 	<div class="post-sidebar large-3 col">
+		<?php flatsome_sticky_column_open( 'blog_sticky_sidebar' ); ?>
 		<?php get_sidebar(); ?>
+		<?php flatsome_sticky_column_close( 'blog_sticky_sidebar' ); ?>
 	</div>
 
 	<div class="large-9 col medium-col-first">

@@ -21,6 +21,7 @@ jQuery(document).ready(function () {
     hideNav: '.archive .woocommerce-pagination',
     button: '.view-more-button',
     history: flatsome_infinite_scroll.history,
+    historyTitle: true,
     debug: false,
     outlayer: outlayer,
     scrollThreshold: parseInt(flatsome_infinite_scroll.scroll_threshold)
@@ -43,6 +44,7 @@ jQuery(document).ready(function () {
   })
 
   $container.on('append.infiniteScroll', function (event, response, path, items) {
+    jQuery(document).trigger('flatsome-infiniteScroll-append', [response, path, items])
     if (byButton) viewMoreButton.removeClass('loading')
 
     // Fix Safari bug
@@ -52,8 +54,7 @@ jQuery(document).ready(function () {
 
     // Load fragments and init_handling_after_ajax for new items.
     jQuery(document).trigger('yith_wcwl_reload_fragments')
-    // Trigger resize for product box equalizer.
-    window.dispatchEvent(new Event('resize'))
+    jQuery(document).trigger('flatsome-equalize-box')
 
     Flatsome.attach('lazy-load-images', container)
     flatsomeInfiniteScroll.animateNewItems(items)

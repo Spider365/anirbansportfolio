@@ -15,6 +15,8 @@ function flatsome_integration_uri() {
 	return get_template_directory_uri() . '/inc/integrations';
 }
 
+global $integrations_url;
+global $integrations_uri;
 $integrations_url = get_template_directory() . '/inc/integrations';
 $integrations_uri = get_template_directory_uri() . '/inc/integrations';
 
@@ -58,6 +60,16 @@ if ( function_exists( 'get_rocket_option' ) && ! is_admin() ) {
 // Sensei Integration.
 if ( class_exists( 'Sensei_Main' ) ) {
 	require $integrations_url . '/sensei/sensei.php';
+}
+
+// Yoast Integration.
+if ( class_exists( 'WPSEO_Frontend' ) ) {
+	require $integrations_url . '/wp-seo/class-wp-seo.php';
+}
+
+// Rank Math Integration.
+if ( class_exists( 'RankMath' ) ) {
+	require $integrations_url . '/rank-math/class-rank-math.php';
 }
 
 // WooCommerce Integrations.
@@ -104,11 +116,6 @@ if ( is_woocommerce_activated() ) {
 	// Add Composite products integration.
 	if ( class_exists( 'WC_Composite_Products' ) ) {
 		require $integrations_url . '/wc-composite-products/composite-products.php';
-	}
-
-	// Yoast Integration.
-	if ( class_exists( 'WPSEO_Frontend' ) ) {
-		require $integrations_url . '/wp-seo/class-wp-seo.php';
 	}
 
 	// WooCommerce Ajax Navigation.

@@ -103,8 +103,10 @@ if(get_theme_mod('product_zoom', 0)){
   $thumb_cell_align = "left";
 
   if ( $attachment_ids ) {
-    $loop     = 0;
-    $gallery_class = array('product-thumbnails','thumbnails');
+	  $loop              = 0;
+	  $image_size        = 'gallery_thumbnail';
+	  $gallery_class     = array( 'product-thumbnails', 'thumbnails' );
+	  $gallery_thumbnail = wc_get_image_size( apply_filters( 'woocommerce_gallery_thumbnail_size', 'woocommerce_' . $image_size ) );
 
     if($thumb_count <= 5){
       $gallery_class[] = 'slider-no-arrows';
@@ -130,10 +132,8 @@ if(get_theme_mod('product_zoom', 0)){
             }'
       ><?php
 
-       if ( has_post_thumbnail() ) : ?>
-      <?php
-        $image_size = 'gallery_thumbnail';
-        $gallery_thumbnail = wc_get_image_size( $image_size ); ?>
+       if ( has_post_thumbnail() ) :
+		   ?>
         <div class="col is-nav-selected first">
           <a>
             <?php

@@ -37,7 +37,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'settings'     => 'header_height',
 	'label'       => __( 'Height', 'flatsome-admin' ),
 	'section'     => 'main_bar',
-	'default'     => 100,
+	'default'     => 90,
 	'choices'     => array(
 		'min'  => 30,
 		'max'  => 500,
@@ -64,7 +64,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'color-alpha',
     'alpha' => true,
     'settings'     => 'header_bg',
-    'label'       => __( 'Background Color', 'flatsome-admin' ), 
+    'label'       => __( 'Background Color', 'flatsome-admin' ),
     'section'     => 'main_bar',
 	'default'     => 'rgba(255,255,255,0.9)',
 	'transport' => 'postMessage'
@@ -86,15 +86,17 @@ Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'radio-buttonset',
 	'settings'     => 'header_bg_img_repeat',
 	'label'       => __( 'Background Repeat', 'flatsome-admin' ),
-	//'description' => __( 'This is the control description', 'flatsome-admin' ),
-	//'help'        => __( 'This is some extra help. You can use this to add some additional instructions for users. The main description should go in the "description" of the field, this is only to be used for help tips.', 'flatsome-admin' ),
 	'section'     => 'main_bar',
 	'default'     => 'repeat',
 	'choices'     => $bg_repeat,
 	'transport' => 'postMessage',
-	'required'  => array(
-        array( 'settings'  => 'header_bg_img', 'operator' => '==', 'value' => true),
-    ),
+	'active_callback' => array(
+		array(
+			'setting'  => 'header_bg_img',
+			'operator' => '!==',
+			'value'    => '',
+		),
+	),
 ));
 
 Flatsome_Option::add_field( 'option',  array(
@@ -175,6 +177,14 @@ Flatsome_Option::add_field( 'option',  array(
 		'default'     => 1,
 ));
 
+Flatsome_Option::add_field( 'option', array(
+	'type'     => 'checkbox',
+	'settings' => 'nav_body_overlay',
+	'label'    => __( 'Add overlay on hover', 'flatsome-admin' ),
+	'section'  => 'main_bar',
+	'default'  => 0,
+) );
+
 
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'slider',
@@ -184,7 +194,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'default' => 16,
 	'choices'     => array(
 		'min'  => 0,
-		'max'  => 100,
+		'max'  => 500,
 		'step' => 1
 	),
 	'transport' => 'postMessage',
@@ -215,7 +225,7 @@ Flatsome_Option::add_field( 'option',  array(
 Flatsome_Option::add_field( 'option',  array(
     'type'        => 'color',
     'settings'     => 'type_nav_color_hover',
-    'label'       => __( 'Nav Color:hover', 'flatsome-admin' ),
+    'label'       => __( 'Nav Color :hover', 'flatsome-admin' ),
 	'section'     => 'main_bar',
     'transport' => $transport
 ));
@@ -224,7 +234,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'color-alpha',
     'alpha' => true,
     'settings'     => 'header_icons_color',
-    'label'       => __( 'Icons Color', 'flatsome-admin' ), 
+    'label'       => __( 'Icons Color', 'flatsome-admin' ),
     'section'     => 'main_bar',
 	'default'     => '',
 	'transport' => $transport
@@ -234,7 +244,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'color-alpha',
     'alpha' => true,
     'settings'     => 'header_icons_color_hover',
-    'label'       => __( 'Icons Color :hover', 'flatsome-admin' ), 
+    'label'       => __( 'Icons Color :hover', 'flatsome-admin' ),
     'section'     => 'main_bar',
 	'default'     => '',
 	'transport' => $transport
@@ -256,7 +266,7 @@ Flatsome_Option::add_field( 'option',  array(
 	'settings'     => 'header_height_transparent',
 	'label'       => __( 'Height - Transparent Header', 'flatsome-admin' ),
 	'section'     => 'main_bar',
-	'default'     => '',
+	'default'     => 90,
 	'transport' => 'postMessage',
 	'choices'     => array(
 		'min'  => 30,

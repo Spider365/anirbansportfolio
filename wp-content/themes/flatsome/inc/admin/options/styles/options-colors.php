@@ -112,7 +112,7 @@ Flatsome_Option::add_field( 'option', array(
 Flatsome_Option::add_field( 'option', array(
 	'type'      => 'color',
 	'settings'  => 'color_links_hover',
-	'label'     => __( 'Link Colors:hover', 'flatsome-admin' ),
+	'label'     => __( 'Link Colors :hover', 'flatsome-admin' ),
 	'section'   => 'colors',
 	'default'   => '#111',
 	'transport' => $transport,
@@ -130,7 +130,7 @@ Flatsome_Option::add_field( 'option', array(
 Flatsome_Option::add_field( 'option', array(
 	'type'      => 'color',
 	'settings'  => 'color_widget_links_hover',
-	'label'     => __( 'Widget Link Colors:Hover', 'flatsome-admin' ),
+	'label'     => __( 'Widget Link Colors :hover', 'flatsome-admin' ),
 	'section'   => 'colors',
 	'default'   => '',
 	'transport' => $transport,
@@ -165,9 +165,18 @@ if ( is_woocommerce_activated() ) {
 
 	Flatsome_Option::add_field( 'option', array(
 		'type'        => 'color',
+		'settings'    => 'color_new_bubble_auto',
+		'label'       => __( 'New bubble (auto)', 'flatsome-admin' ),
+		'description' => __( 'Change color of the automatic "New" bubble.', 'flatsome-admin' ),
+		'section'     => 'colors',
+		'transport'   => $transport,
+	) );
+
+	Flatsome_Option::add_field( 'option', array(
+		'type'        => 'color',
 		'settings'    => 'color_new_bubble',
-		'label'       => __( 'New bubble', 'flatsome-admin' ),
-		'description' => __( 'Change color of the "New" bubble.', 'flatsome-admin' ),
+		'label'       => __( 'Custom bubble', 'flatsome-admin' ),
+		'description' => __( 'Change color of the custom bubble.', 'flatsome-admin' ),
 		'section'     => 'colors',
 		'transport'   => $transport,
 	) );

@@ -29,7 +29,11 @@ if ( ! class_exists( 'Flatsome_Customizer_Reset' ) ) {
     }
 
     public function customize_controls_print_scripts() {
-      wp_enqueue_script( 'flatsome-customizer-reset',  get_template_directory_uri() . '/inc/admin/customizer/js/customizer-reset.js');
+      $uri     = get_template_directory_uri();
+      $theme   = wp_get_theme( get_template() );
+      $version = $theme->get( 'Version' );
+
+      wp_enqueue_script( 'flatsome-customizer-reset', $uri . '/inc/admin/customizer/js/customizer-reset.js', array(), $version, true );
       wp_localize_script( 'flatsome-customizer-reset', '_FlatsomeCustomizerReset', array(
         'reset'   => __( 'Reset', 'flatsome-admin' ),
         'confirm' => __( "Attention! This will remove all customizations ever made via customizer to this theme!\n\nThis action is irreversible!", 'flatsome-admin' ),

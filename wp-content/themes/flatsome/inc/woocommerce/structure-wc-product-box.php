@@ -80,7 +80,11 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 * Fix WooCommerce Loop Title
 	 */
 	function woocommerce_template_loop_product_title() {
-		echo '<p class="name product-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></p>';
+		echo '<p class="name product-title ' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">';
+		woocommerce_template_loop_product_link_open();
+		echo get_the_title();  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		woocommerce_template_loop_product_link_close();
+		echo '</p>';
 	}
 }
 

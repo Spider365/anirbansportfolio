@@ -12,7 +12,7 @@ $options = array(
 'filter_posts' => array(
     'type' => 'group',
     'heading' => __( 'Filter Posts' ),
-    'conditions' => 'ids === ""',
+    'conditions' => 'ids == ""',
     'options' => array(
          'orderby' => array(
             'type' => 'select',

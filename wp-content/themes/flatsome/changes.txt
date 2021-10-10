@@ -1,3 +1,314 @@
+--- 3.14.3 ---
+NEW: HTML element in UX Builder.
+
+FIXED: Builder: Render paragraphs correctly for classic editor content.
+FIXED: Thank you page content option didn't render shortcodes.
+FIXED: Scroll to on mobile navigated incorrectly in some cases.
+FIXED: Infinite scroll on masonry catalog layout.
+
+ENHANCEMENT: Improved swatch compatibility for multiple woocommerce extension plugins.
+ENHANCEMENT: Builder: Check post existence before going into edit mode.
+ENHANCEMENT: Shop sticky sidebar height when infinite scroll items are appended.
+ENHANCEMENT: Improved WPML configuration.
+
+REVERT: Builder does not wrap text element content with paragraph anymore. (Use the new HTML element for raw content instead)
+
+--- 3.14.2 ---
+FIXED: Product categories element displayed sub categories.
+FIXED: PHP notice product categories variable may not support offset operations.
+FIXED: PHP error on a new product previewed in draft mode.
+FIXED: Swatches admin image preview sizing.
+FIXED: Various CSS improvements.
+
+--- 3.14.1 ---
+FIXED: PHP issue with http_headers_useragent pre WP 5.1 3th party filter usage.
+FIXED: Swatches incorrectly disabled in some cases.
+
+ENHANCEMENT: Improved swatch caching.
+
+--- 3.14 ---
+NEW: Product variation swatches.
+NEW: UX Themes License manager.
+NEW: WordPress 5.8 compatibility.
+NEW: WooCommerce 5.5 compatibility.
+NEW: Live search latency option.
+NEW: Automatic New badge for products newer then x days.
+NEW: Automatic New badge color option.
+NEW: Infinitive option for all slide style elements.
+NEW: Accordion collapsed product tab style.
+NEW: Custom product stacked gallery style.
+NEW: Builder: Sticky column option.
+NEW: Swatches/attribute: Types (color, image, label).
+NEW: Swatches/attribute: Size options.
+NEW: Swatches/attribute: Shape options.
+NEW: Swatches/attribute: Use variation image.
+NEW: Swatches/product: Layout options.
+NEW: Swatches/product: Tooltip option.
+NEW: Swatches/product: Color selected option.
+NEW: Swatches/shop: Show attribute variant swatches.
+NEW: Swatches/shop: Layout options.
+NEW: Swatches/shop: Size options.
+NEW: Swatches/shop: Shape options.
+NEW: Swatches/shop: Select event option (desktop).
+NEW: Swatches/shop: Color selected option.
+NEW: Swatches/shop: Selected swatch behavior option.
+NEW: Swatches/shop: Update urls option.
+NEW: Swatches/shop: Auto reset selection options.
+NEW: Register: Lightbox panel layout options (left/right).
+NEW: Register: Lightbox side panel custom UX Block.
+NEW: Register: Lightbox side panel bg color option.
+NEW: Register: Lightbox side panel bg image option.
+NEW: Register: Lightbox side panel bg overlay option.
+NEW: Google font-display 'auto' option.
+NEW: Telegram share/follow icon.
+NEW: Twitch follow icon.
+NEW: Discord follow icon.
+NEW: Updated Google Fonts list.
+
+ENHANCEMENT: Auto open mini cart refactored to work on all add to cart buttons.
+ENHANCEMENT: Improved accordion item toggle arrow position when opened.
+ENHANCEMENT: Sale label and percentage formatting options can now contain HTML.
+ENHANCEMENT: Improved variation summarize details in mini cart, cart and checkout.
+ENHANCEMENT: Portfolio: Distinguish tag and category names from WordPress once.
+ENHANCEMENT: Builder: Text font and line option with smaller increments.
+ENHANCEMENT: Builder: Custom product element thumbnails.
+ENHANCEMENT: Improved accessibility on various elements.
+ENHANCEMENT: Flatsome icon font versioning.
+ENHANCEMENT: Optimized content processing.
+ENHANCEMENT: Improved CLS on sliders.
+
+FIXED: Possible undefined variable in tabs element.
+FIXED: Placement of wp_footer output on maintenance template.
+FIXED: Accordion: Slider incorrect rendered in some cases.
+FIXED: Body was scrollable when lightbox or off-canvas was opened.
+FIXED: Single product review link did not navigate on accordion tab style.
+FIXED: Custom product gallery style could not be chosen if global template was stacked gallery.
+FIXED: Custom sale label text was not used as fallback with percentage option enabled.
+FIXED: WooCommerce Setup Wizard button link displayed at the end of the Flatsome Setup Wizard.
+FIXED: Wishlist button now only gets 'added' class to items that are actually in the wishlist.
+FIXED: Shop filter not available on mobile search results page with custom Shop Page Content.
+FIXED: Portfolio: Filter problem with the categories that may contain the same string.
+FIXED: Product categories element did not show cats on PHP 8 if no Ids specified.
+FIXED: Portfolio: Thumbnails missing on portfolio admin thumbnail column.
+FIXED: UX Block edit link displayed on a deleted block reference.
+FIXED: Maps: Incorrect height value in mobile devices.
+FIXED: Slider: Missing closing bracket of embedded css.
+FIXED: Menu item options confirmation after saving.
+FIXED: Infinite scroll window title update.
+FIXED: Various CSS improvements.
+
+CHANGED: Builder does not wrap text element content with paragraph anymore.
+CHANGED: Login style setting moved to Header → Account.
+CHANGED: Register Flatsome with a purchase code.
+
+DEV: Hook priority flatsome_add_icons_css changed from 10 → 150.
+DEV: Added new flatsome_product_attribute_term_fields action.
+DEV: Added new flatsome_new_flash_html filter.
+DEV: Added new flatsome_swatch_html filter.
+DEV: Added new flatsome_swatch_image_size filter.
+DEV: Added new flatsome_swatches_cache_time filter.
+DEV: Removed 'Inc' in namespaces.
+
+Note: Minimum required WooCommerce version 4.0.0.
+
+--- 3.13.3 ---
+FIXED: ContactForm7 progress spinner.
+FIXED: Team Members: Displayed follow icons by default.
+FIXED: Page Header: Background color for featured and normal style.
+FIXED: Live search not yielding results for post/pages if its option and WC both are deactivated.
+FIXED: Slider responsive margin.
+FIXED: Builder: PHP 8 error in some cases.
+FIXED: Builder: PHP warning 'Trying to get property 'post_type' of non-object' due WC on boarding task.
+
+ENHANCEMENT: Author bio can now contain HTML.
+ENHANCEMENT: Improved browser back button cache support.
+
+DEV: Added new flatsome_author_bio_avatar_size filter.
+
+--- 3.13.2 ---
+NEW: Option to disable sale badge in catalog mode.
+NEW: Slovenian translation added.
+
+FIXED: Builder: Post multi select sorting.
+FIXED: Builder: Reveal options on custom post Ids clearance.
+FIXED: Builder: Gutenberg HTML blocks now show up as WP content blocks.
+FIXED: Builder: Image placeholder position when added in mobile/tablet mode.
+FIXED: Plugin integrated breadcrumbs did not show when WooCommerce not active.
+FIXED: Portfolio filter stayed visible despite visibility option selection.
+FIXED: Share links on shop and blog archive pages.
+FIXED: Text box element parent styling issues.
+FIXED: Wishlist whatsapp share (mobile).
+FIXED: Cross-sells column amount filtering.
+FIXED: Sticky header on tablet/mobile when admin bar is hidden.
+FIXED: Google map not rendering sometimes on FF & Safari.
+FIXED: Slider not properly shown on custom dropdowns.
+FIXED: Some menu item options did not save in some cases.
+FIXED: Corrected WooCommerce address translation string.
+FIXED: WP-CLI profiler outputted HTML in some cases.
+FIXED: Divider left alignment in image box.
+FIXED: Builder: PHP error on PHP 7.0.x.
+FIXED: Various CSS improvements.
+FIXED: Various PHP notices.
+
+ENHANCEMENT: Follow element now shows global follow links if non is individually set by default.
+ENHANCEMENT: Equal image heights setting now also affects upsells and related products.
+ENHANCEMENT: Improved Flatsome Studio loading performance.
+ENHANCEMENT: Improved support for decimal product quantities.
+ENHANCEMENT: Improved WPML configuration.
+
+DEV: Added new flatsome_header_account_username filter.
+DEV: Added new flatsome_sale_bubble_percentage_cache_enabled filter.
+
+--- 3.13.1 ---
+NEW: PHP 8 support.
+
+FIXED: Menu element active link.
+FIXED: Menu element dark divider color.
+FIXED: Sticky header when top bar is enabled.
+FIXED: Custom menu item class did not output when an icon was selected.
+FIXED: Builder option styling in latest FireFox.
+FIXED: UX Builder edit button in Gutenberg.
+FIXED: Various PHP notices.
+
+ENHANCEMENT: Clarified register with token feedback messages.
+ENHANCEMENT: Support jQuery 3.5 without migrate.
+ENHANCEMENT: Increased max for layout width options.
+ENHANCEMENT: Improved sticky header with WP admin bar.
+ENHANCEMENT: Text element color option now colors direct child HTML tags.
+
+--- 3.13.0 ---
+NEW: WordPress 5.6 compatibility.
+NEW: WooCommerce 4.8.0 compatibility.
+NEW: Mega Menus - Create fully customizable dropdowns with UX Builder.
+NEW: Menu element for building custom dropdowns and footer links.
+NEW: Templates for UX Builder - Save any element or page as reusable template.
+NEW: Register/activate theme with token support.
+NEW: Responsive styling for Text element.
+NEW: Menu icons media picker or markup.
+NEW: Menu dropdown design/size options (Full Width, Container).
+NEW: Menu dropdown reveal option hover or click.
+NEW: Nav dropdown shadow option.
+NEW: Nav dropdown border option.
+NEW: Background overlay on nav hover/click per header position.
+NEW: Improved Instagram account connection flow.
+NEW: Instagram clear cache button.
+NEW: Gutenberg: builder placeholder block (previously plain HTML).
+NEW: Column background radius option from row.
+NEW: Top Bar navigation uppercase/lowercase option.
+NEW: Top Bar navigation height option.
+NEW: Header button bevel and gloss styles.
+NEW: Beacon powered "Search Documentation" (on admin panels).
+NEW: Venmo payment icon.
+
+FIXED: Instagram hashtag requests & URL scheme.
+FIXED: Customizer option framework version constant.
+FIXED: Filter button on product tag pages with custom shop page content.
+FIXED: Main header height defaults.
+FIXED: Transparent header height defaults.
+FIXED: Product video button link when pasted with extra space.
+FIXED: Global button radius affected quantity button inner radius.
+FIXED: woocommerce_template_loop_product_title filter did not take place.
+FIXED: Incorrect nested tag in cart-shipping.php template.
+FIXED: Builder: Arrows on number input on FF.
+FIXED: Builder: Incorrect + button position on option change in some cases.
+FIXED: Builder: Some element presets did not render correctly before applying.
+FIXED: Main nav and nav hover color affected the bottom bar navs.
+FIXED: Gallery: Multi gallery in tabs did not have numbering and navigation.
+
+ENHANCEMENT: Improved loading speed of inline SVG's.
+ENHANCEMENT: Improved accessibility on various elements.
+ENHANCEMENT: Improved WPML configuration.
+ENHANCEMENT: Improved support for uncommon theme directory names.
+ENHANCEMENT: Increases maximum for navigation height setting.
+ENHANCEMENT: Increases max/min for col margins.
+ENHANCEMENT: Single variation listing now has sale bubble percentage value.
+
+DEV: Added new 'flatsome_sticky_add_to_cart_enabled' filter.
+DEV: Added the 'woocommerce_checkout_before_order_review_heading' filter.
+DEV: Updated FB graph API to v8.0.
+
+Note: Minimum required WooCommerce version 3.6.0.
+Note: Mega Menu requires WP 5.4 or higher.
+
+--- 3.12.3 ---
+FIXED: Instagram API change affecting images from certain posts.
+
+--- 3.12.2 ---
+FIXED: Countdown background color.
+FIXED: Older admin assets could remain in browser cache (Advanced Options).
+FIXED: HTML not rendering in product title (reverted WC 4.4 template change).
+
+--- 3.12.1 ---
+NEW: WordPress 5.5 compatibility.
+NEW: WooCommerce 4.4 compatibility.
+NEW: Updated Google Fonts list.
+
+FIXED: Custom product layout, global overruled category in some cases.
+FIXED: Off-canvas sidebar not scrollable with mobile slide menu activated.
+FIXED: Countdown responsive size when large is default.
+FIXED: Product Flip was only able to show max. 10 custom id's.
+FIXED: Image column link showed on mobile menu with slide effect.
+FIXED: Builder: Icon Box preview when changing icon position.
+FIXED: Custom portfolio items 404 after certain plugin updates.
+FIXED: Site Loader and 404 Block option not able to save in some cases.
+FIXED: packery JS error in customizer preview in some cases.
+FIXED: Wording of default cookie notice message.
+FIXED: Cookies banner accept button href anchor.
+FIXED: Cookies banner cookie duration.
+
+ENHANCEMENT: Builder: Preserve open hierarchy items when leaving element options.
+ENHANCEMENT: Builder: Scroll preview frame when dragging elements in side panel.
+
+DEV: Added the 'woocommerce_product_upsells_products_heading' filter.
+DEV: Updated customizer option framework.
+
+Change: Cookie banner settings moved to new 'Notifications' section.
+
+--- 3.12.0 ---
+NEW: WooCommerce 4.3 compatibility.
+NEW: Custom product layout per category and product.
+NEW: Stack element for UX Builder (Powered by Flexbox).
+NEW: Slide effect for Off-canvas / Mobile Menu (Amazon style).
+NEW: Sticky sidebar option for shop page.
+NEW: Sticky sidebar option for blog page.
+NEW: Responsive margin and padding for Columns.
+NEW: Cookie banner (GDPR).
+NEW: Rank Math breadcrumbs integration.
+NEW: Rank Math primary category integration.
+NEW: Portfolio archive sorting options.
+NEW: Portfolio archive styling options.
+NEW: Blog Posts element order & order by options.
+NEW: Mobile Menu parent menu item behavior option.
+NEW: Navigation color options for header top bar.
+NEW: Builder: Close add element & text editor with esc key.
+NEW: Single product related/upsells responsive product per row options.
+NEW: Spanish (Argentina) translation added.
+NEW: Updated Google Fonts list.
+NEW: New catalog filter icon.
+
+FIXED: Posts and shop pages header when the default template is light.
+FIXED: Excerpt for posts (grid) after thumbnail size did not show.
+FIXED: Instagram gallery posts now have an image.
+FIXED: Portfolio page incorrect image height for 2:1 (Tall).
+FIXED: PHP notice if product has only gallery items.
+FIXED: PHP notice Undefined variable: declaration_str.
+FIXED: Page Header responsive background overlay.
+FIXED: Improved scrolling performance (Chrome).
+FIXED: Improved image sizes in grid element.
+FIXED: WP-CLI HTML output in maintenance mode.
+FIXED: Various rendering issues on iOS 13.5.
+FIXED: Various CSS and RTL improvements.
+
+TWEAK: Disabled overflow x on body by default.
+TWEAK: Quick View image reset when hidden by variation selection.
+TWEAK: Improved output of media queries.
+TWEAK: Improved layout option controls.
+
+Change: Removed "WooSidebars" from included plugins.
+
+DEV: New flatsome_product_block filter.
+DEV: New flatsome_before_single_product_custom action.
+
 --- 3.11.3 ---
 FIXED: Custom portfolio archive page title and template selection.
 FIXED: Lightbox (auto open) placement when off canvas sidebar is open.

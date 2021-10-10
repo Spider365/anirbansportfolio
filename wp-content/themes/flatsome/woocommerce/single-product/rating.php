@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-$review_ratings_enabled = fl_woocommerce_version_check( '3.6.0' ) ? wc_review_ratings_enabled() : 'yes' === get_option( 'woocommerce_enable_review_rating' );
+$review_ratings_enabled = wc_review_ratings_enabled();
 if ( ! $review_ratings_enabled ) {
 	return;
 }

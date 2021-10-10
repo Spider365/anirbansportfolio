@@ -4,18 +4,18 @@
  *
  * @author     UX Themes
  * @category   Gutenberg
- * @package    Flatsome/Gutenberg
+ * @package    Flatsome\Admin
  * @since      3.7.0
  */
 
-namespace Flatsome\Inc\Admin;
+namespace Flatsome\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Gutenberg
  *
- * @package Flatsome\Inc\Admin
+ * @package Flatsome\Admin
  */
 class Gutenberg {
 
@@ -24,7 +24,7 @@ class Gutenberg {
 	 *
 	 * @var string
 	 */
-	private $version = '1.0.1';
+	private $version;
 
 	/**
 	 * Holds assets directory.
@@ -37,7 +37,11 @@ class Gutenberg {
 	 * Gutenberg constructor.
 	 */
 	public function __construct() {
-		$this->assets = get_template_directory_uri() . '/inc/admin/gutenberg/assets';
+		$theme = wp_get_theme( get_template() );
+
+		$this->version = $theme->get( 'Version' );
+		$this->assets  = get_template_directory_uri() . '/inc/admin/gutenberg/assets';
+
 		$this->init();
 	}
 
@@ -48,6 +52,7 @@ class Gutenberg {
 		if ( $this->is_block_editor_available() ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 			add_action( 'enqueue_block_editor_assets', [ $this, 'add_edit_button' ], 11 );
+			add_action( 'enqueue_block_editor_assets', [ $this, 'add_block_settings' ] );
 		}
 	}
 
@@ -107,6 +112,31 @@ class Gutenberg {
 		];
 
 		wp_localize_script( 'flatsome-gutenberg-edit-button', 'flatsome_gutenberg', $params );
+	}
+
+	/**
+	 * Generates the `window.flatsomeBlockSettings` object.
+	 */
+	public function add_block_settings() {
+		$blocks_js      = $this->assets . '/js/blocks.js';
+		$blocks_deps    = array(
+			'wp-data',
+			'wp-blocks',
+			'wp-element',
+			'wp-edit-post',
+			'wp-components',
+			'wp-block-editor',
+		);
+		$block_settings = array_filter(
+			get_block_editor_server_block_settings(),
+			function( $block, $name ) {
+				return strpos( $name, 'flatsome/' ) === 0;
+			},
+			ARRAY_FILTER_USE_BOTH
+		);
+
+		wp_enqueue_script( 'flatsome-blocks', $blocks_js, $blocks_deps, $this->version, true );
+		wp_localize_script( 'flatsome-blocks', 'flatsomeBlockSettings', $block_settings );
 	}
 
 	/**

@@ -22,7 +22,7 @@ class Flatsome_Infinite_Scroll {
 	 *
 	 * @var string
 	 */
-	private $version = '1.5';
+	private $version;
 
 	/**
 	 * Holds loader type selected from theme settings.
@@ -51,6 +51,9 @@ class Flatsome_Infinite_Scroll {
 	 * Flatsome_Infinite_Scroll constructor.
 	 */
 	private function __construct() {
+		$theme         = wp_get_theme( get_template() );
+		$this->version = $theme->get( 'Version' );
+
 		add_action( 'init', array( $this, 'init' ) );
 	}
 
@@ -76,7 +79,7 @@ class Flatsome_Infinite_Scroll {
 		} // Disable for admin
 
 		$this->loader_type = get_theme_mod( 'infinite_scroll_loader_type', 'spinner' );
-		$this->list_style  = get_theme_mod( 'category_grid_style',  'grid' );
+		$this->list_style  = get_theme_mod( 'category_grid_style', 'grid' );
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ), 99 );
 		add_action( 'woocommerce_after_shop_loop', array( $this, 'add_page_loader' ), 20 );
@@ -88,7 +91,7 @@ class Flatsome_Infinite_Scroll {
 	 */
 	public function add_scripts() {
 		global $extensions_uri;
-		wp_enqueue_script( 'flatsome-infinite-scroll-js', get_template_directory_uri() . '/assets/libs/infinite-scroll.pkgd.min.js', array( 'jquery', 'flatsome-js' ), '3.0.4', true );
+		wp_enqueue_script( 'flatsome-infinite-scroll-js', get_template_directory_uri() . '/assets/libs/infinite-scroll.pkgd.min.js', array( 'jquery', 'flatsome-js' ), '4.0.1', true );
 		wp_enqueue_script( 'flatsome-infinite-scroll', $extensions_uri . '/flatsome-infinite-scroll/flatsome-infinite-scroll.js', array( 'jquery', 'flatsome-js' ), $this->version, true );
 
 		$params = array(

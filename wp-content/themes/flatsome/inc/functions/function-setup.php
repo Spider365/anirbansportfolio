@@ -4,7 +4,19 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 1020; // Pixels.
 }
 
+/**
+ * Initialized Envato and Flatsome Account implementation.
+ */
+flatsome_envato();
 
+/**
+ * Only load styles for used blocks.
+ */
+add_filter( 'should_load_separate_core_block_assets', '__return_true' );
+
+/**
+ * Setup Flatsome.
+ */
 function flatsome_setup() {
 
 	/* add woocommerce support */
@@ -59,6 +71,9 @@ function flatsome_setup() {
 
 	/*  Enable support for Post Formats */
 	add_theme_support( 'post-formats', array( 'video' ) );
+
+	// Disable widgets-block-editor for now.
+	remove_theme_support( 'widgets-block-editor' );
 }
 
 add_action( 'after_setup_theme', 'flatsome_setup' );
@@ -115,16 +130,13 @@ function flatsome_scripts() {
 	$version = $theme->get( 'Version' );
 
 	// Styles.
-	if ( ! is_rtl() ) {
-		wp_enqueue_style( 'flatsome-main', $uri . '/assets/css/flatsome.css', array(), $version, 'all' );
-	} else {
-		wp_enqueue_style( 'flatsome-main-rtl', $uri . '/assets/css/flatsome-rtl.css', array(), $version, 'all' );
-	}
+	wp_enqueue_style( 'flatsome-main', $uri . '/assets/css/flatsome.css', array(), $version, 'all' );
+	wp_style_add_data( 'flatsome-main', 'rtl', 'replace' );
 
-	if ( is_woocommerce_activated() && ! is_rtl() ) {
+
+	if ( is_woocommerce_activated() ) {
 		wp_enqueue_style( 'flatsome-shop', $uri . '/assets/css/flatsome-shop.css', array(), $version, 'all' );
-	} elseif ( is_woocommerce_activated() ) {
-		wp_enqueue_style( 'flatsome-shop-rtl', $uri . '/assets/css/flatsome-shop-rtl.css', array(), $version, 'all' );
+		wp_style_add_data( 'flatsome-shop', 'rtl', 'replace' );
 	}
 
 	// Load current theme styles.css file.
@@ -146,10 +158,7 @@ function flatsome_scripts() {
 	}
 
 	// Enqueue theme scripts.
-	wp_enqueue_script( 'flatsome-js', $uri . '/assets/js/flatsome.js', array(
-		'jquery',
-		'hoverIntent',
-	), $version, true );
+	flatsome_enqueue_asset( 'flatsome-js', 'flatsome', array( 'jquery', 'hoverIntent' ) );
 
 	$sticky_height = get_theme_mod( 'header_height_sticky', 70 );
 
@@ -159,28 +168,57 @@ function flatsome_scripts() {
 
 	$lightbox_close_markup = apply_filters('flatsome_lightbox_close_button', '<button title="%title%" type="button" class="mfp-close"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>');
 
-	// Add variables to scripts.
-	wp_localize_script( 'flatsome-js', 'flatsomeVars', array(
+	$localize_data = array(
+		'theme'         => array( 'version' => $version ),
 		'ajaxurl'       => admin_url( 'admin-ajax.php' ),
 		'rtl'           => is_rtl(),
 		'sticky_height' => $sticky_height,
+		'assets_url'    => $uri . '/assets/js/',
 		'lightbox'      => array(
 			'close_markup'     => $lightbox_close_markup,
 			'close_btn_inside' => apply_filters( 'flatsome_lightbox_close_btn_inside', false ),
 		),
 		'user'          => array(
-			'can_edit_pages' => current_user_can( 'edit_pages'
-			),
+			'can_edit_pages' => current_user_can( 'edit_pages' ),
 		),
-	) );
+		'i18n'          => array(
+			'mainMenu' => __( 'Main Menu', 'flatsome' ),
+		),
+		'options'       => array(
+			'cookie_notice_version'          => get_theme_mod( 'cookie_notice_version', '1' ),
+			'swatches_layout'                => get_theme_mod( 'swatches_layout' ),
+			'swatches_box_select_event'      => get_theme_mod( 'swatches_box_select_event' ),
+			'swatches_box_behavior_selected' => get_theme_mod( 'swatches_box_behavior_selected' ),
+			'swatches_box_update_urls'       => get_theme_mod( 'swatches_box_update_urls', '1' ),
+			'swatches_box_reset'             => get_theme_mod( 'swatches_box_reset' ),
+			'swatches_box_reset_extent'      => get_theme_mod( 'swatches_box_reset_extent' ),
+			'swatches_box_reset_time'        => get_theme_mod( 'swatches_box_reset_time', 300 ),
+			'search_result_latency'          => get_theme_mod( 'search_result_latency', '0' ),
+		),
+	);
 
 	if ( is_woocommerce_activated() ) {
-		wp_enqueue_script( 'flatsome-theme-woocommerce-js', $uri . '/assets/js/woocommerce.js', array( 'flatsome-js' ), $version, true );
+		$wc_localize_data = array(
+			'is_mini_cart_reveal' => flatsome_is_mini_cart_reveal(),
+		);
+
+		$localize_data = array_merge( $localize_data, $wc_localize_data );
+	}
+
+	// Add variables to scripts.
+	wp_localize_script( 'flatsome-js', 'flatsomeVars', $localize_data );
+
+	if ( is_woocommerce_activated() ) {
+		flatsome_enqueue_asset( 'flatsome-theme-woocommerce-js', 'woocommerce', array( 'flatsome-js' ) );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	// Custom Properties polyfill for Internet Explorer.
+	wp_register_script( 'css-vars-polyfill', 'https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.0.1/ie11CustomProperties.min.js', array(), '4.0.1', true );
+	wp_script_add_data( 'css-vars-polyfill', 'conditional', 'IE' );
 }
 
 add_action( 'wp_enqueue_scripts', 'flatsome_scripts', 100 );
@@ -209,15 +247,15 @@ function flatsome_ux_builder_scripts( $context ) {
 
 	// Add UxBuilder assets.
 	if ( $context == 'editor' ) {
-		wp_enqueue_script( 'ux-builder-flatsome', $uri . '/assets/js/builder/custom/editor.js', array( 'ux-builder-core' ), $version, true );
+		flatsome_enqueue_asset( 'ux-builder-flatsome', 'builder/custom/editor', array( 'ux-builder-core' ) );
 		wp_enqueue_style( 'ux-builder-flatsome', $uri . '/assets/css/builder/custom/builder.css', array( 'ux-builder-core' ), $version );
 	}
 	if ( $context == 'content' ) {
 		wp_enqueue_style( 'ux-builder-flatsome', $uri . '/assets/css/builder/custom/builder.css', null, $version );
-		wp_enqueue_script( 'ux-builder-flatsome', $uri . '/assets/js/builder/custom/content.js', array(
+		flatsome_enqueue_asset( 'ux-builder-flatsome', 'builder/custom/content', array(
 			'flatsome-js',
 			'flatsome-masonry-js',
-		), $version, true );
+		) );
 	}
 }
 
@@ -267,3 +305,22 @@ function flatsome_deregister_block_styles() {
   }
 }
 add_action( 'wp_print_styles', 'flatsome_deregister_block_styles', 100 );
+
+/**
+ * Prefetch lazy-loaded chunks.
+ */
+function flatsome_prefetch_scripts() {
+	$manifest_path = get_template_directory() . '/assets/js/manifest.json';
+	$template_uri  = get_template_directory_uri();
+
+	if ( ! file_exists( $manifest_path ) ) return;
+
+	$json     = file_get_contents( $manifest_path );
+	$manifest = json_decode( $json, true );
+
+	foreach ( $manifest as $path ) {
+		$href = esc_attr( "$template_uri/assets/js/$path" );
+		echo "<link rel=\"prefetch\" href=\"$href\" />\n";
+	}
+}
+add_action( 'wp_head', 'flatsome_prefetch_scripts', 5 );

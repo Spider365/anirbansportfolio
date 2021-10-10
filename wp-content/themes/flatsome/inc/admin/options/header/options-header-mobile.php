@@ -79,6 +79,65 @@ Flatsome_Option::add_field( 'option', array(
 	),
 ));
 
+Flatsome_Option::add_field( 'option', array(
+	'type'        => 'radio',
+	'settings'    => 'mobile_submenu_parent_behavior',
+	'label'       => __( 'Menu item behavior', 'flatsome' ),
+	'description' => __( 'Click behavior for menu items with a submenu', 'flatsome' ),
+	'section'     => 'header_mobile',
+	'transport'   => 'refresh',
+	'default'     => '',
+	'choices'     => array(
+		''       => __( 'Open link', 'flatsome' ),
+		'toggle' => __( 'Toggle submenu', 'flatsome' ),
+	),
+) );
+
+Flatsome_Option::add_field( 'option', array(
+	'type'            => 'radio',
+	'settings'        => 'mobile_submenu_effect',
+	'label'           => __( 'Submenu effect', 'flatsome' ),
+	'section'         => 'header_mobile',
+	'transport'       => 'refresh',
+	'default'         => 'accordion',
+	'choices'         => array(
+		'accordion' => __( 'Accordion', 'flatsome' ),
+		'slide'     => __( 'Slide', 'flatsome' ),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'mobile_overlay',
+			'operator' => '!=',
+			'value'    => 'center',
+		),
+	),
+) );
+
+Flatsome_Option::add_field( 'option', array(
+	'type'            => 'select',
+	'settings'        => 'mobile_submenu_levels',
+	'label'           => __( 'Submenu levels', 'flatsome' ),
+	'section'         => 'header_mobile',
+	'transport'       => 'refresh',
+	'default'         => '1',
+	'choices'         => array(
+		'1' => __( '1 level', 'flatsome' ),
+		'2' => __( '2 levels', 'flatsome' ),
+	),
+	'active_callback' => array(
+		array(
+			'setting'  => 'mobile_overlay',
+			'operator' => '!=',
+			'value'    => 'center',
+		),
+		array(
+			'setting'  => 'mobile_submenu_effect',
+			'operator' => '===',
+			'value'    => 'slide',
+		),
+	),
+) );
+
 Flatsome_Option::add_field( 'option',  array(
   'type'        => 'sortable',
   'settings'     => 'mobile_sidebar',

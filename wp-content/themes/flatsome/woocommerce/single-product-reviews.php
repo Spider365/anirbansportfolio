@@ -12,12 +12,10 @@
  *
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @package 	WooCommerce/Templates
- * @version 3.6.0
+ * @version 4.3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
 global $product;
 
@@ -26,7 +24,7 @@ if ( ! comments_open() ) {
 }
 
 $tab_style              = get_theme_mod( 'product_display' );
-$review_ratings_enabled = fl_woocommerce_version_check( '3.6.0' ) ? wc_review_ratings_enabled() : get_option( 'woocommerce_enable_review_rating' ) === 'yes';
+$review_ratings_enabled = wc_review_ratings_enabled();
 ?>
 <div id="reviews" class="woocommerce-Reviews row">
 	<div id="comments" class="col large-<?php if ( get_comment_pages_count() == 0 || $tab_style == 'sections' || $tab_style == 'tabs_vertical' ) { echo '12'; } else { echo '7'; } ?>">
@@ -74,32 +72,56 @@ $review_ratings_enabled = fl_woocommerce_version_check( '3.6.0' ) ? wc_review_ra
 	</div>
 
 	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) : ?>
-
 		<div id="review_form_wrapper" class="large-<?php if ( get_comment_pages_count() == 0 || $tab_style == 'sections' || $tab_style == 'tabs_vertical' ) { echo '12'; } else { echo '5'; } ?> col">
 			<div id="review_form" class="col-inner">
 				<div class="review-form-inner has-border">
 				<?php
-				$commenter = wp_get_current_commenter();
-
+				$commenter    = wp_get_current_commenter();
 				$comment_form = array(
 					/* translators: %s is product title */
-					'title_reply'          => have_comments() ? __( 'Add a review', 'woocommerce' ) : sprintf( __( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
+					'title_reply'          => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
 					/* translators: %s is product title */
-					'title_reply_to'       => __( 'Leave a Reply to %s', 'woocommerce' ),
+					'title_reply_to'       => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
 					'title_reply_before'   => '<h3 id="reply-title" class="comment-reply-title">',
 					'title_reply_after'    => '</h3>',
 					'comment_notes_before' => '',
 					'comment_notes_after'  => '',
-					'fields'               => array(
-						'author' => '<p class="comment-form-author"><label for="author">' . esc_html__( 'Name', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label> ' .
-									'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" required /></p>',
-						'email'  => '<p class="comment-form-email"><label for="email">' . esc_html__( 'Email', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label> ' .
-									'<input id="email" name="email" type="email" value="' . esc_attr( $commenter['comment_author_email'] ) . '" size="30" required /></p>',
-					),
-					'label_submit'         => __( 'Submit', 'woocommerce' ),
+					'label_submit'         => esc_html__( 'Submit', 'woocommerce' ),
 					'logged_in_as'         => '',
 					'comment_field'        => '',
 				);
+
+				$name_email_required = (bool) get_option( 'require_name_email', 1 );
+				$fields              = array(
+					'author' => array(
+						'label'    => __( 'Name', 'woocommerce' ),
+						'type'     => 'text',
+						'value'    => $commenter['comment_author'],
+						'required' => $name_email_required,
+					),
+					'email'  => array(
+						'label'    => __( 'Email', 'woocommerce' ),
+						'type'     => 'email',
+						'value'    => $commenter['comment_author_email'],
+						'required' => $name_email_required,
+					),
+				);
+
+				$comment_form['fields'] = array();
+
+				foreach ( $fields as $key => $field ) {
+					$field_html  = '<p class="comment-form-' . esc_attr( $key ) . '">';
+					$field_html .= '<label for="' . esc_attr( $key ) . '">' . esc_html( $field['label'] );
+
+					if ( $field['required'] ) {
+						$field_html .= '&nbsp;<span class="required">*</span>';
+					}
+
+					$field_html .= '</label><input id="' . esc_attr( $key ) . '" name="' . esc_attr( $key ) . '" type="' . esc_attr( $field['type'] ) . '" value="' . esc_attr( $field['value'] ) . '" size="30" ' . ( $field['required'] ? 'required' : '' ) . ' /></p>';
+
+					$comment_form['fields'][ $key ] = $field_html;
+				}
+
 				$account_page_url = wc_get_page_permalink( 'myaccount' );
 				if ( $account_page_url ) {
 					/* translators: %s opening and closing link tags respectively */
@@ -107,7 +129,7 @@ $review_ratings_enabled = fl_woocommerce_version_check( '3.6.0' ) ? wc_review_ra
 				}
 
 				if ( $review_ratings_enabled ) {
-					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating">' . esc_html__( 'Your rating', 'woocommerce' ) . '</label><select name="rating" id="rating" required>
+					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating">' . esc_html__( 'Your rating', 'woocommerce' ) . ( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) . '</label><select name="rating" id="rating" required>
 						<option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
 						<option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
 						<option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>
@@ -133,7 +155,6 @@ $review_ratings_enabled = fl_woocommerce_version_check( '3.6.0' ) ? wc_review_ra
 				</div>
 			</div>
 		</div>
-
 	<?php endif; ?>
 
 </div>

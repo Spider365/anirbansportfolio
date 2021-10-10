@@ -12,10 +12,11 @@
 	align-{{ shortcode.options.hAlign }}"
 	ng-style="{'max-width' : (shortcode.options.width == 'custom') ? shortcode.options.customWidth : ''}">
 
-    <content/>
+    <content></content>
 
     <style scope="scope">
 		  #{{:: shortcode.$id }} > .col > .col-inner{padding: {{ shortcode.options.padding }} }
 		  #{{:: shortcode.$id }} > .col > .col-inner{background-color: {{ shortcode.options.colBg }} }
+		  #{{:: shortcode.$id }} > .col > .col-inner{border-radius: {{ shortcode.options.colBgRadius != 0 ? shortcode.options.colBgRadius : '' }}px; }
     </style>
 </div>

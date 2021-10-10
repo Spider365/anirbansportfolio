@@ -1,8 +1,8 @@
 .block-editor #uxbuilder-edit-button {
 	display: inline-flex;
 	align-items: center;
-	margin-left: 8px;
-	height: 33px;
+	margin-right: 12px;
+	height: 36px;
 }
 
 .block-editor #uxbuilder-edit-button svg {

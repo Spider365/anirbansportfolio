@@ -29,6 +29,8 @@ class AjaxManager {
     add_action( 'wp_ajax_ux_builder_get_attachment', array( $this->wp_attachment, 'get_attachment' ) );
     add_action( 'wp_ajax_ux_builder_search_terms', array( $this->terms, 'search_terms' ) );
     add_action( 'wp_ajax_ux_builder_get_terms', array( $this->terms, 'get_terms' ) );
+    add_action( 'wp_ajax_ux_builder_save_custom_template', array( $this, 'save_custom_template' ) );
+    add_action( 'wp_ajax_ux_builder_delete_custom_template', array( $this, 'delete_custom_template' ) );
     add_action( 'wp_ajax_ux_builder_to_array', array( $this, 'to_array' ) );
     add_action( 'wp_ajax_ux_builder_parse_presets', array( $this, 'parse_presets' ) );
     add_action( 'wp_ajax_ux_builder_import_media', array( $this, 'import_media' ) );
@@ -36,6 +38,109 @@ class AjaxManager {
     if ( ! array_key_exists( 'ux_builder_action', $_POST ) ) return;
 
     add_action( 'template_redirect', array( $this->do_shortcode, 'do_shortcode' ), 0 );
+  }
+
+  public function save_custom_template () {
+    $data = $_POST['data'];
+
+    // Return an error if nonce is invalid.
+    check_ajax_referer( 'ux-builder-' . $data['post_id'], 'security' );
+
+    $transformer = ux_builder( 'to-string' );
+    $content     = json_decode( stripslashes( $data['content'] ), true );
+    $tag         = wp_unslash( $_POST['data']['tag'] );
+
+    if ( empty( $tag ) ) {
+      return wp_send_json_error( array(
+        'message' => 'Template tag content cannot be empty.',
+      ) );
+    }
+
+    if ( $content['tag'] === '_root' ) {
+      $content = $content['children'];
+    } else {
+      $content = array( $content );
+    }
+
+    $post_title   = sanitize_text_field( $data['title'] );
+    $post_content = $transformer->transform( $content );
+
+    if ( empty( $post_content ) ) {
+      return wp_send_json_error(
+        array( 'message' => 'Template must have content.' )
+      );
+    }
+
+    if ( empty( $post_title ) ) {
+      return wp_send_json_error(
+        array( 'message' => 'Name cannot be empty.' )
+      );
+    }
+
+    $args = array(
+      'post_type'    => 'ux_template',
+      'post_title'   => $post_title,
+      'post_content' => trim( $post_content ),
+      'post_status'  => 'publish',
+    );
+
+    if ( array_key_exists( 'id', $data ) ) {
+      $args['ID'] = $data['id'];
+      $post_id = wp_update_post( $args, true );
+    } else {
+      $post_id = wp_insert_post( $args, true );
+    }
+
+    if ( is_wp_error( $post_id ) ) {
+      return wp_send_json_error( array(
+        'message' => $post_id->get_error_message(),
+      ) );
+    }
+
+    update_post_meta( $post_id, '_ux_tag', $tag, true );
+
+    if ( $tag === '_root' ) {
+      update_post_meta( $post_id, '_ux_page_template', $data['template'], true );
+    }
+
+    $presets = array();
+
+    try {
+      $presets = $this->parse_presets_for_tag( $tag );
+    } catch ( \Exception $err ) {
+      return wp_send_json_error( array(
+        'message' => $err->getMessage(),
+      ) );
+    }
+
+    return wp_send_json_success( compact( 'tag', 'presets' ) );
+  }
+
+  public function delete_custom_template () {
+    check_ajax_referer( 'ux-builder-' . $_POST['post_id'], 'security' );
+
+    $post_id   = intval( $_POST['id'] );
+    $post_type = get_post_type( $post_id );
+    $tag       = get_post_meta( $post_id, '_ux_tag', true );
+
+    if ( 'ux_template' !== $post_type ) {
+      return wp_send_json_error( array(
+        'message' => "Cannot remove post with type {$post_type}.",
+      ) );
+    }
+
+    if ( wp_delete_post( $post_id, true ) && is_string( $tag ) ) {
+      return wp_send_json_success(
+        array(
+          'tag'     => $tag,
+          'presets' => $this->parse_presets_for_tag( $tag ),
+        )
+      );
+    }
+
+    return wp_send_json_error( array(
+      'message' => 'Failed to delete template.',
+    ) );
   }
 
   /**
@@ -66,8 +171,20 @@ class AjaxManager {
    * Importa external meda files.
    */
   public function import_media () {
-    $id = $_POST['id'];
+    $id  = intval( $_POST['id'] );
     $url = $_POST['url'];
+
+    if ( ! flatsome_envato()->is_registered() ) {
+      return wp_send_json_error( array(
+        'message' => 'Must register site to import',
+      ) );
+    }
+
+    if ( ! preg_match( '/^http(s)?:\/\/studio\.uxthemes\.com\//', $url ) ) {
+      return wp_send_json_error( array(
+        'message' => 'Invalid URL',
+      ) );
+    }
 
     // 1. Check if image is already imported by its ID.
     $query = new \WP_Query( array(
@@ -110,30 +227,82 @@ class AjaxManager {
    * Parse presets for a shortcode.
    */
   public function parse_presets () {
-    $shortcode = ux_builder_shortcodes()->get( $_GET['tag'] );
+    $tag     = wp_unslash( $_GET['tag'] );
+    $presets = array();
 
-    if ( ! $shortcode ) {
-      return wp_send_json_success( array(
-        'presets' => array(),
+    try {
+      $presets = $this->parse_presets_for_tag( $tag );
+    } catch ( \Exception $err ) {
+      return wp_send_json_error( array(
+        'message' => $err->getMessage(),
       ) );
     }
 
-    $presets = array_map( function ( $preset ) {
-      $array = ux_builder( 'to-array' )->transform( $preset['content'] );
+    return wp_send_json_success( compact( 'presets' ) );
+  }
+
+  protected function parse_presets_for_tag( $tag ) {
+    $shortcode   = ux_builder_shortcodes()->get( $tag );
+
+    if ( ! $shortcode || ! $tag ) {
+      return array();
+    }
+
+    $transformer = ux_builder( 'to-array' );
+
+    $templates = array_map( function ( $template ) use ( $tag, $transformer ) {
+      $array = $transformer->transform( $template['content'] );
 
       ux_builder_content_array_walk( $array, function ( &$item ) {
-        $shortcode = ux_builder_shortcodes()->get( $item['tag'] );
-        $options = new ElementOptions( $shortcode['options'] );
+        $shortcode       = ux_builder_shortcodes()->get( $item['tag'] );
+        $options         = new ElementOptions( $shortcode['options'] );
         $item['options'] = $options->set_values( $item['options'] )->camelcase()->get_values();
       });
 
-      $preset['content'] = array_shift( $array );
+      $template['tag']     = $tag;
+      $template['raw']     = trim( $template['content'] );
+      $template['content'] = array_shift( $array );
 
-      return $preset;
+      return $template;
     }, $shortcode['presets'] );
 
-    return wp_send_json_success( array(
-      'presets' => $presets,
-    ) );
+    $ux_templates = get_posts(
+      array(
+        'post_type' => 'ux_template',
+        'numberposts' => -1,
+        'meta_query' => array(
+          array(
+            'key'     => '_ux_tag',
+            'value'   => $tag,
+            'compare' => '=',
+          )
+        ),
+      )
+    );
+
+    /**
+     * Parse custom templates created by user.
+     */
+    $custom_templates = array_map( function ( $post ) use ( $tag, $transformer ) {
+      $array = $transformer->transform( $post->post_content );
+
+      ux_builder_content_array_walk( $array, function ( &$item ) {
+        $shortcode       = ux_builder_shortcodes()->get( $item['tag'] );
+        $options         = new ElementOptions( $shortcode['options'] );
+        $item['options'] = $options->set_values( $item['options'] )->camelcase()->get_values();
+      });
+
+      return array(
+        'tag'      => $tag,
+        'id'       => $post->ID,
+        'name'     => $post->post_title,
+        'raw'      => $post->post_content,
+        'content'  => array_shift( $array ),
+        'template' => get_post_meta( $post->ID, '_ux_page_template', true ),
+        'custom'   => true,
+      );
+    }, $ux_templates );
+
+    return array_merge( $custom_templates, $templates );
   }
 }

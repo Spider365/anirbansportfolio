@@ -17,7 +17,7 @@ function flatsome_refresh_header_partials( WP_Customize_Manager $wp_customize ) 
 
 	$wp_customize->selective_refresh->add_partial( 'header_top', array(
 	    'selector' => '#top-bar',
-	    'settings' => array('header_mobile_elements_top','topbar_elements_center', 'topbar_elements_right', 'topbar_elements_left','nav_style_top'),
+	    'settings' => array('header_mobile_elements_top','topbar_elements_center', 'topbar_elements_right','topbar_elements_left','nav_style_top'),
 	    'container_inclusive' => true,
 	    'render_callback' => function() {
 	        get_template_part('template-parts/header/header','top');
@@ -58,7 +58,7 @@ function flatsome_refresh_header_partials( WP_Customize_Manager $wp_customize ) 
 	        flatsome_header_elements('header_elements_left');
 	    },
 	) );
-	
+
 
 
 	$wp_customize->selective_refresh->add_partial( 'logo', array(
@@ -109,7 +109,7 @@ function flatsome_refresh_header_partials( WP_Customize_Manager $wp_customize ) 
 	$wp_customize->selective_refresh->add_partial( 'refresh_css_header', array(
 	    'selector' => 'head > style#custom-css',
 	    'container_inclusive' => true,
-	    'settings' => array('color_widget_links','color_widget_links_hover','button_radius','type_headings','color_texts','type_headings_color','header_shop_bg_image','header_shop_bg_color','header_shop_bg_image','header_shop_bg_featured','color_secondary','type_nav_bottom_color','type_nav_bottom_color_hover','type_nav_color_hover','type_nav_color','color_links','color_links_hover','header_top_height','header_bottom_height','header_height','header_height_transparent','color_primary','header_height_sticky','flatsome_lightbox_bg','header_icons_color','header_icons_color_hover'),
+	    'settings' => array('color_widget_links','color_widget_links_hover','button_radius','type_headings','color_texts','type_headings_color','header_shop_bg_image','header_shop_bg_color','header_shop_bg_image','header_shop_bg_featured','color_secondary','type_nav_bottom_color','type_nav_bottom_color_hover','type_nav_color_hover','type_nav_color','color_links','color_links_hover','header_top_height','header_bottom_height','header_height','header_height_transparent','color_primary','header_height_sticky','flatsome_lightbox_bg','header_icons_color','header_icons_color_hover','type_nav_top_color','type_nav_top_color_hover'),
 	    'render_callback' => function() {
 	        flatsome_custom_css();
 	    },

@@ -46,9 +46,6 @@ add_ux_builder_shortcode( 'featured_box',
 					'left'   => 'Left',
 					'right'  => 'Right',
 				),
-				'on_change' => array(
-					'class' => 'icon-box-{{ value }}',
-				),
 			),
 			'title'       => array(
 				'type'      => 'textfield',

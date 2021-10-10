@@ -47,7 +47,7 @@ add_action( 'woocommerce_share', 'flatsome_product_share',  10 );
 
 /* Remove Product Description Heading */
 function flatsome_remove_product_description_heading($heading){
- 
+
      return $heading = '';
 }
 add_filter('woocommerce_product_description_heading','flatsome_remove_product_description_heading');
@@ -70,7 +70,7 @@ function flatsome_product_video_button(){
   global $wc_cpdf;
        // Add Product Video
       if($wc_cpdf->get_value(get_the_ID(), '_product_video')){ ?>
-      <a class="button is-outline circle icon button product-video-popup tip-top" href="<?php echo $wc_cpdf->get_value(get_the_ID(), '_product_video'); ?>" title="<?php echo __( 'Video', 'flatsome' ); ?>">
+      <a class="button is-outline circle icon button product-video-popup tip-top" href="<?php echo trim( $wc_cpdf->get_value( get_the_ID(), '_product_video' ) ); ?>" title="<?php echo __( 'Video', 'flatsome' ); ?>">
             <?php echo get_flatsome_icon('icon-play'); ?>
       </a>
       <style>
@@ -122,9 +122,11 @@ function flatsome_product_body_classes( $classes ) {
 add_filter( 'body_class', 'flatsome_product_body_classes' );
 
 
-function flatsome_product_video_tab(){
-   global $wc_cpdf;
-   echo do_shortcode('[ux_video url="'.$wc_cpdf->get_value(get_the_ID(), '_product_video').'"]');
+function flatsome_product_video_tab() {
+	global $wc_cpdf;
+	echo flatsome_apply_shortcode( 'ux_video', array(
+		'url' => trim( $wc_cpdf->get_value( get_the_ID(), '_product_video' ) ),
+	) );
 }
 
 // Custom Product Tabs
@@ -224,7 +226,6 @@ function flatsome_product_top_content(){
 
 add_action('flatsome_before_product_page','flatsome_product_top_content', 10);
 
-
 // Add Custom HTML to bottom of product page
 function flatsome_product_bottom_content(){
   global $wc_cpdf;
@@ -242,11 +243,12 @@ add_filter( 'woocommerce_output_related_products_args', 'flatsome_related_produc
 
 
 function flatsome_sticky_add_to_cart_before() {
-	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+	global $product;
+
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) || ! apply_filters( 'flatsome_sticky_add_to_cart_enabled', true, $product ) ) {
 		return;
 	}
 
-	global $product;
 	echo '<div class="sticky-add-to-cart-wrapper">';
 	echo '<div class="sticky-add-to-cart">';
 	echo '<div class="sticky-add-to-cart__product">';
@@ -268,7 +270,9 @@ add_action( 'woocommerce_before_add_to_cart_button', 'flatsome_sticky_add_to_car
 
 
 function flatsome_sticky_add_to_cart_after() {
-	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+	global $product;
+
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) || ! apply_filters( 'flatsome_sticky_add_to_cart_enabled', true, $product ) ) {
 		return;
 	}
 

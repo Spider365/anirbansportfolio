@@ -31,7 +31,7 @@ function ux_accordion( $atts, $content = null ) {
 	if ( $class ) $classes[] = $class;
 
 	if ($title) $title = '<h3 class="accordion_title">' . $title . '</h3>';
-	return $title . '<div class="' . implode( ' ', $classes ) . '" rel="' . $open . '">' . flatsome_contentfix( $content ) . '</div>';
+	return $title . '<div class="' . implode( ' ', $classes ) . '" rel="' . $open . '">' . do_shortcode( $content ) . '</div>';
 }
 add_shortcode( 'accordion', 'ux_accordion' );
 
@@ -51,6 +51,6 @@ function ux_accordion_item( $atts, $content = null ) {
 	), $atts));
 	$classes                 = array( 'accordion-item' );
 	if ( $class ) $classes[] = $class;
-	return '<div class="' . implode( ' ', $classes ) . '"><a href="#" class="accordion-title plain"><button class="toggle"><i class="icon-angle-down"></i></button><span>' . $title . '</span></a><div class="accordion-inner">' . flatsome_contentfix( $content ) . '</div></div>';
+	return '<div class="' . implode( ' ', $classes ) . '"><a href="#" class="accordion-title plain"><button class="toggle"><i class="icon-angle-down"></i></button><span>' . $title . '</span></a><div class="accordion-inner">' . do_shortcode( $content ) . '</div></div>';
 }
 add_shortcode( 'accordion-item', 'ux_accordion_item' );

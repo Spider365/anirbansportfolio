@@ -15,7 +15,7 @@ function flatsome_get_grid_height($height, $id){
     $height = intval($height);
   }
   ?>
-  <style scope="scope">
+  <style>
     #<?php echo $id;?> .grid-col-1{height: <?php echo $height; ?>px}
     #<?php echo $id;?> .grid-col-1-2{height: <?php echo $height / 2; ?>px}
     #<?php echo $id;?> .grid-col-1-3{height:<?php echo $height / 3; ?>px}
@@ -69,9 +69,9 @@ if( ! function_exists( 'flatsome_get_grid' ) ) {
     if($grid == '2'){
       $g = array(
           array('height' => '1','span' => '12', 'size' => 'large','md' => '12'),
-          array('height' => '1-3','span' => '4','size' => 'medium','md' => '12'),
-          array('height' => '1-3','span' => '4','size' => 'medium','md' => '12'),
-          array('height' => '1-3','span' => '4','size' => 'medium','md' => '12'),
+          array('height' => '1-3','span' => '4','size' => 'thumbnail','md' => '12'),
+          array('height' => '1-3','span' => '4','size' => 'thumbnail','md' => '12'),
+          array('height' => '1-3','span' => '4','size' => 'thumbnail','md' => '12'),
         );
     }
 
@@ -114,17 +114,17 @@ if( ! function_exists( 'flatsome_get_grid' ) ) {
 
   if($grid == '8'){
       $g = array(
-         array('height' => '1','span' => '3','size' => 'thumbnail','md' => '12'),
+         array('height' => '1','span' => '3','size' => 'medium','md' => '12'),
          array('height' => '1','span' => '6','size' => 'large','md' => '6'),
-         array('height' => '1','span' => '3','size' => 'thumbnail','md' => '6'),
-         array('height' => '1','span' => '3','size' => 'thumbnail','md' => '6'),
+         array('height' => '1','span' => '3','size' => 'medium','md' => '6'),
+         array('height' => '1','span' => '3','size' => 'medium','md' => '6'),
         );
     }
 
   if($grid == '9'){
       $g = array(
-         array('height' => '1','span' => '6','size' => 'medium','md' => '12'),
-         array('height' => '1','span' => '3','size' => 'thumbnail','md' => '6'),
+         array('height' => '1','span' => '6','size' => 'large','md' => '12'),
+         array('height' => '1','span' => '3','size' => 'medium','md' => '6'),
         );
     }
 
@@ -132,8 +132,8 @@ if( ! function_exists( 'flatsome_get_grid' ) ) {
       $g = array(
           array('height' => '1','span' => '6','size' => 'large','md' => '12'),
           array('height' => '1-3','span' => '6','size' => 'medium','md' => '6'),
-          array('height' => '1-3','span' => '3','size' => 'medium','md' => '6'),
-          array('height' => '1-3','span' => '3','size' => 'medium','md' => '6'),
+          array('height' => '1-3','span' => '3','size' => 'thumbnail','md' => '6'),
+          array('height' => '1-3','span' => '3','size' => 'thumbnail','md' => '6'),
           array('height' => '1-3','span' => '6','size' => 'medium','md' => '6'),
         );
     }
@@ -151,22 +151,22 @@ if( ! function_exists( 'flatsome_get_grid' ) ) {
 
     if($grid == '12'){
       $g = array(
-          array('height' => '1-2','span' => '8','md' => '12','size' => 'medium'),
+          array('height' => '1-2','span' => '8','md' => '12','size' => 'large'),
           array('height' => '1','span' => '4','md' => '6','size' => 'large',),
           array('height' => '1','span' => '4','md' => '6','size' => 'large',),
-          array('height' => '1-2','span' => '8','md' => '6','size' => 'medium'),
-          array('height' => '1-2','span' => '8','md' => '6','size' => 'medium'),
-          array('height' => '1','span' => '4','md' => '6','size' => 'medium'),
+          array('height' => '1-2','span' => '8','md' => '6','size' => 'large'),
+          array('height' => '1-2','span' => '8','md' => '6','size' => 'large'),
+          array('height' => '1','span' => '4','md' => '6','size' => 'large'),
         );
     }
 
 
     if($grid == '13'){
       $g = array(
-          array('height' => '2-3','span' => '6','md' => '12','size' => 'medium'),
-          array('height' => '1-2','span' => '3','md' => '6','size' => 'medium'),
+          array('height' => '2-3','span' => '6','md' => '12','size' => 'large'),
+          array('height' => '1-2','span' => '3','md' => '6','size' => 'thumbnail'),
           array('height' => '1','span' => '3','md' => '6','size' => 'medium'),
-          array('height' => '1-2','span' => '3','md' => '6','size' => 'medium'),
+          array('height' => '1-2','span' => '3','md' => '6','size' => 'thumbnail'),
           array('height' => '1-3','span' => '6','md' => '12','size' => 'medium'),
         );
     }

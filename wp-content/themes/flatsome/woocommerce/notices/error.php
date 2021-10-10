@@ -19,41 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( fl_woocommerce_version_check( '3.9.0' ) ) :
+if ( ! $notices ) {
+	return;
+}
 
-	if ( ! $notices ) {
-		return;
-	}
+?>
+<ul class="woocommerce-error message-wrapper" role="alert">
+	<?php foreach ( $notices as $notice ) : ?>
+		<li<?php echo wc_get_notice_data_attr( $notice ); ?>>
+			<div class="message-container container alert-color medium-text-center">
+				<span class="message-icon icon-close"></span>
+				<?php echo wc_kses_notice( $notice['notice'] ); ?>
+			</div>
+		</li>
+	<?php endforeach; ?>
+</ul>
 
-	?>
-	<ul class="woocommerce-error message-wrapper" role="alert">
-		<?php foreach ( $notices as $notice ) : ?>
-			<li<?php echo wc_get_notice_data_attr( $notice ); ?>>
-				<div class="message-container container alert-color medium-text-center">
-					<span class="message-icon icon-close"></span>
-					<?php echo wc_kses_notice( $notice['notice'] ); ?>
-				</div>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-	<?php
-
-else : // Below 3.9.0.
-
-	if ( ! $messages ) {
-		return;
-	}
-
-	?>
-	<ul class="woocommerce-error message-wrapper" role="alert">
-		<?php foreach ( $messages as $message ) : ?>
-			<li>
-				<div class="message-container container alert-color medium-text-center">
-					<span class="message-icon icon-close"></span>
-					<?php echo fl_woocommerce_version_check( '3.5.0' ) ? wc_kses_notice( $message ) : wp_kses_post( $message ); ?>
-				</div>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-	<?php
-endif;

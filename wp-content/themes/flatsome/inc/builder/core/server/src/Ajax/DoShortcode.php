@@ -20,7 +20,7 @@ class DoShortcode {
         $shortcode['children'] = array( array(
             'tag' => 'text',
             'options' => array(),
-            'content' => '<content/>',
+            'content' => '<content></content>',
         ) );
     }
 

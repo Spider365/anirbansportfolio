@@ -65,14 +65,25 @@ class Application {
     if ( ! ux_builder_is_editor() ) return;
 
     $this->container->service( 'current-post', function( $container ) {
+      $post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : null;
+      $post    = get_post( $post_id );
+      if ( empty( $post ) ) {
+        wp_die( __( 'You attempted to edit an item that doesn’t exist. Perhaps it was deleted?' ) );
+      }
       return $container->create( 'UxBuilder\Post\Post', array(
-        'post' => get_post( $_GET['post'] ),
+        'post' => $post,
       ) );
     } );
 
     $this->container->service( 'editing-post', function( $container ) {
+      $edit_post_id = isset( $_GET['edit_post_id'] ) ? intval( $_GET['edit_post_id'] ) : null;
+      $post_id      = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : null;
+      $post         = get_post( $edit_post_id ? $edit_post_id : $post_id );
+      if ( empty( $post ) ) {
+        wp_die( __( 'You attempted to edit an item that doesn’t exist. Perhaps it was deleted?' ) );
+      }
       return $container->create( 'UxBuilder\Post\Post', array(
-        'post' => get_post( isset( $_GET['edit_post_id'] ) ? $_GET['edit_post_id'] : $_GET['post'] ),
+        'post' => $post,
       ) );
     } );
 

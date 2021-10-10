@@ -20,8 +20,14 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 // Ensure visibility.
-if ( empty( $product ) || ! $product->is_visible() ) {
-	return;
+if ( fl_woocommerce_version_check( '4.4.0' ) ) {
+	if ( empty( $product ) || false === wc_get_loop_product_visibility( $product->get_id() ) || ! $product->is_visible() ) {
+		return;
+	}
+} else {
+	if ( empty( $product ) || ! $product->is_visible() ) {
+		return;
+	}
 }
 
 // Check stock status.
@@ -37,13 +43,13 @@ if ( $out_of_stock ) $classes[] = 'out-of-stock';
 
 ?>
 
-<div <?php fl_woocommerce_version_check( '3.4.0' ) ? wc_product_class( $classes, $product ) : post_class( $classes ); ?>>
+<div <?php wc_product_class( $classes, $product ); ?>>
 	<div class="col-inner">
 	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 	<div class="product-small box <?php echo flatsome_product_box_class(); ?>">
 		<div class="box-image">
 			<div class="<?php echo flatsome_product_box_image_class(); ?>">
-				<a href="<?php echo get_the_permalink(); ?>">
+				<a href="<?php echo get_the_permalink(); ?>" aria-label="<?php echo esc_attr( $product->get_title() ); ?>">
 					<?php
 						/**
 						 *

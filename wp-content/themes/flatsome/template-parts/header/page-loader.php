@@ -16,7 +16,7 @@ if(empty($bg_color) && $color == 'dark'){
 	    </div>
 		<div class="page-loader-spin"><div class="loading-spin"></div></div>
 	</div>
-	<style scope="scope">
+	<style>
 		.page-loader{opacity: 0; transition: opacity .3s; transition-delay: .3s;
 			background-color: <?php echo $bg_color; ?>;
 		}

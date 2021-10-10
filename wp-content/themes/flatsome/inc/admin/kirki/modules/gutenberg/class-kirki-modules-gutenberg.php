@@ -9,7 +9,7 @@
  * @package     Kirki
  * @category    Core
  * @author      Tim Elsass
- * @copyright   Copyright (c) 2019, Ari Stathopoulos (@aristath)
+ * @copyright   Copyright (c) 2020, David Vongries
  * @license     https://opensource.org/licenses/MIT
  * @since       3.0.35
  */
@@ -127,7 +127,7 @@ class Kirki_Modules_Gutenberg {
 	protected function add_hooks() {
 		if ( ! $this->is_disabled() ) {
 			add_action( 'after_setup_theme', array( $this, 'add_theme_support' ), 999 );
-			add_filter( 'block_editor_settings', array( $this, 'enqueue' ) );
+			add_filter( 'block_editor_settings_all', array( $this, 'enqueue' ) );
 		}
 	}
 

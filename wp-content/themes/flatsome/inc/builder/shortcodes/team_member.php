@@ -42,7 +42,7 @@ add_ux_builder_shortcode( 'team_member', array(
                 ),
                 'depth_hover' => array(
                     'type' => 'slider',
-                    'heading' => __( 'Depth :Hover' ),
+                    'heading' => __( 'Depth :hover' ),
                     'default' => '0',
                     'max' => '5',
                     'min' => '0',
@@ -72,6 +72,9 @@ add_ux_builder_shortcode( 'team_member', array(
                 'phone' => array( 'type' => 'textfield','heading' => 'Phone', 'default' => ''),
                 'pinterest' => array( 'type' => 'textfield','heading' => 'Pinterest', 'default' => ''),
                 'linkedin' => array( 'type' => 'textfield','heading' => 'Linkedin', 'default' => ''),
+                'telegram' => array( 'type' => 'textfield','heading' => 'Telegram', 'default' => ''),
+				'twitch' => array( 'type' => 'textfield','heading' => 'Twitch', 'default' => ''),
+				'discord' => array( 'type' => 'textfield','heading' => 'Discord', 'default' => ''),
                 'snapchat' => array( 'type' => 'image', 'heading' => __( 'SnapChat' )),
             ),
         ),

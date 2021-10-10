@@ -130,7 +130,7 @@ function ux_section( $atts, $content = null ) {
 				echo '<div class="loading-spin centered"></div>';
 			}
 			if ( $scroll_for_more ) {
-				echo '<button class="scroll-for-more z-5 icon absolute bottom h-center">' . get_flatsome_icon( 'icon-angle-down', '42px' ) . '</button>';
+				echo '<button class="scroll-for-more z-5 icon absolute bottom h-center" aria-label="' . esc_attr__( 'Scroll for more', 'flatsome' ) . '">' . get_flatsome_icon( 'icon-angle-down', '42px' ) . '</button>';
 			}
 			if ( $effect ) {
 				echo '<div class="effect-' . $effect . ' bg-effect fill no-click"></div>';

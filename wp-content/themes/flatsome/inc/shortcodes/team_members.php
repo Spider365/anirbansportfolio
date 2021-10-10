@@ -19,6 +19,9 @@ function flatsome_team_member($atts, $content = null){
       'email' => '',
       'phone' => '',
       'linkedin' => '',
+	  'telegram' => '',
+      'twitch' => '',
+      'discord' => '',
       'style' => '',
       'depth' => '',
       'depth_hover' => '',
@@ -109,6 +112,7 @@ function flatsome_team_member($atts, $content = null){
         array( 'attribute' => 'padding-top', 'value' => $image_height),
     );
 
+	$has_custom_social_link = $facebook || $instagram || $tiktok || $twitter || $youtube || $email || $phone || $pinterest || $linkedin || $snapchat || $telegram || $twitch || $discord;
     ?>
     <div class="box has-hover <?php echo implode(' ', $classes_box); ?>" <?php echo $animate; ?>>
 
@@ -129,7 +133,7 @@ function flatsome_team_member($atts, $content = null){
                       <?php echo $title; ?>
                     </span>
                   </h4>
-                 <?php echo do_shortcode('[follow style="'.$icon_style.'" facebook="'.$facebook.'" twitter="'.$twitter.'" snapchat="'.$snapchat.'" email="'.$email.'" phone="'.$phone.'" pinterest="'.$pinterest.'" youtube="'.$youtube.'" instagram="'.$instagram.'" tiktok="'.$tiktok.'" linkedin="'.$linkedin.'"]'); ?>
+                 <?php if( $has_custom_social_link ) echo do_shortcode('[follow style="'.$icon_style.'" facebook="'.$facebook.'" twitter="'.$twitter.'" snapchat="'.$snapchat.'" email="'.$email.'" phone="'.$phone.'" pinterest="'.$pinterest.'" youtube="'.$youtube.'" instagram="'.$instagram.'" tiktok="'.$tiktok.'" linkedin="'.$linkedin.'" telegram="'.$telegram.'" twitch="'.$twitch.'" discord="'.$discord.'"]'); ?>
                  <?php if($style  !== 'overlay' && $style  !== 'shade') echo do_shortcode($content); ?>
                 </div>
           </div>

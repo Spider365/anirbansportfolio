@@ -1,9 +1,5 @@
 <?php
 
-function ux_builder_template_path( $path ) {
-  return ux_builder_path( "/server/templates/{$path}.php" );
-}
-
 function ux_builder_html_atts( $attributes ) {
   $output = '';
 
@@ -18,5 +14,9 @@ function ux_builder_render( $__template, $__variables = array() ) {
   extract( $__variables );
   unset( $__variables );
 
-  include ux_builder_template_path( $__template );
+  if ( in_array( $__template, array( 'editor', 'iframe-frontend', 'media', 'tinymce' ), true ) ) {
+    include ux_builder_path( "/server/templates/{$__template}.php" );
+  } else {
+    wp_die( "No template for <em>$__template</em> exist." );
+  }
 }

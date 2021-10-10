@@ -106,6 +106,17 @@ function flatsome_before_body_close() {
 
 add_action( 'wp_footer', 'flatsome_before_body_close', apply_filters( 'flatsome_before_body_close_priority', 9999 ) );
 
+/**
+ * Adds body-overlay element if enabled for one of the header positions.
+ */
+function flatsome_body_overlay() {
+	if ( get_theme_mod( 'nav_top_body_overlay' ) || get_theme_mod( 'nav_body_overlay' ) || get_theme_mod( 'nav_bottom_body_overlay' ) ) {
+		echo '<div class="ux-body-overlay"></div>';
+	}
+}
+
+add_action( 'wp_footer', 'flatsome_body_overlay' );
+
 
 // Custom HTML Before footer
 function flatsome_html_before_footer(){
@@ -124,3 +135,4 @@ function flatsome_html_after_footer(){
 	}
 }
 add_action('flatsome_after_footer', 'flatsome_html_after_footer');
+

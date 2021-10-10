@@ -30,12 +30,12 @@ global $product;
 	do_action( 'woocommerce_before_single_product' );
 
 	if ( post_password_required() ) {
-		echo get_the_password_form(); // WPCS: XSS ok.
+		echo get_the_password_form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		return;
 	}
 	?>
 </div>
-<div id="product-<?php the_ID(); ?>" <?php fl_woocommerce_version_check( '3.4.0' ) ? wc_product_class( '', $product ) : post_class(); ?>>
+<div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 	<?php
 	// Get product page layout.
 	wc_get_template_part( 'single-product/layouts/product', flatsome_option( 'product_layout' ) );

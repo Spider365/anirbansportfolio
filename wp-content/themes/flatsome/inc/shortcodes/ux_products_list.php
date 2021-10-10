@@ -1,7 +1,7 @@
 <?php
 
 // Flatsome Products
-function ux_products_list($atts, $content = null, $tag) {
+function ux_products_list($atts, $content = null, $tag = '' ) {
   extract( $atts = shortcode_atts( array(
     'title' => '',
     'ids' => '',

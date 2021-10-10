@@ -59,7 +59,7 @@ add_ux_builder_shortcode( 'ux_countdown', array(
         'year' => array(
             "type" => "textfield",
             "heading" => "Year",
-            "default" => "2016"
+            "default" => "2021"
         ),
         'month' => array(
             "type" => "textfield",

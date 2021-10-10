@@ -51,7 +51,7 @@ function flatsome_testimonial($atts, $content = null) {
         <div class="icon-box-text p-last-0">
           <?php if($stars > 0) echo $star_row; ?>
   				<div class="testimonial-text line-height-small italic test_text first-reset last-reset is-italic">
-            <?php echo $content; ?>
+            <?php echo do_shortcode( $content ); ?>
           </div>
           <div class="testimonial-meta pt-half">
              <strong class="testimonial-name test_name"><?php echo $name; ?></strong>

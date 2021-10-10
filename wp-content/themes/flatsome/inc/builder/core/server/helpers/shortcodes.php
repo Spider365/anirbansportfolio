@@ -54,15 +54,3 @@ function ux_builder_element_data( $id ) {
   $meta = get_post_meta( $post_id, '_ux_builder_data', true );
   return ! empty( $meta['shortcodes'][$id]['options'] ) ? $meta['shortcodes'][$id]['options'] : array();
 }
-
-/**
- * Get template markup for an element.
- *
- * @param  string $path
- * @return string
- */
-function ux_builder_element_template( $path ) {
-  ob_start();
-  include ux_builder_path( "/app/shortcodes/{$path}" );
-  return ob_get_clean();
-}

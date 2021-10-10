@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif ?>
 		</div>
 		<div class="flex-col">
-			<button type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woocommerce' ); ?>" class="ux-search-submit submit-button secondary button icon mb-0">
+			<button type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woocommerce' ); ?>" class="ux-search-submit submit-button secondary button icon mb-0" aria-label="<?php esc_attr_e( 'Submit', 'flatsome' ); ?>">
 				<?php echo get_flatsome_icon( 'icon-search' ); ?>
 			</button>
 		</div>

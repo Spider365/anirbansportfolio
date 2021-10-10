@@ -18,4 +18,4 @@ function flatsome_single_product_custom_structured_data() {
 	add_action( 'woocommerce_after_single_product', [ $structured_data, 'generate_product_data' ], 60 );
 }
 
-add_action( 'init', 'flatsome_single_product_custom_structured_data' );
+add_action( 'flatsome_before_single_product_custom', 'flatsome_single_product_custom_structured_data' );

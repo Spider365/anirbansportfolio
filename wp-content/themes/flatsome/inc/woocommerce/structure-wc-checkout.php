@@ -17,7 +17,7 @@ add_action( 'woocommerce_before_cart_totals', 'flatsome_woocommerce_before_cart_
 
 // Custom Thank You Html
 function flatsome_thank_you_html(){
-    echo get_theme_mod('html_thank_you');
+	echo do_shortcode( get_theme_mod( 'html_thank_you' ) );
 }
 add_action( 'woocommerce_thankyou', 'flatsome_thank_you_html', 100);
 
@@ -35,31 +35,31 @@ add_action('woocommerce_checkout_after_order_review', 'flatsome_html_checkout_si
 
 function flatsome_override_existing_checkout_fields( $fields ) {
 
-	// Make sure address 1 and address 2 is on same line
+	// Make sure address 1 and address 2 is on same line.
 	if ( isset( $fields['address_2'] ) ) {
 		$fields['address_1']['class'][] = 'form-row-first';
 		$fields['address_2']['class'][] = 'form-row-last';
-		$fields['address_2']['label']   = esc_attr__( 'Apartment, suite, unit etc.', 'woocommerce' );
+		$fields['address_2']['label']   = esc_attr__( 'Apartment, suite, unit, etc.', 'woocommerce' );
 
-		// Remove "form-row-wide" class from address 1 and address 2
-		if ( $fields['address_1']['class'][0] == 'form-row-wide' ) {
-			unset( $fields['address_1']['class'][0] );
-		}
-		if ( $fields['address_2']['class'][0] == 'form-row-wide' ) {
-			unset( $fields['address_2']['class'][0] );
-		}
+		// Remove "form-row-wide" class from address 1 and address 2.
+		$fields['address_1']['class'] = array_diff( $fields['address_1']['class'], array( 'form-row-wide' ) );
+		$fields['address_1']['class'] = array_values( $fields['address_1']['class'] ); // Reindex.
+
+		$fields['address_2']['class'] = array_diff( $fields['address_2']['class'], array( 'form-row-wide' ) );
+		$fields['address_2']['class'] = array_values( $fields['address_2']['class'] ); // Reindex.
 
 		// Reveal label.
 		if ( isset( $fields['address_2']['label_class'] ) && is_array( $fields['address_2']['label_class'] ) ) {
 			$fields['address_2']['label_class'] = array_diff( $fields['address_2']['label_class'], array( 'screen-reader-text' ) );
+			$fields['address_2']['label_class'] = array_values( $fields['address_2']['label_class'] ); // Reindex.
 		}
 	}
 
-	// Fix labels for floating labels option
+	// Fix labels for floating labels option.
 	if ( get_theme_mod( 'checkout_floating_labels', 0 ) ) {
 		$fields['address_1']['placeholder'] = __( 'Street address', 'woocommerce' );
 
-		// Set Placeholders
+		// Set Placeholders.
 		foreach ( $fields as $key => $value ) {
 			if ( isset( $fields[ $key ]['label'] ) && ! isset( $fields[ $key ]['placeholder'] ) ) {
 				$fields[ $key ]['placeholder'] = $fields[ $key ]['label'];

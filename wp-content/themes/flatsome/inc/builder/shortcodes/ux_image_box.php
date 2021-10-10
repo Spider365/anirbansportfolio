@@ -41,7 +41,7 @@ add_ux_builder_shortcode( 'ux_image_box', array(
         ),
         'depth_hover' => array(
             'type' => 'slider',
-            'heading' => __( 'Depth :Hover' ),
+            'heading' => __( 'Depth :hover' ),
             'default' => '0',
             'max' => '5',
             'min' => '0',

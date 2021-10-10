@@ -85,7 +85,7 @@ function featured_box( $atts, $content = null ) {
 		<div class="icon-box-text last-reset">
 			<?php if ( $title ) { ?><h5 class="uppercase"><?php echo $title; ?></h5><?php } ?>
 			<?php if ( $title_small ) { ?><h6><?php echo $title_small; ?></h6><?php } ?>
-			<?php echo flatsome_contentfix( $content ); ?>
+			<?php echo do_shortcode( $content ); ?>
 		</div>
 	</div>
 	<?php if ( $link ) echo '</a>'; ?>

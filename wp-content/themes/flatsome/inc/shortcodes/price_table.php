@@ -55,7 +55,7 @@ function ux_price_table( $atts, $content = null ){
       <?php } ?>
     </div>
     <div class="pricing-table-items items">
-      <?php echo flatsome_contentfix($content); ?>
+      <?php echo do_shortcode( $content ); ?>
     </div>
     <?php if($button_text) { ?>
     <div class="cta-button">

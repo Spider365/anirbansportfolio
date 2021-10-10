@@ -137,7 +137,7 @@ Flatsome_Option::add_field( 'option',
 	array(
 		'type'      => 'slider',
 		'settings'  => 'header_button_1_depth_hover',
-		'label'     => __( 'Depth:hover', 'flatsome-admin' ),
+		'label'     => __( 'Depth :hover', 'flatsome-admin' ),
 		'section'   => 'header_buttons',
 		'default'   => 0,
 		'choices'   => array(
@@ -280,7 +280,7 @@ Flatsome_Option::add_field( 'option',
 	array(
 		'type'      => 'slider',
 		'settings'  => 'header_button_2_depth_hover',
-		'label'     => __( 'Depth:hover', 'flatsome-admin' ),
+		'label'     => __( 'Depth :hover', 'flatsome-admin' ),
 		'section'   => 'header_buttons',
 		'default'   => 0,
 		'choices'   => array(

@@ -19,15 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$tabs_style = get_theme_mod( 'product_display', 'tabs' );
+
 // Get sections instead of tabs if set.
-if ( get_theme_mod( 'product_display' ) == 'sections' ) {
+if ( $tabs_style == 'sections' ) {
 	wc_get_template_part( 'single-product/tabs/sections' );
 
 	return;
 }
 
 // Get accordion instead of tabs if set.
-if ( get_theme_mod( 'product_display' ) == 'accordian' ) {
+if ( $tabs_style == 'accordian' || $tabs_style == 'accordian-collapsed' ) {
 	wc_get_template_part( 'single-product/tabs/accordian' );
 
 	return;

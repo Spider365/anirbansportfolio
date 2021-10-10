@@ -22,13 +22,10 @@ add_filter( 'kirki_config', 'flatsome_kirki_update_url' );
 function flatsome_kirki_modules( $modules ) {
 	unset( $modules['css'] );
 	unset( $modules['css-vars'] );
-	unset( $modules['customizer-styling'] );
 	unset( $modules['icons'] );
 	unset( $modules['loading'] );
-	unset( $modules['branding'] );
 	unset( $modules['selective-refresh'] );
 	unset( $modules['gutenberg'] );
-	unset( $modules['telemetry'] );
 
 	return $modules;
 }

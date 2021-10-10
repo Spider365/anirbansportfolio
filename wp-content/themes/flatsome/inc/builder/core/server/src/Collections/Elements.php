@@ -94,6 +94,13 @@ class Elements extends Collection {
   */
   public function get( $tag = null ) {
     $tag = $this->extract_tag_name( $tag );
+
+    // `[ux_text]` shortcodes isn't registered in UX Builder,
+    // so we want to treat them like `[text]` elements.
+    if ( 'ux_text' === $tag && isset( $this->items['text'] ) ) {
+      return $this->items['text'];
+    }
+
     if ( $tag && isset( $this->items[$tag] ) ) {
       return $this->items[$tag];
     } else if ( $tag && ! isset( $this->items[$tag] ) ) {

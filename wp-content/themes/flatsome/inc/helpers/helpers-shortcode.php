@@ -36,6 +36,7 @@ function get_flatsome_repeater_start( $atts ) {
       'slider_bullets' => 'false',
       'slider_nav_color' => '',
       'auto_slide' => 'false',
+	  'infinitive' => 'true',
       'format' => '',
     ) );
 
@@ -130,7 +131,7 @@ function get_flatsome_repeater_start( $atts ) {
       // Add slider push class to normal text boxes
       if(!$atts['style'] || $atts['style'] == 'default' || $atts['style'] == 'normal' || $atts['style'] == 'bounce') $row_classes[] = 'slider-nav-push';
 
-      $slider_options = '{"imagesLoaded": true, "groupCells": '.$group_cells.', "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": '.$atts['slider_bullets'].', "rightToLeft": '.$rtl.', "autoPlay" : '.$atts['auto_slide'].'}';
+      $slider_options = '{"imagesLoaded": true, "groupCells": '.$group_cells.', "dragThreshold" : 5, "cellAlign": "left","wrapAround": '.$atts['infinitive'].',"prevNextButtons": true,"percentPosition": true,"pageDots": '.$atts['slider_bullets'].', "rightToLeft": '.$rtl.', "autoPlay" : '.$atts['auto_slide'].'}';
 
     } else if($atts['type'] == 'slider-full'){
       $row_classes_full[] = 'slider slider-auto-height row-collapse';
@@ -139,7 +140,7 @@ function get_flatsome_repeater_start( $atts ) {
 
       if($atts['slider_style']) $row_classes_full[] = 'slider-nav-'.$atts['slider_style'];
 
-      $slider_options = '{"imagesLoaded": true, "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": '.$atts['slider_bullets'].', "rightToLeft": '.$rtl.', "autoPlay" : '.$atts['auto_slide'].'}';
+      $slider_options = '{"imagesLoaded": true, "dragThreshold" : 5, "cellAlign": "left","wrapAround": '.$atts['infinitive'].',"prevNextButtons": true,"percentPosition": true,"pageDots": '.$atts['slider_bullets'].', "rightToLeft": '.$rtl.', "autoPlay" : '.$atts['auto_slide'].'}';
     }
 
 	$row_classes_full = array_unique( $row_classes_full );
@@ -183,34 +184,34 @@ function get_flatsome_repeater_end($type){
 
 /* Fix Normal Shortcodes */
 function flatsome_contentfix($content){
+    if ( ! is_string( $content ) ) {
+      return $content;
+    }
+
     $fix = array (
             '<p>_____</p>' => '<div class="is-divider large"></div>',
             '<p>____</p>' => '<div class="is-divider medium"></div>',
             '<p>___</p>' => '<div class="is-divider small"></div>',
             '</div></p>' => '</div>',
             '<p><div' => '<div',
-            ']</p>' => ']',
             ']<br />' => ']',
-            '<p>[' => '[',
             '<br />[' => '[',
+            '<p>[' => '[',
+            ']</p>' => ']',
 
             // For Gutenberg blocks that is encoded by UX Builder.
             '&lt;!&#8211;' => '<!--',
             '&#8211;&gt;' => '-->',
     );
-    //$content = wpautop( preg_replace( '/<\/?p\>/', "\n", $content ) . "\n" );
-    $content = strtr($content, $fix);
-    return do_shortcode($content);
+
+    return strtr( $content, $fix );
 }
 
-/* Add shortcode fix to content */
-add_filter('the_content', 'flatsome_contentfix');
-
-/* Add shortcode to widgets */
-add_filter('widget_text', 'flatsome_contentfix');
-
-/* Add shortcode to excerpt */
-add_filter('the_excerpt', 'flatsome_contentfix');
+add_filter( 'the_content', 'flatsome_contentfix' );
+add_filter( 'widget_text', 'flatsome_contentfix' );
+add_filter( 'widget_text', 'do_shortcode' );
+add_filter( 'the_excerpt', 'flatsome_contentfix' );
+add_filter( 'the_excerpt', 'do_shortcode' );
 
 /**
  * Remove whitespace characters \r\n\t\f\v from HTML between > and <
@@ -262,12 +263,19 @@ function flatsome_get_image($id, $size = 'large', $alt = 'bg_image', $inline = f
         return '<img src="'.$id.'" alt="'.$alt.'" />';
     } else {
         $meta = get_post_mime_type($id);
-        if($meta == 'image/svg+xml' && $inline){
-          $image = wp_get_attachment_image_src($id);
-          return wp_remote_fopen($image[0]);
-        } else {
-          return wp_get_attachment_image($id, $size);
+
+        if ( $meta == 'image/svg+xml' && $inline ){
+          $file = get_attached_file( $id );
+          if ( $file && file_exists( $file ) ) {
+            return preg_replace(
+              '#<script(.*?)>(.*?)</script>#is',
+              '',
+              file_get_contents( $file )
+            );
+          }
         }
+
+        return wp_get_attachment_image( $id, $size );
     }
 }
 
@@ -525,4 +533,16 @@ function flatsome_box_item_toggle_end( $items ) {
 			add_action( $item['tag'], $item['function'], $item['priority'] );
 		}
 	}
+}
+
+/**
+ * Inserts items at offset in an associative array.
+ *
+ * @param array $array
+ * @param array $values
+ * @param int $offset
+ * @return array
+ */
+function flatsome_array_insert( array $array, array $values, $offset ) {
+  return array_slice( $array, 0, $offset, true ) + $values + array_slice( $array, $offset, null, true );
 }

@@ -48,6 +48,13 @@ Flatsome_Option::add_field( 'option',  array(
 	'default'     => 1,
 ));
 
+Flatsome_Option::add_field( 'option', array(
+	'type'     => 'checkbox',
+	'settings' => 'blog_sticky_sidebar',
+	'label'    => __( 'Sticky sidebar', 'flatsome-admin' ),
+	'section'  => 'blog-layout',
+	'default'  => 0,
+) );
 
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'radio-image',
@@ -67,7 +74,7 @@ Flatsome_Option::add_field( 'option',  array(
 Flatsome_Option::add_field( 'option', array(
 	'type'            => 'radio-buttonset',
 	'settings'        => 'blog_style_type',
-	'label'           => __( 'Posts Layout Type', 'flatsome-admin' ) . ' (NEW)',
+	'label'           => __( 'Posts Layout Type', 'flatsome-admin' ),
 	'section'         => 'blog-layout',
 	'default'         => 'masonry',
 	'choices'         => array(

@@ -18,14 +18,65 @@ class PostArray {
   }
 
   public function create_array() {
-    $self = $this;
+    $self         = $this;
     $post_content = $this->post->post_content;
+    $transformer  = ux_builder( 'to-array' );
 
-    // Remove HTML block wrappers in UX Builder.
-    // They will be added by ArrayToString.php when saved.
-    $post_content = preg_replace( '/<!-- \/?wp:html -->/', '', $post_content );
+    if ( has_blocks( $post_content ) ) {
+      $blocks   = parse_blocks( $post_content );
+      $elements = array();
 
-    $this->post_array = ux_builder( 'to-array' )->transform( "[_root]{$post_content}[/_root]" );
+      $content_block = has_block( 'flatsome/uxbuilder', $post_content )
+        ? 'flatsome/uxbuilder'
+        : 'core/html';
+
+      foreach ( $blocks as $block ) {
+        if ( empty( $block['blockName'] ) ) {
+          continue;
+        }
+
+        if ( $block['blockName'] === $content_block ) {
+          if ( ! empty( $block['innerHTML'] ) ) {
+            $elements = array_merge(
+              $elements,
+              $transformer->transform( $block['innerHTML'] )
+            );
+          }
+        } else {
+          array_push( $elements, array(
+            'tag'     => 'ux_gutenberg',
+            'options' => array(),
+            'content' => serialize_block( $block ),
+          ) );
+        }
+      }
+
+      // Merge adjacent `ux_gutenberg` elements.
+      for ( $i = count( $elements ) - 1; $i >= 0; $i-- ) {
+        if ( ! empty( $elements[ $i + 1 ] ) ) {
+          $block = &$elements[ $i ];
+          $next_block = $elements[ $i + 1 ];
+
+          if (
+            $block['tag'] === 'ux_gutenberg' &&
+            $next_block['tag'] === 'ux_gutenberg'
+          ) {
+            $block['content'] .= "\n\n" . $next_block['content'];
+            array_splice( $elements, $i + 1, 1 );
+          }
+        }
+      }
+
+      $this->post_array = array(
+        array(
+          'tag'      => '_root',
+          'options'  => array(),
+          'children' => $elements,
+        ),
+      );
+    } else {
+      $this->post_array = $transformer->transform( "[_root]{$post_content}[/_root]" );
+    }
 
     ux_builder_content_array_walk( $this->post_array, function ( &$item ) use ( $self ) {
       $item['options'] = $self->get_options( $item['tag'], $item['options'] );

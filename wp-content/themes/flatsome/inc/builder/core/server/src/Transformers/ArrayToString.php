@@ -49,11 +49,22 @@ class ArrayToString extends Transformer {
       $options = $this->options_to_string( $item, $shortcode );
       $content = $this->get_content( $item );
 
-      $string .= str_replace(
-        array( '{tag}', '{options}', '{content}' ),
-        array( $tag, $options, $content, ),
-        $shortcode['template_shortcode']
-      );
+      $template_shortcode = $shortcode['template_shortcode'];
+
+      if ( is_callable( $shortcode['template_shortcode'] ) ) {
+        $template_shortcode = call_user_func_array(
+          $shortcode['template_shortcode'],
+          array( $item, $options, $content, $container )
+        );
+      }
+
+      if ( is_string( $template_shortcode ) ) {
+        $string .= str_replace(
+          array( '{tag}', '{options}', '{content}' ),
+          array( $tag, $options, $content, ),
+          $template_shortcode
+        );
+      }
 
       $this->decrease_nested( $item['tag'] );
     }
@@ -71,7 +82,7 @@ class ArrayToString extends Transformer {
     $this->in_block = true;
 
     return $this->use_blocks
-      ? "\n<!-- wp:html -->\n"
+      ? "\n<!-- wp:flatsome/uxbuilder -->\n"
       : '';
   }
 
@@ -81,7 +92,7 @@ class ArrayToString extends Transformer {
     $this->in_block = false;
 
     return $this->use_blocks
-      ? "\n<!-- /wp:html -->\n"
+      ? "\n<!-- /wp:flatsome/uxbuilder -->\n"
       : '';
   }
 

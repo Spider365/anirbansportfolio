@@ -45,7 +45,7 @@ Flatsome_Option::add_field( 'option',  array(
 Flatsome_Option::add_field( 'option', array(
 	'type'     => 'radio-buttonset',
 	'settings' => 'blog_featured_image_size',
-	'label'    => esc_attr__( 'Image Size', 'flatsome-admin' ) . ' (NEW)',
+	'label'    => esc_attr__( 'Image Size', 'flatsome-admin' ),
 	'section'  => 'blog-featured',
 	'default'  => 'medium',
 	'choices'  => array(

@@ -54,21 +54,8 @@ function ux_builder_enqueue_editor_assets() {
     $version
   );
 
-  wp_enqueue_script(
-    'ux-builder-vendors',
-    ux_builder_asset( 'js/builder/core/vendors.js' ),
-    array( 'jquery', 'underscore', 'jquery-ui-sortable' ),
-    $version,
-    true
-  );
-
-  wp_enqueue_script(
-    'ux-builder-core',
-    ux_builder_asset( 'js/builder/core/editor.js' ),
-    array( 'ux-builder-vendors' ),
-    $version,
-    true
-  );
+  flatsome_enqueue_asset( 'ux-builder-vendors', 'builder/vendors/vendors', array( 'underscore', 'jquery-ui-sortable' ) );
+  flatsome_enqueue_asset( 'ux-builder-core', 'builder/core/editor', array( 'ux-builder-vendors' ) );
 
   do_action( 'ux_builder_enqueue_scripts', 'editor' );
 
@@ -128,7 +115,7 @@ function ux_builder_editor_data() {
     'nonce' => wp_create_nonce( 'ux-builder-' . $editing_post->post()->ID ),
     'ajaxUrl' => admin_url( 'admin-ajax.php' ),
     'flatsomeStudioUrl' => $has_flatsome_studio
-      ? ( is_ssl() ? 'https' : 'http' ) . '://demos.uxthemes.com/'
+      ? 'https://studio.uxthemes.com/'
       : null,
     'iframeUrl' => ux_builder_iframe_url(),
     'backUrl' => $back_url,
@@ -136,6 +123,7 @@ function ux_builder_editor_data() {
     'postUrl' => $current_post->permalink(),
     'wpMediaUrl' => ux_builder_edit_url( $post_id, null, 'media' ),
     'wpEditorUrl' => ux_builder_edit_url( $post_id, null, 'tinymce' ),
+    'registerUrl' => admin_url( 'admin.php?page=flatsome-panel' ),
     'post' => $editing_post->to_array(),
     'saveButton' => $save_button,
     'showSidebar' => true,
@@ -172,6 +160,8 @@ function ux_builder_editor_data() {
   $data['templates'] = array_filter( ux_builder( 'templates' )->to_array(), function ( $template ) {
     return in_array( ux_builder( 'editing-post' )->post()->post_type, $template['post_types'] );
   } );
+
+  $data['isRegistered'] = flatsome_envato()->is_registered();
 
   return $data;
 }

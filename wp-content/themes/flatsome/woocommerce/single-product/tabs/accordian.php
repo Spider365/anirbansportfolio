@@ -18,19 +18,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Each tab is an array containing title, callback and priority.
  * @see woocommerce_default_product_tabs()
  */
-$tabs = apply_filters( 'woocommerce_product_tabs', array() );
+$product_tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
-if ( ! empty( $tabs ) ) : ?>
+if ( ! empty( $product_tabs ) ) : ?>
 <div class="product-page-accordian">
-	<div class="accordion" rel="1">
-		<?php foreach ( $tabs as $key => $tab ) : ?>
+	<div class="accordion" rel="<?php echo get_theme_mod( 'product_display', 'tabs' ) === 'accordian-collapsed' ? 0 : 1; ?>">
+		<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
 		<div class="accordion-item">
 			<a class="accordion-title plain" href="javascript:void();">
 				<button class="toggle"><i class="icon-angle-down"></i></button>
-				<?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', $tab['title'], $key ) ?>
+				<?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', $product_tab['title'], $key ); ?>
 			</a>
 			<div class="accordion-inner">
-					<?php call_user_func( $tab['callback'], $key, $tab ) ?>
+				<?php
+				if ( isset( $product_tab['callback'] ) ) {
+					call_user_func( $product_tab['callback'], $key, $product_tab );
+				}
+				?>
 			</div>
 		</div>
 		<?php endforeach; ?>

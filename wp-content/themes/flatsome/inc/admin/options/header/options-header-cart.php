@@ -24,6 +24,22 @@ Flatsome_Option::add_field( 'option',  array(
 	),
 ));
 
+Flatsome_Option::add_field( 'option',  array(
+	'type'        => 'checkbox',
+	'settings'     => 'cart_dropdown_show',
+	'label'       => __( 'Auto reveal mini cart', 'flatsome-admin' ),
+	'description' => __( 'Reveal mini cart after a product is added', 'flatsome-admin' ),
+	'section'     => 'header_cart',
+	'active_callback' => array(
+		array(
+			'setting'  => 'header_cart_style',
+			'operator' => '!==',
+			'value'    => 'link',
+		),
+	),
+	'default'     => 1,
+));
+
 Flatsome_Option::add_field( 'option', array(
 	'type'        => 'radio-image',
 	'settings'     => 'cart_icon_style',

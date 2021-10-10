@@ -16,6 +16,7 @@ function flatsome_maintenance_mode() {
 
 		// Remove Woocommerce store notice.
 		remove_action( 'wp_footer', 'woocommerce_demo_store' );
+		remove_action( 'wp_footer', 'flatsome_cookie_notice_template' );
 
 		// Clear Cachify Cache.
 		if ( has_action( 'cachify_flush_cache' ) ) {
@@ -44,4 +45,4 @@ function flatsome_maintenance_mode() {
 	}
 }
 
-add_action( 'wp_loaded', 'flatsome_maintenance_mode' );
+add_action( 'template_redirect', 'flatsome_maintenance_mode' );

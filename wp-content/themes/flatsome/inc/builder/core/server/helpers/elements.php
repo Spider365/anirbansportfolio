@@ -46,27 +46,32 @@ function ux_builder_element_style_tag( $id, $rules, $atts ) {
           $declaration = apply_filters( 'ux_builder_css_declaration', $declaration );
           if (!empty($declaration['value'])) {
             $declaration_str = trim( "{$declaration['property']}: {$declaration['value']};" );
+            $styles[$breakpoint]['rules'][$selector_str][] = $declaration_str;
           }
-          $styles[$breakpoint]['rules'][$selector_str][] = $declaration_str;
         }
       }
     }
   }
 
   // Generates the style tag.
-  $output = "";
-  if(!empty($styles)) $output .= "\n<style scope=\"scope\">\n\n";
+  $output = '';
+
   foreach ( $styles as $index => $media ) {
     if ( count( $media['rules'] ) ) {
-      if ( $index > 0 ) $output .= "\n\n@media (min-width:{$styles[$index - 1]['width']}px) {\n\n";
+      if ( $index > 0 ) $output .= "@media (min-width:{$styles[$index - 1]['width']}px) {\n";
       foreach ( $media['rules'] as $selector => $declarations ) {
         $indent = str_repeat( ' ',  $index > 0 ? 2 : 0 );
         $output .= $indent . $selector . " {\n{$indent}  " . implode( "\n{$indent}  " , $declarations ) . "\n{$indent}}\n";
       }
-      if ( $index > 0 ) $output .= "\n}\n";
+      if ( $index > 0 ) $output .= "}\n";
     }
   }
-  if(!empty($styles)) $output .= "</style>\n";
+
+  $trimmed_output = trim( $output );
+
+  if ( ! empty( $trimmed_output ) ) {
+    return "\n<style>\n" . $trimmed_output . "\n</style>\n";
+  }
 
   return $output;
 }

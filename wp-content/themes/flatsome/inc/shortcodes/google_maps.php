@@ -1,34 +1,36 @@
 <?php
 // [map]
-function flatsome_shortcode_map($atts, $content=null, $code) {
+function flatsome_shortcode_map( $atts, $content = null, $tag = '' ) {
 
 	$atts = shortcode_atts(array(
-    '_id' => 'map-'.rand(),
-    'class' => '',
-    'visibility' => '',
-		'lat'  => '40.79028',
-    'long' => '-73.95972',
-    'height' => '400px',
-		'color' => '',
-    'margin' => '',
-    'position_x' => '95',
-    'position_x__sm' => '',
-    'position_x__md' => '',
-    'position_y' => '95',
-    'position_y__sm' => '',
-    'position_y__md' => '',
-    'content_enable' => 'true',
-    'content_bg' => '#fff',
-    'content_width' => '30',
-    'content_width__sm' => '',
-    'content_width__md' => '',
-    'saturation' => '-30',
-    'zoom' => '17',
-    'controls' => 'false',
-    'zoom_control' => 'true',
-    'street_view_control' => 'true',
-    'map_type_control' => 'true',
-    'pan' => 'true',
+		'_id'                 => 'map-' . wp_rand(),
+		'class'               => '',
+		'visibility'          => '',
+		'lat'                 => '40.79028',
+		'long'                => '-73.95972',
+		'height'              => '400px',
+		'height__sm'          => '',
+		'height__md'          => '',
+		'color'               => '',
+		'margin'              => '',
+		'position_x'          => '95',
+		'position_x__sm'      => '',
+		'position_x__md'      => '',
+		'position_y'          => '95',
+		'position_y__sm'      => '',
+		'position_y__md'      => '',
+		'content_enable'      => 'true',
+		'content_bg'          => '#fff',
+		'content_width'       => '30',
+		'content_width__sm'   => '',
+		'content_width__md'   => '',
+		'saturation'          => '-30',
+		'zoom'                => '17',
+		'controls'            => 'false',
+		'zoom_control'        => 'true',
+		'street_view_control' => 'true',
+		'map_type_control'    => 'true',
+		'pan'                 => 'true',
 	), $atts);
 
   extract( $atts );
@@ -124,7 +126,7 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
       return
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+    initialize()
     google.maps.event.addDomListener(window, 'resize', initialize);
     });
     </script>
@@ -135,7 +137,7 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
         <div id="map_overlay_bottom"></div>
          <?php if($content_enable) {?>
          <div class="<?php echo implode( ' ', $content_classes ); ?>">
-              <?php echo flatsome_contentfix($content); ?>
+              <?php echo do_shortcode( $content ); ?>
          </div>
        <?php }?>
 

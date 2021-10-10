@@ -26,7 +26,7 @@ add_ux_builder_shortcode( 'map', array(
     'height' => array(
       'type' => 'scrubfield',
       'heading' => 'Height',
-      'default' => '500px',
+      'default' => '400px',
       'responsive' => true
     ),
 

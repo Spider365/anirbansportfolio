@@ -13,13 +13,16 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
  * @version 4.1.0
+ *
+ * @flatsome-parallel-template {
+ * form-login-lightbox-left-panel.php
+ * form-login-lightbox-right-panel.php
+ * }
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
-if ( ! fl_woocommerce_version_check( '3.5.0' ) ) { wc_print_notices(); }
 
 do_action( 'woocommerce_before_customer_login_form' ); ?>
 

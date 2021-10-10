@@ -19,6 +19,7 @@ function ux_row($atts, $content = null) {
     // Paddings
     'padding' => '',
     'col_bg' => '',
+	'col_bg_radius' => ''
   ), $atts ) );
 
   // Stop if visibility is hidden
@@ -66,17 +67,23 @@ function ux_row($atts, $content = null) {
         'selector' => '> .col > .col-inner',
         'property' => 'background-color',
       ),
+	 'col_bg_radius' => array(
+		 'selector' => '> .col > .col-inner',
+		 'property' => 'border-radius',
+		 'unit'      => 'px',
+	 ),
   );
 
   $classes =  implode(" ", $classes);
 
-  return '<div class="'.$classes.'" '.$custom_width.' id="'.$_id.'">'.flatsome_contentfix($content).ux_builder_element_style_tag($_id, $args, $atts).'</div>';
+  return '<div class="'.$classes.'" '.$custom_width.' id="'.$_id.'">'.do_shortcode( $content ).ux_builder_element_style_tag($_id, $args, $atts).'</div>';
 }
 
 
 // [col]
 function ux_col($atts, $content = null) {
-	extract( shortcode_atts( array(
+	extract( $atts = shortcode_atts( array(
+		'_id' => 'col-'.rand(),
     'label' => '',
     'span' => '12',
     'span__md' => isset( $atts['span'] ) ? $atts['span'] : '',
@@ -86,13 +93,18 @@ function ux_col($atts, $content = null) {
     'divider' => '',
     'animate' => '',
     'padding' => '',
+    'padding__md' => '',
+    'padding__sm' => '',
     'margin' => '',
+    'margin__md' => '',
+    'margin__sm' => '',
     'tooltip' => '',
     'max_width' => '',
     'hover' => '',
     'class' => '',
     'align' => '',
     'color' => '',
+	'sticky' => '',
     'parallax' => '',
     'force_first' => '',
     'bg' => '',
@@ -171,18 +183,21 @@ function ux_col($atts, $content = null) {
 			'attribute' => 'background-color',
 			'value'     => $bg_color,
 		),
-		'padding'       => array(
-			'attribute' => 'padding',
-			'value'     => $padding,
+	);
+
+	$args = array(
+		'padding'   => array(
+			'selector' => '> .col-inner',
+			'property' => 'padding',
 		),
-		'margin'        => array(
-			'attribute' => 'margin',
-			'value'     => $margin,
+		'margin'    => array(
+			'selector' => '> .col-inner',
+			'property' => 'margin',
 		),
 		'bg_radius' => array(
-			'attribute' => 'border-radius',
-			'value'     => $bg_radius,
-			'unit'      => 'px',
+			'selector' => '> .col-inner',
+			'property' => 'border-radius',
+			'unit'     => 'px',
 		),
 	);
 
@@ -194,11 +209,14 @@ function ux_col($atts, $content = null) {
 	ob_start();
 	?>
 
-	<div class="<?php echo esc_attr( $classes ); ?>" <?php echo $attributes; ?>>
+	<div id="<?php echo $_id; ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $attributes; ?>>
+		<?php if ( $sticky ) flatsome_sticky_column_open(); ?>
 		<div class="<?php echo esc_attr( $classes_inner ); ?>" <?php echo get_shortcode_inline_css( $css_args ); ?> <?php echo $attributes_inner; ?>>
 			<?php require __DIR__ . '/commons/border.php'; ?>
-			<?php echo flatsome_contentfix( $content ); ?>
+			<?php echo do_shortcode( $content ); ?>
 		</div>
+		<?php if ( $sticky ) flatsome_sticky_column_close(); ?>
+		<?php echo ux_builder_element_style_tag( $_id, $args, $atts ); ?>
 	</div>
 
 	<?php

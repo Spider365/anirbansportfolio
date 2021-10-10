@@ -69,7 +69,7 @@ $options = array(
 'filter_posts' => array(
     'type' => 'group',
     'heading' => __( 'Filter Posts' ),
-    'conditions' => 'ids === ""',
+    'conditions' => 'ids == ""',
     'options' => array(
          'orderby' => array(
             'type' => 'select',
@@ -126,7 +126,7 @@ $options['layout_options']['options']['depth_hover']['conditions'] = 'style !== 
 $options['post_options']['options']['tags'] = array(
   'type' => 'select',
   'heading' => 'Tag',
-  'conditions' => 'ids === ""',
+  'conditions' => 'ids == ""',
   'default' => '',
   'config' => array(
       'placeholder' => 'Select...',

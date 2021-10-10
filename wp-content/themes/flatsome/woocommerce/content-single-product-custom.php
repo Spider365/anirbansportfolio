@@ -9,9 +9,9 @@
  * @version       3.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
+
+global $product;
 
 ?>
 <div class="container">
@@ -22,21 +22,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @hooked wc_print_notices - 10
 	 */
 	do_action( 'woocommerce_before_single_product' );
+	do_action( 'flatsome_before_single_product_custom' );
 	if ( post_password_required() ) {
-		echo get_the_password_form(); // WPCS: XSS ok.
+		echo get_the_password_form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		return;
 	}
 	?>
 </div>
-<div id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 
 	<div class="custom-product-page">
 
-		<?php
-		if ( get_theme_mod( 'product_custom_layout' ) ) :
-			echo do_shortcode( '[block id="' . get_theme_mod( 'product_custom_layout' ) . '"]' );
-			?>
+		<?php echo flatsome_apply_shortcode( 'block', array( 'id' => flatsome_product_block( get_the_ID() )['id'] ) ); ?>
 			<div id="product-sidebar" class="mfp-hide">
 				<div class="sidebar-inner">
 					<?php
@@ -54,11 +52,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 				</div>
 			</div>
-			<?php
-		else :
-			echo '<p class="lead shortcode-error">Create a custom product layout by using the UX Builder. You need to select a Block as custom product layout and then open it in the UX Builder from the product page.</p>';
-		endif;
-		?>
 
 	</div>
 

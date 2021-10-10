@@ -44,7 +44,7 @@ class StringToArray extends Transformer {
         if ( $shortcode['compile'] ) {
           $item['children'] = $this->transform( $content );
         } else {
-          $item['content'] = ux_builder_trim( $content );
+          $item['content'] = trim( $content );
         }
       }
 
@@ -76,7 +76,7 @@ class StringToArray extends Transformer {
 
     foreach ( $matches[0] as $key => $match ) {
         $shortcode = $this->elements->get( $matches[2][$key][0] );
-        $tag = $shortcode['tag'];
+        $tag     = $shortcode ? $shortcode['tag'] : '';
         $content = $match[0];
         $offset  = $match[1];
         $length  = strlen( $content );

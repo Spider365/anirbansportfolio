@@ -53,6 +53,9 @@ class Flatsome_Upgrade {
 		'3.9.0' => array(
 			'update_390',
 		),
+		'3.12.1' => array(
+			'update_3121',
+		),
 	);
 
 	/**
@@ -68,12 +71,12 @@ class Flatsome_Upgrade {
 	 */
 	public function check_version() {
 
-		$theme = wp_get_theme( get_template() );
-		$this->db_version = get_theme_mod( 'flatsome_db_version', '3.0.0' );
+		$theme                 = wp_get_theme( get_template() );
+		$this->db_version      = get_theme_mod( 'flatsome_db_version', '3.0.0' );
 		$this->running_version = $theme->version;
 
 		// If current version is new and current version has any update run it.
-		if ( version_compare( $this->db_version, $this->running_version, '<' ) && version_compare( $this->db_version, max( array_keys( $this->updates ) ), '<' ) ) {
+		if ( version_compare( $this->db_version, $this->running_version, '<' ) && version_compare( $this->db_version, $this->highest_update_version(), '<' ) ) {
 			$this->update();
 			if ( $this->is_upgrade_completed ) {
 				$this->update_db_version();
@@ -100,6 +103,17 @@ class Flatsome_Upgrade {
 			}
 		}
 		$this->is_upgrade_completed = true;
+	}
+
+	/**
+	 * Retrieve the version number of highest update available.
+	 *
+	 * @return string Version number
+	 */
+	private function highest_update_version() {
+		return array_reduce( array_keys( $this->updates ), function ( $highest, $current ) {
+			return version_compare( $highest, $current, '>' ) ? $highest : $current;
+		} );
 	}
 
 	/**
@@ -160,6 +174,31 @@ class Flatsome_Upgrade {
 		remove_theme_mod( 'lazy_load_icons' );
 
 		set_theme_mod( 'pages_template', 'default' );
+	}
+
+	/**
+	 * Performs upgrades to Flatsome 3.12.1
+	 */
+	private function update_3121() {
+
+		// Change 404_block setting value from post_name to ID if one is chosen.
+		$block = get_theme_mod( '404_block' );
+		if ( ! empty( $block ) && ! is_numeric( $block ) ) {
+			$blocks = flatsome_get_post_type_items( 'blocks' );
+			if ( $blocks ) {
+				foreach ( $blocks as $block_post ) {
+					if ( $block_post->post_name == $block ) {
+						set_theme_mod( '404_block', $block_post->ID );
+						break;
+					}
+				}
+			}
+		}
+
+		// Set mod to empty string if value is 0.
+		if ( 0 == get_theme_mod( 'site_loader' ) ) {
+			set_theme_mod( 'site_loader', '' );
+		}
 	}
 
 	/**

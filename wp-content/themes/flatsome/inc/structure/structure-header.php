@@ -137,25 +137,6 @@ function flatsome_get_header_html_element( $value ) {
 class FlatsomeNavDropdown extends Walker_Nav_Menu {
 
 	/**
-	 * Display Elements.
-	 *
-	 * @param object $element           Navigation elements.
-	 * @param array  $children_elements Child navigation elements.
-	 * @param int    $max_depth         Maximum depth level.
-	 * @param int    $depth             Depth of menu item. Used for padding.
-	 * @param array  $args              wp_nav_menu() arguments.
-	 * @param string $output            Element output.
-	 *
-	 * @return void
-	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
-		// Check, whether there are children for the given ID and append it to the element with a (new) ID.
-		$element->has_children = isset( $children_elements[ $element->ID ] ) && ! empty( $children_elements[ $element->ID ] );
-
-		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-	}
-
-	/**
 	 * Starts the list before the elements are added.
 	 *
 	 * @since 3.0.0
@@ -186,14 +167,7 @@ class FlatsomeNavDropdown extends Walker_Nav_Menu {
 			$classes[] = 'nav-column';
 		}
 
-		// Add Dropdown Styles.
-		$classes[] = 'nav-dropdown-' . get_theme_mod( 'dropdown_style', 'default' );
-		if ( get_theme_mod( 'dropdown_text' ) == 'dark' ) {
-			$classes[] = 'dark';
-		}
-		if ( get_theme_mod( 'dropdown_text_style' ) == 'uppercase' ) {
-			$classes[] = 'dropdown-uppercase';
-		}
+		$classes = $this->ux_add_dropdown_classes( $classes );
 
 		/**
 		 * Filters the CSS class(es) applied to a menu list element.
@@ -242,18 +216,53 @@ class FlatsomeNavDropdown extends Walker_Nav_Menu {
 			$classes[] = 'active';
 		}
 
-		if ( $item->has_children && $depth == 0 ) {
-			$classes[] = 'has-dropdown';
+		$design        = get_post_meta( $item->ID, '_menu_item_design', true );
+		$width         = get_post_meta( $item->ID, '_menu_item_width', true );
+		$height        = get_post_meta( $item->ID, '_menu_item_height', true );
+		$block         = get_post_meta( $item->ID, '_menu_item_block', true );
+		$behavior      = get_post_meta( $item->ID, '_menu_item_behavior', true );
+		$icon_type     = get_post_meta( $item->ID, '_menu_item_icon-type', true );
+		$icon_id       = get_post_meta( $item->ID, '_menu_item_icon-id', true );
+		$icon_width    = get_post_meta( $item->ID, '_menu_item_icon-width', true );
+		$icon_height   = get_post_meta( $item->ID, '_menu_item_icon-height', true );
+		$icon_html     = get_post_meta( $item->ID, '_menu_item_icon-html', true );
+		$is_top_level  = $depth == 0;
+		$is_block_menu = ! empty( $block );
+
+		if ( empty( $design ) ) {
+			$design = 'default';
 		}
+
+		if ( $is_top_level ) {
+			$classes[] = 'menu-item-design-' . $design;
+
+			if ( $is_block_menu ) {
+				$classes[] = 'menu-item-has-block';
+			}
+		}
+
+		if ( $is_top_level && ( $is_block_menu || $item->has_children ) ) {
+			$classes[] = 'has-dropdown';
+
+			if ( 'click' === $behavior ) {
+				$classes[] = 'nav-dropdown-toggle';
+			}
+		}
+
 		if ( $item->has_children && $depth == 1 ) {
 			$classes[] = 'nav-dropdown-col';
 		}
 
-		// Add flatsome Icons.
+		// LEGACY Add flatsome Icons.
 		$menu_icon = '';
 		if ( strpos( $classes[0], 'icon-' ) !== false ) {
 			$menu_icon  = get_flatsome_icon( $classes[0] );
 			$classes[0] = 'has-icon-left';
+		}
+
+		if ( $icon_type === 'media' && ! empty( $icon_id )
+			 || $icon_type === 'html' && ! empty( $icon_html ) ) {
+			$classes[] = 'has-icon-left';
 		}
 
 		/**
@@ -372,21 +381,64 @@ class FlatsomeNavDropdown extends Walker_Nav_Menu {
 			$item_output  = $args->before;
 			$item_output .= '<a' . $attributes . '>';
 
-			// Add menu icon.
+			// LEGACY Add menu icon.
 			if ( $menu_icon ) {
 				$item_output .= $menu_icon;
+			}
+
+			switch ( $icon_type ) {
+				case 'media':
+					if ( ! empty( $icon_id ) ) {
+						$item_output .= sprintf( '<img class="%s" width="%s" height="%s" src="%s" alt="%s" />',
+							'ux-menu-icon',
+							$icon_width ? $icon_width : 20,
+							$icon_height ? $icon_height : 20,
+							wp_get_attachment_image_src( $icon_id )[0],
+							get_post_meta( $icon_id, '_wp_attachment_image_alt', true )
+						);
+					}
+					break;
+				case 'html':
+					if ( ! empty( $icon_html ) ) {
+						$item_output .= do_shortcode( $icon_html );
+					}
+					break;
 			}
 
 			$item_output .= $args->link_before . $title . $args->link_after;
 
 			// Add down arrow.
-			$icon = '';
-			if ( $item->has_children && $depth == 0 ) {
-				$icon = get_flatsome_icon( 'icon-angle-down' );
+			$arrow_icon = '';
+			if ( $is_top_level && ( $is_block_menu || $item->has_children ) ) {
+				$arrow_icon = get_flatsome_icon( 'icon-angle-down' );
 			}
 
-			$item_output .= $icon . '</a>';
+			$item_output .= $arrow_icon . '</a>';
 			$item_output .= $args->after;
+
+			$css = '';
+			if ( $is_top_level && $is_block_menu ) {
+				$dropdown_classes = array( 'sub-menu', 'nav-dropdown' );
+				$dropdown_classes = implode( ' ', $dropdown_classes );
+
+				$item_output .= '<div class="' . esc_attr( $dropdown_classes ) . '">';
+				$item_output .= flatsome_apply_shortcode( 'block', array( 'id' => $block ) );
+				$item_output .= '</div>';
+			}
+			if ( $design == 'custom-size' && ! empty( $width ) ) {
+				$css .= '#menu-item-' . $item->ID . ' > .nav-dropdown {';
+				$css .= 'width: ' . $width . 'px;';
+				if ( ! empty( $height ) ) {
+					$css .= 'min-height: ' . $height . 'px;';
+				}
+				$css .= '}';
+			}
+
+			if ( $css != '' ) {
+				$item_output .= '<style>';
+				$item_output .= $css;
+				$item_output .= '</style>';
+			}
 		}
 
 		/**
@@ -404,6 +456,63 @@ class FlatsomeNavDropdown extends Walker_Nav_Menu {
 		 * @param stdClass $args        An object of wp_nav_menu() arguments.
 		 */
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+	}
+
+	/**
+	 * Traverse elements to create list from elements.
+	 *
+	 * Display one element if the element doesn't have any children otherwise,
+	 * display the element and its children. Will only traverse up to the max
+	 * depth and no ignore elements under that depth. It is possible to set the
+	 * max depth to include all depths, see walk() method.
+	 *
+	 * This method should not be called directly, use the walk() method instead.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param object $element           Data object.
+	 * @param array  $children_elements List of elements to continue traversing (passed by reference).
+	 * @param int    $max_depth         Max depth to traverse.
+	 * @param int    $depth             Depth of current element.
+	 * @param array  $args              An array of arguments.
+	 * @param string $output            Used to append additional content (passed by reference).
+	 */
+	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+		if ( ! $element ) {
+			return;
+		}
+
+		// Check, whether there are children for the given ID and append it to the element with a (new) ID.
+		$element->has_children = isset( $children_elements[ $element->ID ] ) && ! empty( $children_elements[ $element->ID ] );
+
+		$id_field = $this->db_fields['id'];
+		$id       = $element->$id_field;
+
+		// Remove children from block menu items.
+		if ( get_post_meta( $id, '_menu_item_block', true ) ) {
+			$this->unset_children( $element, $children_elements );
+		}
+
+		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
+	}
+
+	/**
+	 * Add theme option based classes to a class array.
+	 *
+	 * @param array $classes The classes.
+	 *
+	 * @return array
+	 */
+	private function ux_add_dropdown_classes( array $classes ) {
+		$classes[] = 'nav-dropdown-' . get_theme_mod( 'dropdown_style', 'default' );
+		if ( get_theme_mod( 'dropdown_text' ) == 'dark' ) {
+			$classes[] = 'dark';
+		}
+		if ( get_theme_mod( 'dropdown_text_style' ) == 'uppercase' ) {
+			$classes[] = 'dropdown-uppercase';
+		}
+
+		return $classes;
 	}
 }
 
@@ -428,7 +537,7 @@ class FlatsomeNavSidebar extends Walker_Nav_Menu {
 	 *
 	 * @return void
 	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
 		// Check, whether there are children for the given ID and append it to the element with a (new) ID.
 		$element->has_children = isset( $children_elements[ $element->ID ] ) && ! empty( $children_elements[ $element->ID ] );
 
@@ -507,11 +616,22 @@ class FlatsomeNavSidebar extends Walker_Nav_Menu {
 		$classes   = empty( $item->classes ) ? array() : (array) $item->classes;
 		$classes[] = 'menu-item-' . $item->ID;
 
-		// if icon.
+		$icon_type   = get_post_meta( $item->ID, '_menu_item_icon-type', true );
+		$icon_id     = get_post_meta( $item->ID, '_menu_item_icon-id', true );
+		$icon_width  = get_post_meta( $item->ID, '_menu_item_icon-width', true );
+		$icon_height = get_post_meta( $item->ID, '_menu_item_icon-height', true );
+		$icon_html   = get_post_meta( $item->ID, '_menu_item_icon-html', true );
+
+		// LEGACY if icon.
 		$menu_icon = '';
 		if ( strpos( $classes[0], 'icon-' ) !== false ) {
 			$menu_icon  = '<span class="' . $classes[0] . '"></span>';
 			$classes[0] = '';
+		}
+
+		if ( $icon_type === 'media' && ! empty( $icon_id )
+			 || $icon_type === 'html' && ! empty( $icon_html ) ) {
+			$classes[] = 'has-icon-left';
 		}
 
 		/**
@@ -612,6 +732,26 @@ class FlatsomeNavSidebar extends Walker_Nav_Menu {
 
 		$item_output  = $args->before;
 		$item_output .= '<a' . $attributes . '>';
+
+		switch ( $icon_type ) {
+			case 'media':
+				if ( ! empty( $icon_id ) ) {
+					$item_output .= sprintf( '<img class="%s" width="%s" height="%s" src="%s" alt="%s" />',
+						'ux-sidebar-menu-icon',
+						$icon_width ? $icon_width : 20,
+						$icon_height ? $icon_height : 20,
+						wp_get_attachment_image_src( $icon_id )[0],
+						get_post_meta( $icon_id, '_wp_attachment_image_alt', true )
+					);
+				}
+				break;
+			case 'html':
+				if ( ! empty( $icon_html ) ) {
+					$item_output .= do_shortcode( $icon_html );
+				}
+				break;
+		}
+
 		$item_output .= $args->link_before . $title . $args->link_after;
 		$item_output .= '</a>';
 		$item_output .= $args->after;
@@ -825,7 +965,7 @@ function header_inner_class( $position ) {
 	$page_template             = get_post_meta( get_the_ID(), '_wp_page_template', true );
 	$default_template          = get_theme_mod( 'pages_template', 'default' );
 	$is_light_template         = ! empty( $page_template ) && strpos( $page_template, 'light' ) !== false;
-	$is_light_default_template = ( empty( $page_template ) || $page_template == 'default' ) && strpos( $default_template, 'light' ) !== false;
+	$is_light_default_template = is_page() && ( empty( $page_template ) || $page_template == 'default' ) && strpos( $default_template, 'light' ) !== false;
 	$needs_dark_nav            = ( $is_light_template || $is_light_default_template ) && $position !== 'top';
 
 	if ( $needs_dark_nav && get_theme_mod( 'header_color', 'light' ) !== 'dark' ) {
@@ -854,6 +994,7 @@ function flatsome_nav_classes( $position ) {
 		if ( get_theme_mod( 'nav_uppercase', 1 ) ) {
 			$classes[] = 'nav-uppercase';
 		}
+		if ( get_theme_mod( 'nav_body_overlay' ) ) $classes[] = 'nav-prompts-overlay';
 	}
 
 	if ( $position == 'bottom' ) {
@@ -864,10 +1005,13 @@ function flatsome_nav_classes( $position ) {
 		if ( get_theme_mod( 'nav_uppercase_bottom', 1 ) ) {
 			$classes[] = 'nav-uppercase';
 		}
+		if ( get_theme_mod( 'nav_bottom_body_overlay' ) ) $classes[] = 'nav-prompts-overlay';
 	}
 
 	if ( $position == 'top' ) {
 		$classes[] = 'nav-' . get_theme_mod( 'nav_style_top', 'divided' );
+		if ( get_theme_mod( 'nav_top_body_overlay' ) ) $classes[] = 'nav-prompts-overlay';
+		if ( get_theme_mod( 'nav_top_uppercase' ) ) $classes[] = 'nav-uppercase';
 	}
 
 	echo implode( ' ', $classes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -905,12 +1049,27 @@ function flatsome_body_classes( $classes ) {
 	if (get_theme_mod( 'box_shadow' )) $classes[]                     = 'box-shadow';
 	if (get_theme_mod( 'flatsome_lightbox', 1 )) $classes[]           = 'lightbox';
 	if (get_theme_mod( 'dropdown_arrow', 1 )) $classes[]              = 'nav-dropdown-has-arrow';
+	if (get_theme_mod( 'dropdown_shadow', 1 )) $classes[]             = 'nav-dropdown-has-shadow';
+	if (get_theme_mod( 'dropdown_border_enabled', 1 )) $classes[]     = 'nav-dropdown-has-border';
 	if (get_theme_mod( 'parallax_mobile', 0 )) $classes[]             = 'parallax-mobile';
+
+	if (
+		'center' != get_theme_mod( 'mobile_overlay' ) &&
+		'slide' == get_theme_mod( 'mobile_submenu_effect' )
+	) {
+		$levels    = get_theme_mod( 'mobile_submenu_levels', '1' );
+		$classes[] = 'mobile-submenu-slide';
+		$classes[] = 'mobile-submenu-slide-levels-' . $levels;
+	}
+
+	if ( 'toggle' === get_theme_mod( 'mobile_submenu_parent_behavior' ) ) {
+		$classes[] = 'mobile-submenu-toggle';
+	}
 
 	// Add the selected page template classes if Default Template is selected.
 	$page_template    = get_post_meta( get_the_ID(), '_wp_page_template', true );
 	$default_template = get_theme_mod( 'pages_template', 'default' );
-	if ( ( empty( $page_template ) || $page_template == 'default' ) && $default_template !== 'default' ) {
+	if ( is_page() && ( empty( $page_template ) || $page_template == 'default' ) && $default_template !== 'default' ) {
 		$classes[] = 'page-template-' . $default_template;
 		$classes[] = 'page-template-' . $default_template . '-php';
 	}
@@ -1020,7 +1179,7 @@ function flatsome_html_after_header() {
 }
 add_action( 'flatsome_after_header', 'flatsome_html_after_header', 1 );
 
-if ( get_theme_mod( 'site_loader', 0 ) ) {
+if ( get_theme_mod( 'site_loader' ) ) {
 	/**
 	 * Page loader.
 	 *

@@ -58,6 +58,7 @@ add_ux_builder_shortcode( 'col', array(
             'type' => 'margins',
             'heading' => 'Padding',
             'full_width' => true,
+            'responsive' => true,
             'min' => 0,
             'max' => 200,
             'step' => 1,
@@ -67,8 +68,9 @@ add_ux_builder_shortcode( 'col', array(
             'type' => 'margins',
             'heading' => 'Margin',
             'full_width' => true,
-            'min' => -200,
-            'max' => 200,
+            'responsive' => true,
+            'min' => -500,
+            'max' => 500,
             'step' => 1,
         ),
 
@@ -104,7 +106,15 @@ add_ux_builder_shortcode( 'col', array(
                 ''  => array( 'title' => 'Dark'),
             ),
         ),
-
+	    'sticky' => array(
+		    'type'    => 'radio-buttons',
+		    'heading' => 'Sticky',
+		    'default' => '',
+		    'options' => array(
+			    'true' => array( 'title' => 'On' ),
+			    ''     => array( 'title' => 'Off' ),
+		    ),
+	    ),
         'text_depth' => array(
               'type' => 'slider',
               'heading' => __('Text Shadow'),

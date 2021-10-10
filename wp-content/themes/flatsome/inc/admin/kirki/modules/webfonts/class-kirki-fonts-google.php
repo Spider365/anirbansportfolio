@@ -6,7 +6,7 @@
  * @package     Kirki
  * @category    Core
  * @author      Ari Stathopoulos (@aristath)
- * @copyright   Copyright (c) 2019, Ari Stathopoulos (@aristath)
+ * @copyright   Copyright (c) 2020, David Vongries
  * @license     https://opensource.org/licenses/MIT
  * @since       1.0
  */
@@ -87,7 +87,6 @@ final class Kirki_Fonts_Google {
 
 		// Populate the array of google fonts.
 		$this->google_fonts = Kirki_Fonts::get_google_fonts();
-
 	}
 
 	/**

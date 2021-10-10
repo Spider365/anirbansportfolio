@@ -95,8 +95,8 @@ add_action( 'ux_builder_enqueue_scripts', function ( $context ) {
   $version = UX_BUILDER_VERSION;
   wp_enqueue_style( 'dashicons' );
   wp_enqueue_style( 'ux-builder-core', ux_builder_asset( 'css/builder/core/content.css' ), null, $version );
-  wp_enqueue_script( 'ux-builder-vendors', ux_builder_asset( 'js/builder/core/vendors.js' ), array( 'jquery', 'underscore' ), $version, true );
-  wp_enqueue_script( 'ux-builder-core', ux_builder_asset( 'js/builder/core/content.js' ), array( 'underscore' ), $version, true );
+  flatsome_enqueue_asset( 'ux-builder-vendors', 'builder/vendors/vendors', array( 'underscore', 'jquery-ui-sortable' ) );
+  flatsome_enqueue_asset( 'ux-builder-core', 'builder/core/content', array( 'underscore' ) );
 }, 0 );
 
 /**

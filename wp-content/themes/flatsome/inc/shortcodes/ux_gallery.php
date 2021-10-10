@@ -116,22 +116,23 @@ function ux_gallery($atts) {
 	}
 
       // Repeater options
-      $repater['id'] = $_id;
-      $repater['type'] = $type;
-      $repater['style'] = $style;
-      $repater['class'] = implode ( ' ', $classes );
-      $repater['visibility'] = $visibility;
-      $repater['slider_style'] = $slider_nav_style;
-      $repater['slider_style'] = $slider_nav_style;
-      $repater['slider_nav_position'] = $slider_nav_position;
-      $repater['slider_bullets'] = $slider_bullets;
-      $repater['slider_nav_color'] = $slider_nav_color;
-      $repater['auto_slide'] = $auto_slide;
-      $repater['row_spacing'] = $col_spacing;
-      $repater['row_width'] = $width;
-      $repater['columns'] = $columns;
-      $repater['columns__sm'] = $columns__sm;
-      $repater['columns__md'] = $columns__md;
+      $repeater['id'] = $_id;
+      $repeater['type'] = $type;
+      $repeater['style'] = $style;
+      $repeater['class'] = implode ( ' ', $classes );
+      $repeater['visibility'] = $visibility;
+      $repeater['slider_style'] = $slider_nav_style;
+      $repeater['slider_style'] = $slider_nav_style;
+      $repeater['slider_nav_position'] = $slider_nav_position;
+      $repeater['slider_bullets'] = $slider_bullets;
+      $repeater['slider_nav_color'] = $slider_nav_color;
+      $repeater['auto_slide'] = $auto_slide;
+	  $repeater['infinitive'] = $infinitive;
+      $repeater['row_spacing'] = $col_spacing;
+      $repeater['row_width'] = $width;
+      $repeater['columns'] = $columns;
+      $repeater['columns__sm'] = $columns__sm;
+      $repeater['columns__md'] = $columns__md;
 
       // Get attachments
       $_attachments = get_posts( array( 'include' => $ids, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $order, 'orderby' => $orderby ) );
@@ -147,7 +148,7 @@ function ux_gallery($atts) {
       }
 
 
-      get_flatsome_repeater_start($repater);
+      get_flatsome_repeater_start($repeater);
 
       foreach ( $attachments as $id => $attachment ) {
 
@@ -221,7 +222,7 @@ function ux_gallery($atts) {
          <?php
     } // Loop
 
-    get_flatsome_repeater_end($repater);
+    get_flatsome_repeater_end($repeater);
 
     $content = ob_get_contents();
     ob_end_clean();
